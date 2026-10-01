@@ -2,6 +2,23 @@
 
 All notable changes to Vela, newest first.
 
+## [Unreleased]
+
+### Changed
+
+- **A mouse drag stops where you release it.** Letting go of the chart after a drag no
+  longer carries it on with momentum, so a quick scrub back and forth lands exactly where
+  the pointer stopped. A finger flick on a touch screen still glides to a stop, and the
+  `animations.pan` option now governs that touch glide alone.
+
+### Fixed
+
+- **Dragging the chart keeps up with the mouse on high-resolution displays.** On a 4K or
+  Retina-class screen a drag could repaint only every second or third frame, so the chart
+  trailed the pointer and looked jittery. The native renderer no longer multisamples its
+  geometry canvas: lines were already smoothed in the shader, so the picture is unchanged
+  and a drag now repaints on every frame, including on 120 Hz and 240 Hz displays.
+
 ## [0.8.1]
 
 ### Changed
