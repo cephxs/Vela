@@ -11,7 +11,7 @@ export const DARK_THEME: VelaTheme = {
     borderColor: '#282828',
     upColor: BULLISH,
     downColor: BEARISH,
-    fontFamily: 'sans-serif',
+    fontFamily: '-apple-system, system-ui, sans-serif',
 };
 
 export const LIGHT_THEME: VelaTheme = {
@@ -26,7 +26,7 @@ export const LIGHT_THEME: VelaTheme = {
     // text, never the series (a green candle stays the same green on white).
     upColor: BULLISH,
     downColor: BEARISH,
-    fontFamily: 'sans-serif',
+    fontFamily: '-apple-system, system-ui, sans-serif',
 };
 
 export function resolveTheme(theme?: ThemeName | VelaTheme): VelaTheme {
