@@ -4,7 +4,7 @@ export const TOOLTIP_CSS = `
 .vela-tooltip {
     background: var(--vela-bg);
     color: var(--vela-fg);
-    border: 1px solid var(--vela-border-soft);
+    border: 1px solid var(--vela-border);
     border-radius: var(--vela-radius-md);
     box-shadow: var(--vela-shadow);
     font-size: var(--vela-font-size-md);

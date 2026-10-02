@@ -89,7 +89,7 @@ const CSS = `
 /* Two different states, and both can be true at once: "picked" is what the panel has selected
    (the group/duplicate candidates), "selected" mirrors what the CHART has selected. */
 .vela-ot-row[data-picked] { background: var(--vela-active); }
-.vela-ot-row[data-picked] .vela-ot-name { color: var(--vela-fg-bright); }
+.vela-ot-row[data-picked] .vela-ot-name { color: var(--vela-fg); }
 .vela-ot-row[data-selected] { box-shadow: inset 2px 0 0 var(--vela-accent); }
 .vela-ot-avatar {
     width: 14px;
@@ -137,7 +137,7 @@ const CSS = `
 /* An engaged action stays out: hidden and locked are states, and a state the user can only
    see by hovering is a state they will not find. */
 .vela-ot-row .vela-ot-btn[data-engaged] { visibility: visible; color: var(--vela-fg); }
-.vela-ot-btn:hover:not(:disabled) { background: var(--vela-active); color: var(--vela-fg-bright); }
+.vela-ot-btn:hover:not(:disabled) { background: var(--vela-active); color: var(--vela-fg); }
 .vela-ot-btn:disabled { opacity: 0.35; cursor: default; }
 .vela-ot-empty { padding: 20px 10px; text-align: center; color: var(--vela-fg-muted); font-size: 12px; }
 
@@ -159,7 +159,7 @@ const CSS = `
     border: 1px solid var(--vela-accent);
     border-radius: var(--vela-radius-sm);
     background: var(--vela-surface-elev);
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
     font: inherit;
 }
 /* The selection bar. Always there — the actions it holds are the panel's, not a row's, so they
@@ -202,16 +202,16 @@ const CSS = `
     background: var(--vela-border);
     transform: translateY(-50%);
 }
-.vela-ot-gap[data-drop] { height: 4px; background: var(--vela-fg-bright); }
+.vela-ot-gap[data-drop] { height: 4px; background: var(--vela-fg); }
 .vela-ot-gap[data-drop]::before { display: none; }
 /* A whole container accepts the drop: merging into a pane, or a pane with no drawings yet.
    The pane block's transparent border reserves the room for this outline; a group unit has no
    border to color, so it draws the same line as an inset outline (no layout footprint). */
-.vela-ot [data-drop='target'] { border-color: var(--vela-fg-bright); background: var(--vela-hover); }
-.vela-ot-unit[data-drop='target'] { outline: 1px solid var(--vela-fg-bright); outline-offset: -1px; }
+.vela-ot [data-drop='target'] { border-color: var(--vela-fg); background: var(--vela-hover); }
+.vela-ot-unit[data-drop='target'] { outline: 1px solid var(--vela-fg); outline-offset: -1px; }
 /* Where a reorder would insert. */
-.vela-ot [data-drop='before'] { box-shadow: inset 0 2px 0 var(--vela-fg-bright); }
-.vela-ot [data-drop='after'] { box-shadow: inset 0 -2px 0 var(--vela-fg-bright); }
+.vela-ot [data-drop='before'] { box-shadow: inset 0 2px 0 var(--vela-fg); }
+.vela-ot [data-drop='after'] { box-shadow: inset 0 -2px 0 var(--vela-fg); }
 
 .vela-ot-ghost {
     position: fixed;
@@ -219,9 +219,9 @@ const CSS = `
     pointer-events: none;
     max-width: 220px;
     padding: 3px 10px;
-    border: 1px solid var(--vela-fg-bright);
+    border: 1px solid var(--vela-fg);
     border-radius: var(--vela-radius-sm);
-    background: var(--vela-surface-overlay);
+    background: var(--vela-surface-elev);
     color: var(--vela-fg);
     box-shadow: var(--vela-shadow);
     font-size: 12px;

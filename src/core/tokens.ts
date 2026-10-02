@@ -35,62 +35,52 @@ export const STATIC_TOKENS: Record<string, string> = {
 
 /** Compute every theme token as a `--vela-*` → value map for one theme. */
 export function themeTokens(t: VelaTheme): Record<string, string> {
-    // Elevation and hover are washes of the foreground over the chart surface, so panels
-    // and menus always sit in the same color family as the chart they annotate.
     const dark = isDarkColor(t.background);
-    const wash = (a: number) => (dark ? `rgba(255,255,255,${a})` : withAlpha(t.textColor, a + 0.02));
-    const elevated = mix(t.background, dark ? '#ffffff' : t.textColor, dark ? 0.03 : 0.05);
+    // One ink, stepped by alpha (6 / 10 / 15 / 20 / 30 / 40 / 50): every border, state and
+    // secondary-text token is a rung of that ladder, never its own gray.
+    const ink = dark ? '#fafafa' : t.textColor;
+    const a = (alpha: number) => withAlpha(ink, alpha);
     return {
         '--vela-font': t.fontFamily,
         '--vela-bg': t.background,
-        // Chrome text is slightly brighter than the chart's own axis text, which is
-        // deliberately recessive; the chart keeps using `t.textColor` directly.
-        '--vela-fg': dark ? '#d1d4dc' : t.textColor,
-        '--vela-fg-muted': dark ? '#868a96' : withAlpha(t.textColor, 0.62),
-        '--vela-fg-faint': withAlpha(t.textColor, 0.35),
-        '--vela-fg-bright': dark ? '#f0f3fa' : '#000000',
         '--vela-surface': t.background,
-        // Panels and menus float ABOVE the chart, so their surface is the wash flattened onto
-        // the chart background — opaque, or candles read through the panel.
-        '--vela-surface-elev': elevated,
-        '--vela-surface-overlay': elevated,
-        // Recessed fields (inputs, selects) read as cut INTO their panel, so they fall back
-        // to the chart surface and are separated from the panel by their border alone.
-        '--vela-surface-sunken': t.background,
-        '--vela-border': t.borderColor,
-        '--vela-border-strong': dark ? '#34353b' : withAlpha(t.textColor, 0.28),
-        '--vela-border-soft': t.borderColor,
+        // Floating chrome (menus, dialogs) sits on the DEEPEST surface and recessed fields
+        // (inputs, selects) on the lightest — both opaque, or candles read through a panel.
+        '--vela-surface-elev': dark ? '#0a0a0a' : mix(t.background, t.textColor, 0.05),
+        '--vela-surface-sunken': dark ? '#171717' : t.background,
+        // Chrome text is brighter than the chart's own axis ink, which stays recessive.
+        '--vela-fg': ink,
+        '--vela-fg-muted': dark ? '#a1a1a1' : a(0.62),
+        '--vela-fg-faint': a(0.4),
+        '--vela-border': dark ? a(0.1) : t.borderColor,
+        '--vela-border-strong': a(0.2),
         // Barely-there rules INSIDE a panel (row separators), where a full border would
         // chop the list into boxes.
-        '--vela-border-faint': withAlpha(t.textColor, 0.08),
-        '--vela-hover': wash(0.06),
-        '--vela-active': wash(0.1),
-        // A deliberately stronger hover for rows inside an already-tinted surface (menu
-        // items in an active flyout), where the normal wash would not separate from it.
-        '--vela-hover-strong': wash(0.16),
-        '--vela-focus': withAlpha(t.textColor, 0.5),
-        '--vela-focus-soft': withAlpha(t.textColor, 0.12),
-        // Separator hover — the SAME wash the chart's pane separators paint on hover
-        // (soft full-thickness band + solid 2px center line), so DOM-drawn dividers
-        // (the workspace grid) and canvas-drawn ones read as one family.
-        '--vela-separator-hover-band': withAlpha(t.textColor, 0.1),
-        '--vela-separator-hover-line': withAlpha(t.textColor, 0.55),
-        '--vela-scroll': withAlpha(t.textColor, 0.3),
+        '--vela-border-faint': a(0.06),
+        '--vela-hover': a(0.06),
+        '--vela-active': a(0.1),
+        // A stronger hover for rows inside an already-tinted surface (menu items in an
+        // active flyout), where the normal wash would not separate from it.
+        '--vela-hover-strong': a(0.15),
+        '--vela-focus': a(0.2),
+        // The solid center line of a hovered pane separator; its soft band is `--vela-active`.
+        '--vela-separator-hover-line': a(0.5),
+        '--vela-scroll': a(0.3),
         '--vela-accent': ACCENT,
         '--vela-accent-bright': ACCENT_BRIGHT,
         '--vela-highlight': HIGHLIGHT,
         // The inverse chip: a filled selected state (active tab, ticked checkbox). Its ink
         // must contrast the fill, so the pair flips together with the theme.
-        '--vela-selected-bg': dark ? '#f0f3fa' : t.textColor,
+        '--vela-selected-bg': ink,
         '--vela-selected-fg': dark ? t.background : '#ffffff',
         // Fixed ink for saturated fills (accent buttons, categorical avatars) — those fills
         // are theme-independent, so their ink is too.
-        '--vela-fg-on-fill': '#ffffff',
+        '--vela-fg-on-fill': '#fafafa',
         '--vela-up': t.upColor,
         '--vela-down': t.downColor,
         '--vela-danger': t.downColor,
-        '--vela-shadow': '0 8px 30px rgba(0,0,0,0.5)',
-        '--vela-shadow-dialog': '0 20px 60px rgba(0,0,0,0.5)',
-        '--vela-backdrop': 'rgba(0,0,0,0.45)',
+        '--vela-shadow': '0 4px 10px 1px rgba(10,10,10,0.4)',
+        '--vela-shadow-dialog': '0 6px 15px 1.5px rgba(0,0,0,0.4)',
+        '--vela-backdrop': withAlpha(t.background, 0.7),
     };
 }

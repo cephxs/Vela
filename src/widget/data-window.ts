@@ -33,7 +33,7 @@ const CSS = `
     border-radius: 4px;
 }
 .vela-dw-row:hover { background: var(--vela-hover); }
-.vela-dw-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--vela-fg-bright); }
+.vela-dw-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--vela-fg); }
 .vela-dw-value { margin-left: auto; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .vela-dw-empty { padding: 20px 10px; text-align: center; color: var(--vela-fg-muted); font-size: 12px; }
 `;

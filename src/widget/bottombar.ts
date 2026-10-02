@@ -69,7 +69,7 @@ const CSS = `
 .vela-bb-range:hover { background: var(--vela-hover); color: var(--vela-fg-bright); }
 .vela-bb-range[data-active='1'] { color: var(--vela-fg-bright); background: var(--vela-hover); }
 .vela-bb-spacer { flex: 1 1 auto; }
-.vela-bb-clock { font-variant-numeric: tabular-nums; color: var(--vela-fg-bright); font-weight: 600; }
+.vela-bb-clock { font-variant-numeric: tabular-nums; color: var(--vela-fg); font-weight: 600; }
 .vela-bb-tz {
     all: unset;
     height: 26px;
@@ -79,7 +79,7 @@ const CSS = `
     padding: 0 8px;
     border-radius: 4px;
     font-weight: 600;
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
     cursor: pointer;
 }
 .vela-bb-tz:hover { background: var(--vela-hover); }
@@ -96,7 +96,7 @@ const CSS = `
     cursor: pointer;
 }
 .vela-bb-session-btn:disabled { cursor: not-allowed; opacity: 0.55; }
-.vela-bb-session-btn:not(:disabled):hover { background: var(--vela-hover); color: var(--vela-fg-bright); }
+.vela-bb-session-btn:not(:disabled):hover { background: var(--vela-hover); color: var(--vela-fg); }
 .vela-bb-session-btn.is-active { color: var(--vela-fg); background: var(--vela-surface-elev); }
 .vela-bb-session-btn.is-active:disabled { opacity: 0.8; }
 .vela-bb-settings {
@@ -112,7 +112,7 @@ const CSS = `
     color: var(--vela-fg-muted);
     font-size: 14px;
 }
-.vela-bb-settings:hover { background: var(--vela-hover); color: var(--vela-fg-bright); }
+.vela-bb-settings:hover { background: var(--vela-hover); color: var(--vela-fg); }
 `;
 
 export interface BottombarOptions {

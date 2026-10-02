@@ -60,7 +60,7 @@ const CSS = `
     cursor: default;
     transition: color var(--vela-dur-fast) var(--vela-ease), border-color var(--vela-dur-fast) var(--vela-ease);
 }
-.vela-lp-badge:hover { color: var(--vela-fg-bright); border-color: var(--vela-fg-muted); }
+.vela-lp-badge:hover { color: var(--vela-fg); border-color: var(--vela-fg-muted); }
 .vela-lp-tip { display: flex; flex-direction: column; gap: 4px; max-width: 230px; white-space: normal; }
 .vela-lp-vsep { width: 1px; flex: none; align-self: stretch; background: var(--vela-border-faint); }
 .vela-lp-layout { width: 132px; display: flex; flex-direction: column; align-items: center; }
@@ -86,7 +86,7 @@ const CSS = `
 .vela-lp-preset { all: unset; padding: 5px 8px; border-radius: 4px; cursor: pointer; color: var(--vela-fg-muted); font-size: 12px; white-space: nowrap; transition: transform 120ms var(--vela-ease); }
 .vela-lp-preset:hover { background: var(--vela-hover); }
 .vela-lp-preset:active { transform: scale(0.98); }
-.vela-lp-preset[data-checked='1'] { background: var(--vela-hover-strong); color: var(--vela-fg-bright); }
+.vela-lp-preset[data-checked='1'] { background: var(--vela-hover-strong); color: var(--vela-fg); }
 .vela-lp-sync { display: flex; flex-direction: column; gap: 4px; min-width: 118px; }
 .vela-lp-sync-row { all: unset; display: flex; align-items: center; gap: 14px; padding: 6px 8px; border-radius: 5px; cursor: pointer; }
 .vela-lp-sync-row:hover { background: var(--vela-hover); }
@@ -99,7 +99,7 @@ const CSS = `
     height: 18px;
     border-radius: 9px;
     background: var(--vela-hover);
-    border: 1px solid var(--vela-border-soft);
+    border: 1px solid var(--vela-border);
     transition: background 0.16s ease, border-color 0.16s ease;
 }
 .vela-lp-switch::after {

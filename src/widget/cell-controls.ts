@@ -36,7 +36,7 @@ const STYLE_ID = 'vela-cell-controls';
 const CSS = `
 .vela-cc-btn{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;padding:0;border:none;border-radius:var(--vela-radius-sm);background:transparent;line-height:0;font-size:12px;color:var(--vela-fg-muted);cursor:pointer;}
 .vela-cc-btn svg{display:block;}
-.vela-cc-btn:hover{background:var(--vela-active);color:var(--vela-fg-bright);}
+.vela-cc-btn:hover{background:var(--vela-active);color:var(--vela-fg);}
 .vela-cc-on,.vela-cc-on:hover{background:var(--vela-selected-bg);color:var(--vela-selected-fg);}
 .vela-cc-grip{cursor:grab;touch-action:none;}
 .vela-cc-grip:active{cursor:grabbing;}

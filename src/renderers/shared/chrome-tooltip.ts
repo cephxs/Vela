@@ -126,7 +126,7 @@ export function chromeHint(text: string, opts: ChromeHintOptions): { el: HTMLEle
         'transition:background var(--vela-dur-fast) ease,color var(--vela-dur-fast) ease;';
     const hover = (on: boolean): void => {
         el.style.background = on ? 'var(--vela-active)' : 'var(--vela-hover)';
-        el.style.color = on ? 'var(--vela-fg-bright)' : 'var(--vela-fg-muted)';
+        el.style.color = on ? 'var(--vela-fg)' : 'var(--vela-fg-muted)';
     };
     el.addEventListener('pointerenter', () => hover(true));
     el.addEventListener('pointerleave', () => hover(false));

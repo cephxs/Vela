@@ -36,7 +36,7 @@ const CSS = `
     flex: 1 1 auto;
     min-width: 0;
     font-size: 14px;
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
 }
 .vela-dd-tabs {
     display: flex;
@@ -65,7 +65,7 @@ const CSS = `
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
 }
-.vela-dd-tab[data-active='1'] { color: var(--vela-fg-bright); background: var(--vela-hover); }
+.vela-dd-tab[data-active='1'] { color: var(--vela-fg); background: var(--vela-hover); }
 .vela-dd-list { padding: 6px 0 4px; }
 .vela-dd-section {
     padding: 10px 2px 6px;
@@ -90,7 +90,7 @@ const CSS = `
 .vela-dd-row[data-active='1'] .vela-dd-label { color: var(--vela-accent); }
 .vela-dd-glyph { flex: none; width: 24px; height: 24px; color: var(--vela-fg); }
 .vela-dd-glyph svg { width: 24px; height: 24px; }
-.vela-dd-label { flex: 1 1 auto; min-width: 0; font-size: 14px; color: var(--vela-fg-bright); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vela-dd-label { flex: 1 1 auto; min-width: 0; font-size: 14px; color: var(--vela-fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .vela-dd-star {
     all: unset;
     flex: none;

@@ -50,7 +50,7 @@ function ensureStyles(): void {
     st.textContent = `
 .vela-pc-btn{display:inline-flex;align-items:center;justify-content:center;padding:0;border:none;border-radius:var(--vela-radius-sm);background:transparent;line-height:0;font-size:${ICON_PX}px;color:var(--vela-fg-muted);}
 .vela-pc-btn svg{display:block;}
-.vela-pc-btn:not(:disabled):hover{opacity:1 !important;background:var(--vela-active);color:var(--vela-fg-bright);}
+.vela-pc-btn:not(:disabled):hover{opacity:1 !important;background:var(--vela-active);color:var(--vela-fg);}
 .vela-pc-on,.vela-pc-on:not(:disabled):hover{background:var(--vela-selected-bg);color:var(--vela-selected-fg);}
 `;
     document.head.appendChild(st);

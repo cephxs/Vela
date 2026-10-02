@@ -49,7 +49,7 @@ const CSS = `
     gap: 7px;
 }
 .vela-widget-tf, .vela-widget-style, .vela-widget-indicators, .vela-widget-action-left {
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
 }
 .vela-widget-symbol:hover, .vela-widget-tf:hover, .vela-widget-style:hover, .vela-widget-indicators:hover, .vela-widget-action-left:hover { background: var(--vela-hover); color: var(--vela-fg-bright); }
 /* Timeframe cluster: duration-sorted favorite chips, highlight in place, caret
@@ -70,7 +70,7 @@ const CSS = `
     cursor: pointer;
     color: var(--vela-fg-muted);
 }
-.vela-widget-tf-caret:hover { background: var(--vela-hover); color: var(--vela-fg-bright); }
+.vela-widget-tf-caret:hover { background: var(--vela-hover); color: var(--vela-fg); }
 /* The merged trigger is a plain button (hover feedback only) — the highlight
    background marks the CURRENT chip among favorites, and a lone trigger with a
    permanent highlight would read as stuck-pressed. */
@@ -78,7 +78,7 @@ const CSS = `
     width: auto;
     padding: 0 6px 0 9px;
     gap: 4px;
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
     font-size: 13px;
     font-weight: 550;
     white-space: nowrap;

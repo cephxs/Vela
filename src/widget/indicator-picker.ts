@@ -65,7 +65,7 @@ const CSS = `
     cursor: pointer;
 }
 .vela-ip-row:hover { background: var(--vela-hover); }
-.vela-ip-name { flex: 1; font-weight: 600; color: var(--vela-fg-bright); font-size: 13px; }
+.vela-ip-name { flex: 1; font-weight: 600; color: var(--vela-fg); font-size: 13px; }
 .vela-ip-badge {
     flex: none;
     padding: 1px 7px;

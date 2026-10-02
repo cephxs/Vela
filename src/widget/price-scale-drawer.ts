@@ -31,8 +31,8 @@ const CSS = `
 }
 .vela-psd-row:active { background: var(--vela-hover); }
 .vela-psd-row[data-sep='1'] { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--vela-border); border-radius: 0 0 8px 8px; }
-.vela-psd-row-label { flex: 1 1 auto; min-width: 0; font-size: 14px; color: var(--vela-fg-bright); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.vela-psd-row .vela-icon { flex: none; color: var(--vela-fg-bright); }
+.vela-psd-row-label { flex: 1 1 auto; min-width: 0; font-size: 14px; color: var(--vela-fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vela-psd-row .vela-icon { flex: none; color: var(--vela-fg); }
 .vela-psd-section {
     padding: 12px 2px 4px;
     font-size: 12px;

@@ -15,7 +15,7 @@ const CSS = `
     font-weight: 600;
     letter-spacing: 0.4px;
     text-transform: uppercase;
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
 }
 .vela-tfd-heading + .vela-tfd-ranges,
 .vela-tfd-heading + .vela-tfd-grid { padding-top: 0; }
@@ -53,8 +53,8 @@ const CSS = `
 }
 .vela-tfd-chip:active { background: var(--vela-hover); }
 .vela-tfd-chip[data-active='1'] {
-    color: var(--vela-fg-bright);
-    border-color: var(--vela-fg-bright);
+    color: var(--vela-fg);
+    border-color: var(--vela-fg);
     background: var(--vela-hover);
 }
 `;

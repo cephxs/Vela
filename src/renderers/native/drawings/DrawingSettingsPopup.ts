@@ -96,10 +96,10 @@ function ensureStyles(): void {
     s.dataset.rev = STYLE_REV;
     s.textContent = `
 .vela-dpop-btn{background:transparent;color:var(--vela-fg-muted);transition:background var(--vela-dur-fast) ease,color var(--vela-dur-fast) ease;}
-.vela-dpop-btn:hover{background:var(--vela-hover-strong);color:var(--vela-fg-bright);}
-.vela-dpop-btn[data-active='1']{background:var(--vela-active);color:var(--vela-fg-bright);}
+.vela-dpop-btn:hover{background:var(--vela-hover-strong);color:var(--vela-fg);}
+.vela-dpop-btn[data-active='1']{background:var(--vela-active);color:var(--vela-fg);}
 /* Mixed (a multi-selection disagrees): the active fill at half strength behind a dashed ring. */
-.vela-dpop-btn[data-active='mixed']{background:var(--vela-hover-strong);color:var(--vela-fg-bright);outline:1px dashed var(--vela-fg-muted);outline-offset:-2px;}
+.vela-dpop-btn[data-active='mixed']{background:var(--vela-hover-strong);color:var(--vela-fg);outline:1px dashed var(--vela-fg-muted);outline-offset:-2px;}
 .vela-dpop-item{background:transparent;transition:background var(--vela-dur-fast) ease;}
 .vela-dpop-item:hover{background:var(--vela-hover-strong);}
 .vela-dpop-item[data-active='1']{background:var(--vela-active);}

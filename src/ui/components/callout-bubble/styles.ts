@@ -30,7 +30,7 @@ export const CALLOUT_CSS = `
     color: var(--vela-fg);
     font: var(--vela-font-size-md) var(--vela-font);
 }
-.vela-callout-title { font-weight: 600; color: var(--vela-fg-bright); }
+.vela-callout-title { font-weight: 600; color: var(--vela-fg); }
 .vela-callout-text { color: var(--vela-fg-muted); line-height: 1.45; white-space: pre-line; }
 .vela-callout-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .vela-callout-btn {
@@ -45,7 +45,7 @@ export const CALLOUT_CSS = `
     font-family: inherit;
     transition: background var(--vela-dur-fast) ease, color var(--vela-dur-fast) ease, opacity var(--vela-dur-fast) ease, border-color var(--vela-dur-fast) ease;
 }
-.vela-callout-btn:hover { background: var(--vela-hover); color: var(--vela-fg-bright); border-color: var(--vela-fg-muted); }
+.vela-callout-btn:hover { background: var(--vela-hover); color: var(--vela-fg); border-color: var(--vela-fg-muted); }
 .vela-callout-btn-primary { border-color: var(--vela-selected-bg); background: var(--vela-selected-bg); color: var(--vela-selected-fg); }
 .vela-callout-btn-primary:hover { background: var(--vela-selected-bg); color: var(--vela-selected-fg); opacity: 0.85; border-color: var(--vela-selected-bg); }
 `;
