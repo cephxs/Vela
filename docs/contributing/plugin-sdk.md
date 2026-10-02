@@ -237,7 +237,7 @@ registerWidgetAction({
         // ctx.chart (the CURRENT inner chart) · ctx.symbol / timeframe / priceStyle
         // ctx.setSymbol / setTimeframe / setPriceStyle / openSymbolSearch(query?)
         // ctx.togglePanel(id, open?) — open/close a docked side panel (dock stays exclusive)
-        // ctx.dockStrip(el) — dock an element as a full-width strip between the charts and
+        // ctx.dockStrip(el) — dock an element as a strip across the chart well, between the charts and
         //   the bottom bar (the charts shrink); returns the undock
         // ctx.replay (workspace) — bar replay across every cell on one clock; drive it
         //   rather than one cell's chart.replay so every chart replays together

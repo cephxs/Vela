@@ -6,7 +6,7 @@ import { applyChromeTokens } from '../../shared/theme-tokens';
 import { attachChromeTooltip } from '../../shared/chrome-tooltip';
 
 /** Expanded bar width in px — a docked host's left-gutter reservation must match it. */
-export const TOOLBAR_WIDTH = 44;
+export const TOOLBAR_WIDTH = 52;
 /** Collapsed-strip width in px — just the expand chevron. */
 export const TOOLBAR_COLLAPSED_WIDTH = 16;
 
@@ -15,7 +15,7 @@ export interface DrawingToolbarOptions {
     /** Border/divider color. Default: the theme's border color (follows theme swaps). */
     borderColor?: string;
     /** Bar width in px. In docked (`'absolute'`) use it MUST match the host renderer's
-     *  left-gutter reservation ({@link TOOLBAR_WIDTH}, 44). Default 44. */
+     *  left-gutter reservation ({@link TOOLBAR_WIDTH}, 52). Default 52. */
     width?: number;
     /** `'absolute'` (default): pinned over the renderer's left gutter. `'static'`: a
      *  normal column child — a workspace docks ONE shared bar in its own layout. */
@@ -132,8 +132,8 @@ export class DrawingToolbar {
             : `position:relative;height:100%;width:${width}px;flex:none;`;
         this.root.style.cssText =
             placement +
-            `display:${this.visible ? 'flex' : 'none'};flex-direction:column;gap:4px;` +
-            `padding:6px 0;box-sizing:border-box;background:${t.background};border-right:1px solid ${this.borderColor};color:var(--vela-fg-muted);` + // no h-padding → buttons span the bar width
+            `display:${this.visible ? 'flex' : 'none'};flex-direction:column;gap:0;` +
+            `padding:6px 0;box-sizing:border-box;background:var(--vela-bg);border-top-right-radius:var(--vela-radius-sm);color:var(--vela-fg);` + // no h-padding → buttons span the bar width; no border, the workspace gap is the seam
             `pointer-events:auto;overflow-y:auto;overflow-x:hidden;`;
     }
 
@@ -681,7 +681,7 @@ export class DrawingToolbar {
 
     private divider(): HTMLElement {
         const d = document.createElement('div');
-        d.style.cssText = `width:24px;height:1px;margin:2px auto;flex:none;background:${this.borderColor};`;
+        d.style.cssText = `height:6px;flex:none;`; // group gap, no separator line
         return d;
     }
 }
@@ -703,19 +703,19 @@ function ensureStyles(): void {
         document.head.appendChild(s);
     }
     s.textContent = `
-.vela-dtb-hit{width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:var(--vela-radius-md);transition:background var(--vela-dur-fast) ease,color var(--vela-dur-fast) ease;}
-.vela-dtb-hit--arrow{width:11px;height:22px;}
-.vela-dtb-btn{position:relative;width:100%;height:30px;flex:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:inherit;background:transparent;border:none;padding:0;transition:color var(--vela-dur-fast) ease;}
-.vela-dtb-btn:hover{color:var(--vela-fg-bright);}
+.vela-dtb-hit{position:absolute;inset:2px 9px;display:flex;align-items:center;justify-content:center;border-radius:var(--vela-radius-md);transition:background var(--vela-dur-fast) ease,color var(--vela-dur-fast) ease;}
+.vela-dtb-hit--arrow{position:static;width:11px;height:34px;border-radius:4px 0 0 4px;}
+.vela-dtb-btn{position:relative;width:100%;height:38px;flex:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:inherit;background:transparent;border:none;padding:0;transition:color var(--vela-dur-fast) ease;}
+.vela-dtb-btn:hover{color:var(--vela-fg);}
 .vela-dtb-btn:hover .vela-dtb-hit{background:var(--vela-hover);}
 .vela-dtb-btn[data-active='1']{color:var(--vela-fg);}
 .vela-dtb-btn[data-active='1'] .vela-dtb-hit{background:var(--vela-active);}
-.vela-dtb-cell{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:30px;}
-.vela-dtb-icon{flex:none;width:26px;height:30px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:inherit;cursor:pointer;padding:0;transition:color var(--vela-dur-fast) ease;}
-.vela-dtb-icon:hover{color:var(--vela-fg-bright);}
-.vela-dtb-cell[data-active='1'] .vela-dtb-icon{color:var(--vela-fg-bright);}
+.vela-dtb-cell{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:38px;}
+.vela-dtb-icon{position:relative;flex:none;width:100%;height:38px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:inherit;cursor:pointer;padding:0;transition:color var(--vela-dur-fast) ease;}
+.vela-dtb-icon:hover{color:var(--vela-fg);}
+.vela-dtb-cell[data-active='1'] .vela-dtb-icon{color:var(--vela-fg);}
 .vela-dtb-cell[data-active='1'] .vela-dtb-icon .vela-dtb-hit{background:var(--vela-active);}
-.vela-dtb-arrow{position:absolute;right:1px;top:50%;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:inherit;cursor:pointer;padding:0;opacity:0;pointer-events:none;transition:opacity var(--vela-dur-fast) ease,color var(--vela-dur-fast) ease;}
+.vela-dtb-arrow{position:absolute;right:0;top:50%;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--vela-fg-muted);cursor:pointer;padding:0;opacity:0;pointer-events:none;transition:opacity var(--vela-dur-fast) ease,color var(--vela-dur-fast) ease;}
 .vela-dtb-cell:hover .vela-dtb-arrow,.vela-dtb-icon:hover~.vela-dtb-arrow,.vela-dtb-cell.vela-open .vela-dtb-arrow{opacity:1;pointer-events:auto;}
 .vela-dtb-arrow:hover{color:var(--vela-fg);}
 .vela-dtb-icon:hover .vela-dtb-hit,.vela-dtb-arrow:hover .vela-dtb-hit{background:var(--vela-hover);}
@@ -723,7 +723,7 @@ function ensureStyles(): void {
 .vela-dtb-cell.vela-open .vela-dtb-arrow:hover .vela-dtb-hit{background:var(--vela-hover);}
 .vela-dtb-collapse{margin-top:auto;}
 .vela-dtb[data-collapsed='1']>*:not(.vela-dtb-collapse){display:none;}
-.vela-dtb[data-collapsed='1'] .vela-dtb-collapse .vela-dtb-hit{width:14px;}
+.vela-dtb[data-collapsed='1'] .vela-dtb-collapse .vela-dtb-hit{left:1px;right:1px;}
 .vela-dtb-item{background:transparent;border:none;transition:background var(--vela-dur-fast) ease;}
 .vela-dtb-item:hover{background:var(--vela-hover-strong);}
 .vela-dtb-star{width:26px;height:22px;margin:-3px -5px -3px 0;padding:3px 5px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;flex:none;opacity:0;color:inherit;border-radius:var(--vela-radius-sm);transition:opacity .1s ease,color .1s ease,background .1s ease;}
@@ -773,11 +773,11 @@ function iconSpan(svg: string, size = 18): string {
 
 /** A button's inner content: the glyph inside a centered square (`.vela-dtb-hit`) that carries the
  *  hover/active highlight, so the tint hugs the icon instead of stretching across the whole row. */
-function hitHtml(svg: string, iconSize = 18): string {
+function hitHtml(svg: string, iconSize = 20): string {
     return `<span class="vela-dtb-hit">${iconSpan(svg, iconSize)}</span>`;
 }
 
 /** The chevron's inner content: same hover/active tint as the icon hit, in a narrow pill beside it. */
 function arrowHitHtml(svg: string): string {
-    return `<span class="vela-dtb-hit vela-dtb-hit--arrow">${iconSpan(svg, 11)}</span>`;
+    return `<span class="vela-dtb-hit vela-dtb-hit--arrow">${iconSpan(svg, 12)}</span>`;
 }

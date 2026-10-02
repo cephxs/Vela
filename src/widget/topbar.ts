@@ -20,8 +20,9 @@ const CSS = `
     display: flex;
     align-items: center;
     gap: var(--vela-space-1);
-    padding: var(--vela-space-1) var(--vela-space-2);
-    border-bottom: 1px solid var(--vela-border-soft);
+    height: 38px;
+    padding: 0 4px;
+    background: var(--vela-bg);
     color: var(--vela-fg);
     font-size: var(--vela-font-size-md);
     flex: none;
@@ -41,24 +42,44 @@ const CSS = `
     white-space: nowrap;
 }
 .vela-widget-symbol {
-    color: var(--vela-fg-bright);
-    font-size: 15px;
+    color: var(--vela-fg);
+    font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.3px;
-    padding: 0 10px;
-    gap: 7px;
+    height: 28px;
+    min-width: 128px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    padding: 0 12px;
+    gap: 6px;
+    border-radius: 14px;
+    background: var(--vela-surface-sunken);
 }
+.vela-widget-topbar .vela-widget-symbol .vela-icon { color: var(--vela-fg-muted); font-size: 18px; width: 18px; height: 18px; }
+.vela-widget-symbol:hover { background: linear-gradient(var(--vela-hover), var(--vela-hover)), var(--vela-surface-sunken); }
+.vela-widget-symbol:active { background: var(--vela-surface-sunken); }
 .vela-widget-tf, .vela-widget-style, .vela-widget-indicators, .vela-widget-action-left {
     color: var(--vela-fg);
 }
-.vela-widget-symbol:hover, .vela-widget-tf:hover, .vela-widget-style:hover, .vela-widget-indicators:hover, .vela-widget-action-left:hover { background: var(--vela-hover); color: var(--vela-fg-bright); }
+.vela-widget-style:hover, .vela-widget-indicators:hover, .vela-widget-action-left:hover { background: var(--vela-hover); color: var(--vela-fg); }
 /* Timeframe cluster: duration-sorted favorite chips, highlight in place, caret
    opening the full dropdown. With no favorites the caret is the merged trigger
    (label + chevron). An unstarred current value sits as an extra chip by the caret. */
 .vela-widget-tf-group { display: inline-flex; align-items: center; gap: 2px; }
-.vela-widget-tf-chips { display: inline-flex; align-items: center; gap: 2px; }
+.vela-widget-tf-chips { display: inline-flex; align-items: center; gap: 0; }
 .vela-widget-tf-chips:empty { display: none; }
-.vela-widget-tf[data-current='1'] { background: var(--vela-hover-strong); color: var(--vela-fg-bright); }
+/* Chips and tools paint their highlight on a ::before inset 2px, behind the label. */
+.vela-widget-tf { position: relative; isolation: isolate; height: 38px; border-radius: 0; background: transparent; padding: 0 6px; color: var(--vela-fg); font-size: 14px; font-weight: 400; }
+.vela-widget-tf::before, .vela-widget-tool::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: var(--vela-radius-md);
+    z-index: -1;
+}
+.vela-widget-tf:hover::before { background: var(--vela-hover); }
+.vela-widget-tf[data-current='1'] { color: var(--vela-fg); }
+.vela-widget-tf[data-current='1']::before { background: var(--vela-active); }
 .vela-widget-tf-caret {
     all: unset;
     display: inline-flex;
@@ -88,7 +109,7 @@ const CSS = `
 /* Width is set in syncHairlines() to exactly one device pixel — a CSS 1px at
    fractional DPR (1.25, 1.5…) straddles two physical pixels and siblings end
    up looking like different thicknesses depending on subpixel placement. */
-.vela-sep { height: 22px; margin: 0 2px; flex: none; background: var(--vela-border-strong); }
+.vela-sep { height: 22px; margin: 0 4px; flex: none; background: var(--vela-border); }
 .vela-alerts-badge {
     position: absolute;
     top: 2px;
@@ -121,16 +142,20 @@ const CSS = `
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    isolation: isolate;
     width: 32px;
-    height: 30px;
-    border-radius: 4px;
+    height: 38px;
     cursor: pointer;
     color: var(--vela-fg-muted);
     font-size: 14px;
 }
-.vela-widget-tool:hover:not(:disabled) { background: var(--vela-hover); color: var(--vela-fg-bright); }
+.vela-widget-topbar .vela-widget-tool .vela-icon { font-size: 18px; width: 18px; height: 18px; }
+.vela-widget-tool:hover:not(:disabled) { color: var(--vela-fg); }
+.vela-widget-tool:hover:not(:disabled)::before { background: var(--vela-hover); }
 .vela-widget-tool:disabled { opacity: 0.35; cursor: default; }
-.vela-widget-tool[data-active='1'] { background: var(--vela-hover); color: var(--vela-fg-bright); }
+.vela-widget-tool[data-active='1'] { color: var(--vela-fg); }
+.vela-widget-tool[data-active='1']::before { background: var(--vela-active); }
 .vela-widget-action {
     all: unset;
     display: inline-flex;
@@ -285,7 +310,7 @@ export class Topbar {
         this.symbolEl.className = 'vela-widget-symbol';
         // The button DISPLAYS the bare ticker; the venue-prefixed identity stays in the
         // shell's state (the statusline meta and the picker badges name the venue).
-        this.symbolEl.textContent = parseSymbol(opts.symbol).ticker;
+        this.symbolEl.append(doc.createTextNode(parseSymbol(opts.symbol).ticker), iconEl('search', doc));
         if (opts.onSymbolClick) this.symbolEl.addEventListener('click', opts.onSymbolClick);
         // Duration-sorted chips with highlight in place; the caret is the dropdown
         // trigger (merged with the current label when there are no favorites).
@@ -475,7 +500,7 @@ export class Topbar {
     }
 
     setSymbol(symbol: string): void {
-        this.symbolEl.textContent = parseSymbol(symbol).ticker;
+        this.symbolEl.firstChild!.textContent = parseSymbol(symbol).ticker;
     }
 
     setTimeframe(tf: string): void {

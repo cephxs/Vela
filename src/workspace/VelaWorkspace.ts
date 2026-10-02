@@ -154,12 +154,13 @@ const ALERT_CAP = 50;
 
 const STYLE_ID = 'vela-workspace';
 const CSS = `
-.vela-workspace { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; background: var(--vela-bg); }
-.vela-ws-main { position: relative; display: flex; flex-direction: row; flex: 1 1 auto; min-height: 0; }
+.vela-workspace { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; background: var(--vela-border); }
+.vela-ws-main { position: relative; display: flex; flex-direction: row; gap: 4px; margin-top: 4px; flex: 1 1 auto; min-height: 0; }
 .vela-ws-toolbar { position: relative; flex: none; }
 .vela-ws-strips { position: relative; flex: none; display: flex; flex-direction: column; min-width: 0; }
 .vela-ws-strips:empty { display: none; }
-.vela-ws-grid { position: relative; flex: 1 1 auto; min-width: 0; display: grid; gap: ${GAP_PX}px; background: var(--vela-border-soft); }
+.vela-ws-well { position: relative; flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; border-radius: var(--vela-radius-sm); overflow: hidden; background: var(--vela-bg); }
+.vela-ws-grid { position: relative; flex: 1 1 auto; min-height: 0; display: grid; gap: ${GAP_PX}px; background: var(--vela-border); }
 .vela-cell { background: var(--vela-bg); position: relative; }
 /* Active-cell highlight: an overlay ring ABOVE the chart's own canvas stack (a plain
    outline on the cell is painted under them) — inert to the pointer. Scoped to
@@ -169,7 +170,8 @@ const CSS = `
     content: '';
     position: absolute;
     inset: 0;
-    border: 2px solid var(--vela-fg-bright);
+    border: 2px solid var(--vela-fg);
+    border-radius: inherit;
     pointer-events: none;
     z-index: 10;
 }
@@ -192,8 +194,9 @@ const CSS = `
     content: '';
     position: absolute;
     inset: 0;
-    border: 2px dashed var(--vela-fg-bright);
-    background: var(--vela-separator-hover-band);
+    border: 2px dashed var(--vela-fg);
+    background: var(--vela-active);
+    border-radius: inherit;
     pointer-events: none;
     z-index: 11;
 }
@@ -296,6 +299,7 @@ export class VelaWorkspace {
     // ── shared chrome ──
     private readonly topbar: Topbar;
     private readonly bottombar: Bottombar | null;
+    private readonly wellEl: HTMLElement;
     private readonly objectTree: ObjectTree;
     private readonly dataWindow: DataWindow;
     /** The side-panel column, shared by the whole grid. */
@@ -576,9 +580,13 @@ export class VelaWorkspace {
             toolbarHost.className = 'vela-ws-toolbar';
             main.appendChild(toolbarHost);
         }
+        // The well: the grid plus the bottom bar, one rounded surface the rails sit beside.
+        this.wellEl = doc.createElement('div');
+        this.wellEl.className = 'vela-ws-well';
+        main.appendChild(this.wellEl);
         this.gridEl = doc.createElement('div');
         this.gridEl.className = 'vela-ws-grid';
-        main.appendChild(this.gridEl);
+        this.wellEl.appendChild(this.gridEl);
         // One dock for the WHOLE grid (the panels follow the active cell), owning the built-ins,
         // the contributed panels, the single-open rule and the topbar's toggle group.
         this.dock = new PanelDock(main, {
@@ -596,10 +604,11 @@ export class VelaWorkspace {
         // Panels that are not registered yet keep their entry until they dock.
         if (boot?.panels) this.dock.applyState(boot.panels);
         this.root.appendChild(main);
-        // Docked strips (`ctx.dockStrip`) — before the bottom bar, which appends itself next.
+        // Docked strips (`ctx.dockStrip`) — inside the well under the grid, before the bottom
+        // bar, which appends itself next.
         this.stripsEl = doc.createElement('div');
         this.stripsEl.className = 'vela-ws-strips';
-        this.root.appendChild(this.stripsEl);
+        this.wellEl.appendChild(this.stripsEl);
         this.toastHost = new Toast(this.gridEl);
 
         // ONE attribution mark for the whole grid (bottom-left, floating above the
@@ -680,7 +689,7 @@ export class VelaWorkspace {
 
         this.bottombar =
             opts.bottombar !== false
-                ? new Bottombar(this.root, {
+                ? new Bottombar(this.wellEl, {
                       timezone: this.timezone,
                       clock: this.clock,
                       onRange: (preset) => {

@@ -28,7 +28,7 @@ const CSS = `
     position: relative;
     width: var(--vela-panel-w, ${DEFAULT_PANEL_WIDTH}px);
     flex: none;
-    border-left: 1px solid var(--vela-border);
+    border-top-left-radius: var(--vela-radius-sm);
     display: flex;
     flex-direction: column;
     color: var(--vela-fg);

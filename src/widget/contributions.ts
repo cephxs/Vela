@@ -30,7 +30,7 @@ export interface WidgetContext {
      *  it. The dock stays exclusive: opening one closes whichever was showing. Unknown ids
      *  are ignored. The seam a plugin uses to open ITS OWN panel programmatically. */
     togglePanel(id: string, open?: boolean): void;
-    /** Dock `el` as a full-width strip in the shell's layout, between the chart area and
+    /** Dock `el` as a strip across the chart well, between the chart area and
      *  the bottom bar — the charts shrink to make room. Strips stack in docking order.
      *  Returns the undock (removes `el`; a no-op once it has left the strip area). The
      *  caller owns `el`, its content and styling. */

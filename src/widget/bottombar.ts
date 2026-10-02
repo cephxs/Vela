@@ -48,26 +48,34 @@ const CSS = `
 .vela-widget-bottombar {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 0;
     height: 38px;
     padding: 0 8px;
     border-top: 1px solid var(--vela-border);
+    background: var(--vela-bg);
     color: var(--vela-fg-muted);
     font-size: 12px;
     flex: none;
 }
 .vela-bb-range {
     all: unset;
-    height: 24px;
+    position: relative;
+    isolation: isolate;
+    height: 38px;
     display: inline-flex;
     align-items: center;
-    padding: 0 9px;
-    border-radius: 4px;
-    font-weight: 600;
+    padding: 0 6px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--vela-fg);
     cursor: pointer;
 }
-.vela-bb-range:hover { background: var(--vela-hover); color: var(--vela-fg-bright); }
-.vela-bb-range[data-active='1'] { color: var(--vela-fg-bright); background: var(--vela-hover); }
+/* Highlight is an inset box behind the label, not the button itself. */
+.vela-bb-range::before { content: ''; position: absolute; inset: 2px; border-radius: var(--vela-radius-md); z-index: -1; }
+.vela-bb-range:hover { color: var(--vela-fg); }
+.vela-bb-range:hover::before { background: var(--vela-hover); }
+.vela-bb-range[data-active='1'] { color: var(--vela-fg); }
+.vela-bb-range[data-active='1']::before { background: var(--vela-active); }
 .vela-bb-spacer { flex: 1 1 auto; }
 .vela-bb-clock { font-variant-numeric: tabular-nums; color: var(--vela-fg); font-weight: 600; }
 .vela-bb-tz {
