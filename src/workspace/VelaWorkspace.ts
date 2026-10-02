@@ -186,7 +186,7 @@ const CSS = `
 }
 /* Both rules outrank the active-cell ink ring and the kit's generic focus outline
    (:has() and :is() count as their most specific argument). */
-.vela-workspace .vela-ws-grid .vela-cell:has(canvas:focus-visible)::after { border-color: var(--vela-accent); }
+.vela-workspace .vela-ws-grid .vela-cell:has(canvas:focus-visible)::after { border-color: var(--vela-accent); border-width: 3px; }
 .vela-workspace .vela-ws-grid .vela-cell canvas:focus-visible { outline: none; }
 /* Splitter hover mirrors the in-chart pane separator hover (CrosshairRenderer):
    a soft band over the whole grab target + a solid 2px line on the seam center. */
