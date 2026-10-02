@@ -154,7 +154,7 @@ const ALERT_CAP = 50;
 
 const STYLE_ID = 'vela-workspace';
 const CSS = `
-.vela-workspace { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; background: var(--vela-border); }
+.vela-workspace { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; background: var(--vela-surface-sunken); }
 .vela-ws-main { position: relative; display: flex; flex-direction: row; gap: 4px; margin-top: 4px; flex: 1 1 auto; min-height: 0; }
 .vela-ws-toolbar { position: relative; flex: none; }
 .vela-ws-strips { position: relative; flex: none; display: flex; flex-direction: column; min-width: 0; }
