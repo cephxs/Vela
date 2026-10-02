@@ -225,10 +225,10 @@ describe('NativeRenderer.applyConfig — applies + syncs the live scene fields',
         r.applyConfig({ layout: { background: '#ffffff' } });
         let cfg = r.getConfig();
         expect(cfg.layout.background).toBe('#ffffff');
-        expect(cfg.layout.textColor).toBe('#1e293b'); // LIGHT_THEME ink
-        expect(cfg.grid.vertLines.color).toBe('#cccccc'); // grid inherits the re-based theme
-        expect(cfg.priceScale.borderColor).toBe('#d4dae3'); // axis border follows too
-        expect(cfg.panes.separatorColor).toBe('#d4dae3');
+        expect(cfg.layout.textColor).toBe('#6b6b6b'); // LIGHT_THEME axis ink
+        expect(cfg.grid.vertLines.color).toBe('#ececec'); // grid inherits the re-based theme (6% ring)
+        expect(cfg.priceScale.borderColor).toBe('#e3e3e3'); // axis border follows too (10% ring)
+        expect(cfg.panes.separatorColor).toBe('#e3e3e3');
         // …and flipping back to a dark background restores the dark inks.
         r.applyConfig({ layout: { background: '#111111' } });
         cfg = r.getConfig();

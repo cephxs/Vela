@@ -49,7 +49,7 @@ describe('themeTokens', () => {
         // A filled selected state: light ink on a dark fill, and the reverse.
         expect(dark['--vela-selected-bg']).not.toBe(light['--vela-selected-bg']);
         expect(dark['--vela-selected-fg']).toBe(DARK_THEME.background);
-        expect(light['--vela-selected-fg']).toBe('#ffffff');
+        expect(light['--vela-selected-fg']).toBe(LIGHT_THEME.background);
     });
 
     it('keeps the brand accent theme-independent', () => {
