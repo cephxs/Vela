@@ -50,7 +50,7 @@ const CSS = `
 .vela-md-row:active { background: var(--vela-hover); }
 .vela-md-row[data-checked='1'] { background: var(--vela-hover-strong); }
 .vela-md-row .vela-icon { flex: none; font-size: 17px; width: 17px; height: 17px; color: var(--vela-fg-muted); }
-.vela-md-row-label { flex: 1 1 auto; min-width: 0; font-size: 14px; color: var(--vela-fg-bright); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vela-md-row-label { flex: 1 1 auto; min-width: 0; font-size: 14px; color: var(--vela-fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .vela-md-row-value { flex: none; font-size: 13px; color: var(--vela-fg-muted); }
 .vela-md-back {
     all: unset;
@@ -61,7 +61,7 @@ const CSS = `
     padding: 0 2px;
     font-size: 14px;
     font-weight: 600;
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
     cursor: pointer;
     border-bottom: 1px solid var(--vela-border);
     width: 100%;

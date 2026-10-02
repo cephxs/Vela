@@ -43,7 +43,7 @@ export const MENU_CSS = `
    row stays visibly selected while highlighted. */
 .vela-menu-item[data-checked] {
     background: var(--vela-hover-strong);
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
 }
 /* Checkmark mode (context/action menus): every row reserves the leading mark column so
    labels align; a checked row fills it with a ✓ and brightens its ink — the row surface
@@ -59,9 +59,9 @@ export const MENU_CSS = `
     width: 14px;
     height: 14px;
     font-size: 14px;
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
 }
-.vela-menu-item[data-checkmark] { color: var(--vela-fg-bright); }
+.vela-menu-item[data-checkmark] { color: var(--vela-fg); }
 /* Switch rows (boolean settings in a dropdown): a right-aligned toggle pill — the
    same control language as the settings dialog's toggles. */
 .vela-menu-switch {
@@ -72,8 +72,8 @@ export const MENU_CSS = `
     width: 34px;
     height: 18px;
     border-radius: 9px;
-    background: var(--vela-surface-overlay);
-    border: 1px solid var(--vela-border-soft);
+    background: var(--vela-surface-elev);
+    border: 1px solid var(--vela-border);
     transition: background 0.16s ease, border-color 0.16s ease;
 }
 .vela-menu-switch::after {

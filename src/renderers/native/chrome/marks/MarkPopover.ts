@@ -20,7 +20,7 @@ const MARKS_CSS = `
 .vela-marks-section + .vela-marks-section { border-top: 1px solid var(--vela-border); }
 .vela-marks-field { display: flex; justify-content: space-between; gap: 16px; line-height: 1.45; }
 .vela-marks-field-label { color: var(--vela-fg-muted); }
-.vela-marks-field-value { color: var(--vela-fg-bright); text-align: right; font-variant-numeric: tabular-nums; }
+.vela-marks-field-value { color: var(--vela-fg); text-align: right; font-variant-numeric: tabular-nums; }
 .vela-marks-html { color: var(--vela-fg); line-height: 1.45; overflow-wrap: anywhere; }
 .vela-marks-html p { margin: 0 0 6px; }
 .vela-marks-html p:last-child { margin-bottom: 0; }

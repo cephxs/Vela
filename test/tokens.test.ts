@@ -24,7 +24,7 @@ describe('themeTokens', () => {
         const dark = themeTokens(DARK_THEME);
         expect(dark['--vela-bg']).toBe(DARK_THEME.background);
         expect(dark['--vela-font']).toBe(DARK_THEME.fontFamily);
-        expect(dark['--vela-border']).toBe(DARK_THEME.borderColor);
+        expect(dark['--vela-border']).toBe('rgba(250,250,250,0.1)'); // the 10% ink ring
         expect(dark['--vela-up']).toBe(DARK_THEME.upColor);
         expect(dark['--vela-down']).toBe(DARK_THEME.downColor);
     });
@@ -33,7 +33,6 @@ describe('themeTokens', () => {
         for (const theme of [DARK_THEME, LIGHT_THEME]) {
             const t = themeTokens(theme);
             expect(opaque(t['--vela-surface-elev']!)).toBe(true);
-            expect(opaque(t['--vela-surface-overlay']!)).toBe(true);
         }
     });
 

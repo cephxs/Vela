@@ -12,7 +12,7 @@ export const NUMBER_CSS = `
     background: transparent;
     border: 1px solid var(--vela-border-strong);
     border-radius: 6px;
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
     padding: 0 8px;
     font-size: 14px;
     font-family: inherit;
@@ -26,7 +26,7 @@ export const NUMBER_CSS = `
 }
 .vela-num input::-webkit-inner-spin-button, .vela-num input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 .vela-num input:hover { border-color: var(--vela-fg-muted); }
-.vela-num input:focus { border-color: var(--vela-focus); box-shadow: 0 0 0 3px var(--vela-focus-soft); }
+.vela-num input:focus { border-color: var(--vela-focus); box-shadow: 0 0 0 3px var(--vela-border); }
 /* The stepper gutter exists only while the steppers do (hover) — an idle field keeps
    its full width so long values aren't cut under an invisible arrow column. */
 .vela-num[data-steppers]:hover input { padding-right: 26px; }
@@ -69,6 +69,6 @@ export const NUMBER_CSS = `
     align-items: center;
     justify-content: center;
 }
-.vela-num-step button:hover { background: var(--vela-hover); color: var(--vela-fg-bright); }
+.vela-num-step button:hover { background: var(--vela-hover); color: var(--vela-fg); }
 .vela-num-step .vela-icon, .vela-num-step svg { width: 12px; height: 12px; display: block; }
 `;

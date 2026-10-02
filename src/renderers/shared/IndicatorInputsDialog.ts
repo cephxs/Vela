@@ -100,7 +100,7 @@ export class IndicatorInputsDialog {
         ensureDialogStyles();
         const t = this.host.theme();
         const border = 'var(--vela-border)';
-        const fg = 'var(--vela-fg-bright)';
+        const fg = 'var(--vela-fg)';
         const host = this.host.dialogHost() ?? this.host.container;
 
         const ui = new Dialog({
@@ -708,7 +708,7 @@ export class IndicatorInputsDialog {
 
     /** Shared field chrome for text / number / select controls (fills its wrapper's width). */
     private ctrlStyle(): string {
-        return 'width:100%;box-sizing:border-box;height:34px;background:transparent;border:1px solid var(--vela-border-strong);color:var(--vela-fg-bright);border-radius:6px;padding:0 8px;font-size:14px;font-family:inherit;outline:none;';
+        return 'width:100%;box-sizing:border-box;height:34px;background:transparent;border:1px solid var(--vela-border-strong);color:var(--vela-fg);border-radius:6px;padding:0 8px;font-size:14px;font-family:inherit;outline:none;';
     }
 
     /** Whether the active theme is dark (drives the dialog's `color-scheme`). */
@@ -869,7 +869,7 @@ export function ensureDialogStyles(): void {
 .vela-ind-cal{background:var(--vela-bg);color:var(--vela-fg);border:none;border-radius:6px;box-shadow:var(--vela-shadow);font:14px var(--vela-font);padding:10px 12px;user-select:none;}
 ${overlayScrollbarCss('.vela-dialog.vela-ind-dialog *', 9)}
 .vela-ind-tab{font-weight:600;font-size:13px;line-height:20px;transition:color var(--vela-dur-fast) ease,border-color var(--vela-dur-fast) ease;}
-.vela-ind-tab:not(.vela-ind-tab-active):hover{color:var(--vela-fg-bright);}
+.vela-ind-tab:not(.vela-ind-tab-active):hover{color:var(--vela-fg);}
 .vela-ind-ctl,.vela-ind-close{background-color:transparent;color:inherit;transition:color var(--vela-dur-fast) ease,background-color var(--vela-dur-fast) ease;}
 .vela-ind-ctl svg,.vela-ind-close svg{width:${LEGEND_ICON_PX}px;height:${LEGEND_ICON_PX}px;display:block;flex:none;stroke-width:1;}
 .vela-ind-ctl:hover{background-color:var(--vela-hover-strong);}

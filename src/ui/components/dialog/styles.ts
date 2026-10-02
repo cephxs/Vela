@@ -53,7 +53,7 @@ export const DIALOG_CSS = `
     border-bottom: 1px solid var(--vela-border);
     user-select: none;
 }
-.vela-dialog-title { flex: 1; font-size: 17px; font-weight: 600; letter-spacing: 0.2px; color: var(--vela-fg-bright); }
+.vela-dialog-title { flex: 1; font-size: 17px; font-weight: 600; letter-spacing: 0.2px; color: var(--vela-fg); }
 .vela-dialog-close {
     all: unset;
     cursor: pointer;
@@ -67,7 +67,7 @@ export const DIALOG_CSS = `
     line-height: 1;
     font-size: 15px;
 }
-.vela-dialog-close:hover { background: var(--vela-hover); color: var(--vela-fg-bright); }
+.vela-dialog-close:hover { background: var(--vela-hover); color: var(--vela-fg); }
 .vela-dialog-body { padding: var(--vela-space-4); overflow: auto; min-height: 0; flex: 1 1 auto; }
 .vela-dialog-body[data-flush] { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
 .vela-dialog-footer { flex: 0 0 auto; }
@@ -110,7 +110,7 @@ export const DIALOG_CSS = `
     font-family: inherit;
     transition: background var(--vela-dur-fast) ease, color var(--vela-dur-fast) ease, opacity var(--vela-dur-fast) ease, border-color var(--vela-dur-fast) ease;
 }
-.vela-dialog-btn:hover { background: var(--vela-hover); color: var(--vela-fg-bright); border-color: var(--vela-fg-muted); }
+.vela-dialog-btn:hover { background: var(--vela-hover); color: var(--vela-fg); border-color: var(--vela-fg-muted); }
 .vela-dialog-btn-primary { border-color: var(--vela-selected-bg); background: var(--vela-selected-bg); color: var(--vela-selected-fg); }
 .vela-dialog-btn-primary:hover { background: var(--vela-selected-bg); color: var(--vela-selected-fg); opacity: 0.85; border-color: var(--vela-selected-bg); }
 ${overlayScrollbarCss('.vela-dialog-body')}

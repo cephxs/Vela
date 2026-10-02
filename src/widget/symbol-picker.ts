@@ -204,7 +204,7 @@ const CSS = `
     font-weight: 700;
 }
 .vela-sp-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-.vela-sp-ticker { font-weight: 700; color: var(--vela-fg-bright); font-size: 14px; text-transform: uppercase; }
+.vela-sp-ticker { font-weight: 700; color: var(--vela-fg); font-size: 14px; text-transform: uppercase; }
 .vela-sp-desc { color: var(--vela-fg-muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .vela-sp-badge {
     flex: none;

@@ -18,8 +18,8 @@ const CSS = `
 .vela-sh-label { flex: 1; }
 .vela-sh-keys { display: flex; gap: 4px; }
 .vela-sh-key {
-    background: var(--vela-surface-overlay);
-    border: 1px solid var(--vela-border-soft);
+    background: var(--vela-surface-elev);
+    border: 1px solid var(--vela-border);
     border-radius: var(--vela-radius-sm);
     padding: 1px 7px;
     font-size: var(--vela-font-size-sm);

@@ -36,7 +36,7 @@ const CSS = `
     gap: 6px;
     border-radius: 6px;
     cursor: pointer;
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
     font-size: 13px;
     font-weight: 600;
     -webkit-tap-highlight-color: transparent;

@@ -63,7 +63,7 @@ export const DRAWER_CSS = `
     font-size: 15px;
     font-weight: 600;
     letter-spacing: 0.2px;
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
     user-select: none;
 }
 .vela-drawer-title:empty { display: none; }

@@ -17,7 +17,7 @@ export const SELECT_CSS = `
     background: transparent;
     border: 1px solid var(--vela-border-strong);
     border-radius: 6px;
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
     font-size: 14px;
     font-family: inherit;
     cursor: pointer;
@@ -26,7 +26,7 @@ export const SELECT_CSS = `
     transition: border-color 0.12s ease, box-shadow 0.12s ease;
 }
 .vela-select-trigger:hover { border-color: var(--vela-fg-muted); }
-.vela-select-trigger:focus { border-color: var(--vela-focus); box-shadow: 0 0 0 3px var(--vela-focus-soft); }
+.vela-select-trigger:focus { border-color: var(--vela-focus); box-shadow: 0 0 0 3px var(--vela-border); }
 .vela-select[data-size='sm'] .vela-select-trigger {
     height: 28px;
     background: var(--vela-surface-elev);
@@ -64,7 +64,7 @@ export const SELECT_CSS = `
     padding: 4px;
     overflow: hidden;
 }
-.vela-select-list[data-size='sm'] { font-size: 13px; background: var(--vela-surface-overlay); }
+.vela-select-list[data-size='sm'] { font-size: 13px; background: var(--vela-surface-elev); }
 .vela-select-items { width: max-content; min-width: 100%; max-height: none; overflow: hidden; }
 .vela-select-list.is-scroll { display: flex; align-items: stretch; gap: 2px; }
 .vela-select-list.is-scroll .vela-select-items {
@@ -93,6 +93,6 @@ export const SELECT_CSS = `
     font-weight: 400;
 }
 .vela-select-item:hover { background: var(--vela-hover); }
-.vela-select-item[data-checked] { background: var(--vela-hover-strong); color: var(--vela-fg-bright); }
+.vela-select-item[data-checked] { background: var(--vela-hover-strong); color: var(--vela-fg); }
 .vela-select-item[data-checked]:hover { background: var(--vela-hover-strong); }
 `;

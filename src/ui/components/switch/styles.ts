@@ -21,8 +21,8 @@ export const SWITCH_CSS = `
 .vela-switch[data-size='sm'] .vela-icon, .vela-switch[data-size='sm'] svg { width: 11px; height: 11px; }
 .vela-switch:hover { border-color: var(--vela-fg-muted); }
 .vela-switch[data-checked] {
-    background: var(--vela-fg-bright);
-    border-color: var(--vela-fg-bright);
+    background: var(--vela-fg);
+    border-color: var(--vela-fg);
     color: var(--vela-bg);
 }
 .vela-switch[data-size='sm'] { width: 18px; height: 18px; border-color: var(--vela-border-strong); }

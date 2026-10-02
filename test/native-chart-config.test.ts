@@ -129,12 +129,12 @@ describe('NativeRenderer.getConfig — defaults resolve to concrete values', () 
     it('emits a complete, versioned document from the dark theme', () => {
         const cfg = new NativeRenderer().getConfig();
         expect(cfg.version).toBe(CHART_CONFIG_VERSION);
-        expect(cfg.layout).toEqual({ background: '#151619', textColor: '#b2b5be', fontFamily: 'sans-serif', fontSize: 11 });
-        expect(cfg.grid.vertLines).toEqual({ visible: true, color: '#20222c' });
-        expect(cfg.grid.horzLines).toEqual({ visible: true, color: '#20222c' });
+        expect(cfg.layout).toEqual({ background: '#111111', textColor: '#a1a1a1', fontFamily: 'sans-serif', fontSize: 11 });
+        expect(cfg.grid.vertLines).toEqual({ visible: true, color: '#1f1f1f' });
+        expect(cfg.grid.horzLines).toEqual({ visible: true, color: '#1f1f1f' });
         expect(cfg.crosshair).toEqual({ color: '#9aa0ad', width: 1, style: 'dashed', opacity: 0.4, labelBackground: '#595959' });
-        expect(cfg.priceScale).toEqual({ mode: 'price', log: false, invert: false, borderColor: '#2a2b30', labelsVisible: true, currentPriceLine: true, priceLabel: true, countdown: true, animateLastPrice: false });
-        expect(cfg.panes).toEqual({ separatorColor: '#2a2b30' }); // inherits the theme border
+        expect(cfg.priceScale).toEqual({ mode: 'price', log: false, invert: false, borderColor: '#282828', labelsVisible: true, currentPriceLine: true, priceLabel: true, countdown: true, animateLastPrice: false });
+        expect(cfg.panes).toEqual({ separatorColor: '#282828' }); // inherits the theme border
         expect(cfg.timeScale).toEqual({ timezone: 'UTC' });
         expect(cfg.candles.upColor).toBe('#089981');
         expect(cfg.candles.downColor).toBe('#f23645');
@@ -230,10 +230,10 @@ describe('NativeRenderer.applyConfig — applies + syncs the live scene fields',
         expect(cfg.priceScale.borderColor).toBe('#d4dae3'); // axis border follows too
         expect(cfg.panes.separatorColor).toBe('#d4dae3');
         // …and flipping back to a dark background restores the dark inks.
-        r.applyConfig({ layout: { background: '#151619' } });
+        r.applyConfig({ layout: { background: '#111111' } });
         cfg = r.getConfig();
-        expect(cfg.layout.textColor).toBe('#b2b5be');
-        expect(cfg.grid.vertLines.color).toBe('#20222c');
+        expect(cfg.layout.textColor).toBe('#a1a1a1');
+        expect(cfg.grid.vertLines.color).toBe('#1f1f1f');
     });
 
     it('an explicit textColor in the same patch wins over the ink re-base', () => {
@@ -245,7 +245,7 @@ describe('NativeRenderer.applyConfig — applies + syncs the live scene fields',
     it('does not re-base inks for a same-class background edit', () => {
         const r = new NativeRenderer();
         r.applyConfig({ layout: { background: '#000000' } }); // still dark
-        expect(r.getConfig().layout.textColor).toBe('#b2b5be'); // untouched
+        expect(r.getConfig().layout.textColor).toBe('#a1a1a1'); // untouched
     });
 
     it('restores the stacking keys — and pre-seeds an indicator that has not mounted yet', () => {

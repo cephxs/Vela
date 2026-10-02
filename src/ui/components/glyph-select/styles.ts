@@ -13,7 +13,7 @@ export const GLYPH_SELECT_CSS = `
     gap: 8px;
     flex: none;
     justify-self: start;
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
     font-size: 14px;
     font-family: inherit;
     outline: none;
@@ -21,7 +21,7 @@ export const GLYPH_SELECT_CSS = `
     transition: border-color 0.12s ease, box-shadow 0.12s ease;
 }
 .vela-glyph-select:hover { border-color: var(--vela-fg-muted); }
-.vela-glyph-select:focus { border-color: var(--vela-focus); box-shadow: 0 0 0 3px var(--vela-focus-soft); }
+.vela-glyph-select:focus { border-color: var(--vela-focus); box-shadow: 0 0 0 3px var(--vela-border); }
 .vela-glyph-select-caret {
     position: absolute;
     right: 8px;
@@ -60,5 +60,5 @@ export const GLYPH_SELECT_CSS = `
     font: inherit;
 }
 .vela-glyph-select-item:hover { background: var(--vela-hover); }
-.vela-glyph-select-item[data-active='1'] { background: var(--vela-hover-strong); color: var(--vela-fg-bright); }
+.vela-glyph-select-item[data-active='1'] { background: var(--vela-hover-strong); color: var(--vela-fg); }
 `;

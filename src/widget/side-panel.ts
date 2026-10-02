@@ -44,7 +44,7 @@ const CSS = `
     border-bottom: 1px solid var(--vela-border);
     font-size: 14px;
     font-weight: 600;
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
 }
 .vela-panel-title { flex: none; }
 .vela-panel-title:empty { display: none; }
@@ -64,7 +64,7 @@ const CSS = `
     font-size: 16px;
 }
 .vela-panel-close .vela-icon { width: 16px; height: 16px; }
-.vela-panel-close:hover { background: var(--vela-hover); color: var(--vela-fg-bright); }
+.vela-panel-close:hover { background: var(--vela-hover); color: var(--vela-fg); }
 /* The pin: same footprint as the close button it sits beside; filled + bright once pinned. */
 .vela-panel-pin {
     all: unset;
@@ -79,8 +79,8 @@ const CSS = `
     color: var(--vela-fg-muted);
 }
 .vela-panel-pin .vela-icon { width: 15px; height: 15px; }
-.vela-panel-pin:hover { background: var(--vela-hover); color: var(--vela-fg-bright); }
-.vela-panel-pin[data-on='1'] { color: var(--vela-fg-bright); }
+.vela-panel-pin:hover { background: var(--vela-hover); color: var(--vela-fg); }
+.vela-panel-pin[data-on='1'] { color: var(--vela-fg); }
 .vela-panel-body { flex: 1; overflow: auto; padding: 8px; }
 .vela-panel-body::-webkit-scrollbar { width: 8px; }
 .vela-panel-body::-webkit-scrollbar-thumb { background: var(--vela-scroll); border-radius: 4px; border: 2px solid transparent; background-clip: padding-box; }

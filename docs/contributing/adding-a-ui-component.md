@@ -123,7 +123,7 @@ chrome (`Dialog`, `Menu`) is Zag-driven; form primitives stay vanilla.
 - **`Popover`** — portal + placement (below, flip above, `align` start/end, optional
   `matchWidth`) + clamp boundary (viewport, an element, or a rect getter) + capture-phase
   outside-dismiss + a process-wide single-open registry (`closeOpenPopovers`).
-- **`Switch`** — square check-toggle. `size: 'md'` is 20px with `--vela-fg-bright` on-fill
+- **`Switch`** — square check-toggle. `size: 'md'` is 20px with `--vela-fg` on-fill
   (settings dialogs); `size: 'sm'` is 18px with `--vela-selected-bg` (compact chrome).
   `role="switch"`. `setChecked` does not emit.
 - **`Select`** — trigger + portaled themed list (not the OS popup) with a hand-rolled

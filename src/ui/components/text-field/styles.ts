@@ -15,7 +15,7 @@ export const TEXT_CSS = `
     background: transparent;
     border: 1px solid var(--vela-border-strong);
     border-radius: 6px;
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
     padding: 0 8px;
     font-size: 14px;
     font-family: inherit;
@@ -28,7 +28,7 @@ export const TEXT_CSS = `
     -webkit-user-select: text;
 }
 .vela-text-field:hover { border-color: var(--vela-fg-muted); }
-.vela-text-field:focus { border-color: var(--vela-focus); box-shadow: 0 0 0 3px var(--vela-focus-soft); }
+.vela-text-field:focus { border-color: var(--vela-focus); box-shadow: 0 0 0 3px var(--vela-border); }
 .vela-text[data-size='sm'] .vela-text-field {
     height: 28px;
     background: var(--vela-surface-elev);

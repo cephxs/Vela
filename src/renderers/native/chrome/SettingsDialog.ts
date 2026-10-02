@@ -122,12 +122,12 @@ ${overlayScrollbarCss('.vela-sd-pane')}
 /* Tab rail / footer button / header close: base styles live HERE, not inline on the
    elements — inline declarations always beat stylesheet :hover rules, which is exactly
    what killed these hovers before. Active tab state is the .on class,
-   hover fills follow the app convention (--vela-hover + --vela-fg-bright, fast transition). */
+   hover fills follow the app convention (--vela-hover + --vela-fg, fast transition). */
 .vela-sd-tab{text-align:left;padding:9px 12px;background:transparent;border:none;border-radius:var(--vela-radius-md);color:var(--vela-fg-muted);font-weight:600;font-size:13px;font-family:inherit;cursor:pointer;transition:background var(--vela-dur-fast) ease,color var(--vela-dur-fast) ease;}
-.vela-sd-tab:hover{background:var(--vela-hover);color:var(--vela-fg-bright);}
-.vela-sd-tab.on{background:var(--vela-active);color:var(--vela-fg-bright);}
+.vela-sd-tab:hover{background:var(--vela-hover);color:var(--vela-fg);}
+.vela-sd-tab.on{background:var(--vela-active);color:var(--vela-fg);}
 .vela-sd-btn{height:30px;padding:0 14px;font-size:var(--vela-font-size-md);color:var(--vela-fg);background:var(--vela-surface-sunken);border:1px solid var(--vela-border);border-radius:var(--vela-radius-md);cursor:pointer;font-family:inherit;transition:background var(--vela-dur-fast) ease,border-color var(--vela-dur-fast) ease,color var(--vela-dur-fast) ease;}
-.vela-sd-btn:hover{background:var(--vela-hover);border-color:var(--vela-border-strong);color:var(--vela-fg-bright);}
+.vela-sd-btn:hover{background:var(--vela-hover);border-color:var(--vela-border-strong);color:var(--vela-fg);}
 /* Footer Template dropdown trigger: label + chevron, the reference footer's left-hand control. */
 .vela-sd-tpl{display:inline-flex;align-items:center;gap:6px;padding-right:9px;}
 /* Save-template popup: a narrow card over the settings dialog, label above a full-width field. */
@@ -135,7 +135,7 @@ ${overlayScrollbarCss('.vela-sd-pane')}
 .vela-sd-save-label{font-size:13px;color:var(--vela-fg-muted);margin-bottom:8px;}
 .vela-sd-save .vela-dialog-btn:disabled{opacity:0.4;cursor:default;pointer-events:none;}
 .vela-sd-close{cursor:pointer;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--vela-fg-muted);line-height:0;width:30px;height:30px;border-radius:var(--vela-radius-sm);transition:background var(--vela-dur-fast) ease,color var(--vela-dur-fast) ease;}
-.vela-sd-close:hover{background:var(--vela-hover);color:var(--vela-fg-bright);}
+.vela-sd-close:hover{background:var(--vela-hover);color:var(--vela-fg);}
 /* Rows/blocks gated away by chart-type conditions, TOC filters, or the instance strip.
    !important: the pane grid rewrites inline display ('contents') AFTER the initial
    visibility pass, so a class must win. */
@@ -147,10 +147,10 @@ ${overlayScrollbarCss('.vela-sd-pane')}
    the strip from the instance's TOC + rows area. */
 .vela-sd-itabs{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:14px 0 0;padding-bottom:12px;border-bottom:1px solid var(--vela-border);}
 .vela-sd-itab{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 11px;background:transparent;border:1px solid var(--vela-border);border-radius:var(--vela-radius-md);color:var(--vela-fg-muted);font-family:inherit;font-size:var(--vela-font-size-md);font-weight:600;cursor:pointer;transition:background var(--vela-dur-fast) ease,color var(--vela-dur-fast) ease,border-color var(--vela-dur-fast) ease;}
-.vela-sd-itab:hover{background:var(--vela-hover);color:var(--vela-fg-bright);}
-.vela-sd-itab.on{background:var(--vela-active);color:var(--vela-fg-bright);border-color:var(--vela-border-strong);}
+.vela-sd-itab:hover{background:var(--vela-hover);color:var(--vela-fg);}
+.vela-sd-itab.on{background:var(--vela-active);color:var(--vela-fg);border-color:var(--vela-border-strong);}
 .vela-sd-ix{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;margin-right:-4px;border-radius:var(--vela-radius-sm);color:var(--vela-fg-muted);font-size:10px;line-height:1;}
-.vela-sd-ix:hover{background:var(--vela-hover);color:var(--vela-fg-bright);}
+.vela-sd-ix:hover{background:var(--vela-hover);color:var(--vela-fg);}
 .vela-sd-itab-add{border-style:dashed;min-width:30px;justify-content:center;padding:0;}
 /* Structured pane: group TOC column + rows column, TOP-ALIGNED (the shared padding-top
    lives on the wrap, never on one column). The TOC sticks while the pane scrolls; the
@@ -161,8 +161,8 @@ ${overlayScrollbarCss('.vela-sd-pane')}
 .vela-sd-struct>[data-sd-rows-host]{border-left:1px solid var(--vela-border);padding-left:18px;}
 .vela-sd-struct.no-toc>[data-sd-rows-host]{border-left:none;padding-left:0;}
 .vela-sd-toc-btn{text-align:left;padding:6px 10px;background:transparent;border:none;border-radius:var(--vela-radius-sm);color:var(--vela-fg-muted);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:background var(--vela-dur-fast) ease,color var(--vela-dur-fast) ease;}
-.vela-sd-toc-btn:hover{background:var(--vela-hover);color:var(--vela-fg-bright);}
-.vela-sd-toc-btn.on{background:var(--vela-active);color:var(--vela-fg-bright);}
+.vela-sd-toc-btn:hover{background:var(--vela-hover);color:var(--vela-fg);}
+.vela-sd-toc-btn.on{background:var(--vela-active);color:var(--vela-fg);}
 /* Soft-disable: a subsection's enableKey is off — rows stay visible (browseable) but
    muted and non-interactive. Applied to each row's children so it survives display:contents;
    !important beats the inline opacity on labels. */

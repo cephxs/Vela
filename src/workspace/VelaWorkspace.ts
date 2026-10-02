@@ -175,7 +175,7 @@ const CSS = `
 }
 /* Splitter hover mirrors the in-chart pane separator hover (CrosshairRenderer):
    a soft band over the whole grab target + a solid 2px line on the seam center. */
-.vela-ws-splitter:hover { background: var(--vela-separator-hover-band); }
+.vela-ws-splitter:hover { background: var(--vela-active); }
 .vela-ws-splitter:hover::after { content: ''; position: absolute; background: var(--vela-separator-hover-line); }
 .vela-ws-splitter[data-axis='cols']:hover::after { left: calc(50% - 1px); top: 0; width: 2px; height: 100%; }
 .vela-ws-splitter[data-axis='rows']:hover::after { top: calc(50% - 1px); left: 0; height: 2px; width: 100%; }

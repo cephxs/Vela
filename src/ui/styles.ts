@@ -17,7 +17,7 @@ export function overlayScrollbarCss(selector: string, width = 8): string {
 export const FIELD_FOCUS_CSS =
     'outline:none;transition:border-color .12s ease,box-shadow .12s ease;';
 export const FIELD_FOCUS_RING =
-    'border-color:var(--vela-focus);box-shadow:0 0 0 3px var(--vela-focus-soft);';
+    'border-color:var(--vela-focus);box-shadow:0 0 0 3px var(--vela-border);';
 
 /** Inject a stylesheet once per root (document or shadow root). Idempotent by id. */
 export function injectStyles(id: string, css: string, root: Document | ShadowRoot = document): void {

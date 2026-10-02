@@ -1,13 +1,14 @@
 import type { VelaTheme, ThemeName } from './options';
 import { BEARISH, BULLISH } from './palette';
 
-// The reference dark palette (the design spec's first-run chart cosmetics: surface,
-// axis text, subtle grid, candle green/red).
+// The reference dark palette: the fstarlabs neutrals — base surface, muted ink for axis
+// text, and the 6% / 10% ink rings as grid and frame, flattened to hex so canvas, settings
+// color inputs and WebGL all take them as-is.
 export const DARK_THEME: VelaTheme = {
-    background: '#151619',
-    textColor: '#b2b5be',
-    gridColor: '#20222c',
-    borderColor: '#2a2b30',
+    background: '#111111',
+    textColor: '#a1a1a1',
+    gridColor: '#1f1f1f',
+    borderColor: '#282828',
     upColor: BULLISH,
     downColor: BEARISH,
     fontFamily: 'sans-serif',

@@ -10,7 +10,7 @@ export const TEXTAREA_CSS = `
     background: transparent;
     border: 1px solid var(--vela-border-strong);
     border-radius: 6px;
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
     padding: 8px;
     font-size: 14px;
     font-family: inherit;
@@ -23,7 +23,7 @@ export const TEXTAREA_CSS = `
     -webkit-user-select: text;
 }
 .vela-textarea-field:hover { border-color: var(--vela-fg-muted); }
-.vela-textarea-field:focus { border-color: var(--vela-focus); box-shadow: 0 0 0 3px var(--vela-focus-soft); }
+.vela-textarea-field:focus { border-color: var(--vela-focus); box-shadow: 0 0 0 3px var(--vela-border); }
 .vela-textarea-field::placeholder { color: currentColor; opacity: 0.4; }
 .vela-textarea[data-autogrow] .vela-textarea-field { resize: none; overflow-y: hidden; min-height: 46px; }
 .vela-textarea[data-size='sm'] .vela-textarea-field {
