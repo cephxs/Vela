@@ -38,8 +38,8 @@ export const STATIC_TOKENS: Record<string, string> = {
 // sunken one for fields. Light is the mirror of dark: the ink and the plot swap roles, and
 // elevation keeps its logic (floating goes to the extreme, sunken steps toward the ink).
 const NEUTRALS = {
-    dark:  { ink: '#fafafa', inkMuted: '#a1a1a1', elevated: '#0a0a0a', sunken: '#171717', shadowAlpha: 0.4 },
-    light: { ink: '#111111', inkMuted: '#6b6b6b', elevated: '#ffffff', sunken: '#f0f0f0', shadowAlpha: 0.15 },
+    dark:  { ink: '#fafafa', inkMuted: '#a1a1a1', elevated: '#0a0a0a', sunken: '#3d3d3d', shadowAlpha: 0.4 },
+    light: { ink: '#111111', inkMuted: '#6b6b6b', elevated: '#ffffff', sunken: '#ebebeb', shadowAlpha: 0.15 },
 } as const;
 
 /** Compute every theme token as a `--vela-*` → value map for one theme. */

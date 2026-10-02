@@ -122,7 +122,7 @@ ${overlayScrollbarCss('.vela-sd-pane')}
 .vela-sd-tab:hover{background:var(--vela-hover);color:var(--vela-fg);}
 .vela-sd-tab.on{background:var(--vela-active);color:var(--vela-fg);}
 .vela-sd-btn{height:30px;padding:0 14px;font-size:var(--vela-font-size-md);color:var(--vela-fg);background:var(--vela-surface-sunken);border:1px solid var(--vela-border);border-radius:var(--vela-radius-md);cursor:pointer;font-family:inherit;transition:background var(--vela-dur-fast) ease,border-color var(--vela-dur-fast) ease,color var(--vela-dur-fast) ease;}
-.vela-sd-btn:hover{background:var(--vela-hover);border-color:var(--vela-border-strong);color:var(--vela-fg);}
+.vela-sd-btn:hover{background:linear-gradient(var(--vela-hover),var(--vela-hover)),var(--vela-surface-sunken);border-color:var(--vela-border-strong);color:var(--vela-fg);}
 .vela-sd-close{cursor:pointer;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--vela-fg-muted);line-height:0;width:30px;height:30px;border-radius:var(--vela-radius-sm);transition:background var(--vela-dur-fast) ease,color var(--vela-dur-fast) ease;}
 .vela-sd-close:hover{background:var(--vela-hover);color:var(--vela-fg);}
 /* Rows/blocks gated away by chart-type conditions, TOC filters, or the instance strip.
