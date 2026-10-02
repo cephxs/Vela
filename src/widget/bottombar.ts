@@ -8,6 +8,7 @@ import { Menu } from '../ui/components/menu';
 import { Tooltip } from '../ui/components/tooltip';
 import { iconEl } from '../ui/icons';
 import { injectStyles } from '../ui/styles';
+import { rovingToolbar } from '../ui/roving';
 import { timezoneMenuRows, tzButtonLabel, resolveTimezone } from './timezones';
 
 export interface RangePreset {
@@ -141,6 +142,7 @@ export interface BottombarOptions {
 
 export class Bottombar {
     readonly el: HTMLElement;
+    private readonly disposeRoving: () => void;
     private readonly clockEl: HTMLElement;
     private readonly tzLabelEl: HTMLElement;
     private readonly tzButton: HTMLElement;
@@ -161,6 +163,7 @@ export class Bottombar {
 
         this.el = doc.createElement('div');
         this.el.className = 'vela-widget-bottombar';
+        this.disposeRoving = rovingToolbar(this.el);
         for (const preset of RANGE_PRESETS) {
             const b = doc.createElement('button');
             b.className = 'vela-bb-range';
@@ -273,6 +276,7 @@ export class Bottombar {
     }
 
     destroy(): void {
+        this.disposeRoving();
         this.unsubClock();
         this.tzMenu.destroy();
         this.settingsTip?.destroy();
