@@ -15,12 +15,13 @@ export const DARK_THEME: VelaTheme = {
 };
 
 export const LIGHT_THEME: VelaTheme = {
-    background: '#ffffff',
-    textColor: '#1e293b',
-    // Soft chrome on white: grid is a neutral wash; pane separator / axis border
-    // (they inherit `borderColor`) sit a step darker so stacked panes stay distinct.
-    gridColor: '#cccccc',
-    borderColor: '#d4dae3',
+    // The light mirror of the dark neutrals: the dark ink becomes the surface and the dark
+    // surface becomes the ink, with the same 6% (grid) and 10% (border) rings of that ink
+    // flattened to hex on the plot.
+    background: '#fafafa',
+    textColor: '#6b6b6b',
+    gridColor: '#ececec',
+    borderColor: '#e3e3e3',
     // Candle hues are shared across themes: switching themes recolors surfaces and
     // text, never the series (a green candle stays the same green on white).
     upColor: BULLISH,

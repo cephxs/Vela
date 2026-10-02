@@ -7,7 +7,7 @@
 // THEME tokens are computed per `VelaTheme`.
 
 import type { VelaTheme } from './options';
-import { isDarkColor, mix, withAlpha } from './color';
+import { isDarkColor, withAlpha } from './color';
 import { ACCENT, ACCENT_BRIGHT, HIGHLIGHT } from './palette';
 
 /** Theme-independent tokens — the shared spacing/shape/motion/type scale. */
@@ -33,26 +33,34 @@ export const STATIC_TOKENS: Record<string, string> = {
     '--vela-font-size-lg': '14px',
 };
 
+// The two neutral schemes. Each is one ink stepped by alpha (6 / 10 / 15 / 20 / 30 / 40 / 50)
+// over three fixed surfaces: the plot, a floating surface for menus and dialogs, and a
+// sunken one for fields. Light is the mirror of dark: the ink and the plot swap roles, and
+// elevation keeps its logic (floating goes to the extreme, sunken steps toward the ink).
+const NEUTRALS = {
+    dark:  { ink: '#fafafa', inkMuted: '#a1a1a1', elevated: '#0a0a0a', sunken: '#171717', shadowAlpha: 0.4 },
+    light: { ink: '#111111', inkMuted: '#6b6b6b', elevated: '#ffffff', sunken: '#f0f0f0', shadowAlpha: 0.15 },
+} as const;
+
 /** Compute every theme token as a `--vela-*` → value map for one theme. */
 export function themeTokens(t: VelaTheme): Record<string, string> {
-    const dark = isDarkColor(t.background);
-    // One ink, stepped by alpha (6 / 10 / 15 / 20 / 30 / 40 / 50): every border, state and
-    // secondary-text token is a rung of that ladder, never its own gray.
-    const ink = dark ? '#fafafa' : t.textColor;
-    const a = (alpha: number) => withAlpha(ink, alpha);
+    const n = isDarkColor(t.background) ? NEUTRALS.dark : NEUTRALS.light;
+    // Every border, state and secondary-text token is a rung of the ink's alpha ladder,
+    // never its own gray.
+    const a = (alpha: number) => withAlpha(n.ink, alpha);
     return {
         '--vela-font': t.fontFamily,
         '--vela-bg': t.background,
         '--vela-surface': t.background,
-        // Floating chrome (menus, dialogs) sits on the DEEPEST surface and recessed fields
-        // (inputs, selects) on the lightest — both opaque, or candles read through a panel.
-        '--vela-surface-elev': dark ? '#0a0a0a' : mix(t.background, t.textColor, 0.05),
-        '--vela-surface-sunken': dark ? '#171717' : t.background,
+        // Floating chrome (menus, dialogs) and recessed fields (inputs, selects) sit on
+        // their own surfaces — both opaque, or candles read through a panel.
+        '--vela-surface-elev': n.elevated,
+        '--vela-surface-sunken': n.sunken,
         // Chrome text is brighter than the chart's own axis ink, which stays recessive.
-        '--vela-fg': ink,
-        '--vela-fg-muted': dark ? '#a1a1a1' : a(0.62),
+        '--vela-fg': n.ink,
+        '--vela-fg-muted': n.inkMuted,
         '--vela-fg-faint': a(0.4),
-        '--vela-border': dark ? a(0.1) : t.borderColor,
+        '--vela-border': a(0.1),
         '--vela-border-strong': a(0.2),
         // Barely-there rules INSIDE a panel (row separators), where a full border would
         // chop the list into boxes.
@@ -71,16 +79,16 @@ export function themeTokens(t: VelaTheme): Record<string, string> {
         '--vela-highlight': HIGHLIGHT,
         // The inverse chip: a filled selected state (active tab, ticked checkbox). Its ink
         // must contrast the fill, so the pair flips together with the theme.
-        '--vela-selected-bg': ink,
-        '--vela-selected-fg': dark ? t.background : '#ffffff',
+        '--vela-selected-bg': n.ink,
+        '--vela-selected-fg': t.background,
         // Fixed ink for saturated fills (accent buttons, categorical avatars) — those fills
         // are theme-independent, so their ink is too.
         '--vela-fg-on-fill': '#fafafa',
         '--vela-up': t.upColor,
         '--vela-down': t.downColor,
         '--vela-danger': t.downColor,
-        '--vela-shadow': '0 4px 10px 1px rgba(10,10,10,0.4)',
-        '--vela-shadow-dialog': '0 6px 15px 1.5px rgba(0,0,0,0.4)',
+        '--vela-shadow': `0 4px 10px 1px rgba(10,10,10,${n.shadowAlpha})`,
+        '--vela-shadow-dialog': `0 6px 15px 1.5px rgba(0,0,0,${n.shadowAlpha})`,
         '--vela-backdrop': withAlpha(t.background, 0.7),
     };
 }

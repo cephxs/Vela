@@ -400,8 +400,8 @@ describe('EngineOrchestrator', () => {
         const seen: string[] = [];
         chart.on('theme:changed', (t) => seen.push(t.background));
         chart.setTheme('light');
-        expect(renderer.themes.map((t) => t.background)).toEqual(['#ffffff']);
-        expect(seen).toEqual(['#ffffff']);
+        expect(renderer.themes.map((t) => t.background)).toEqual(['#fafafa']);
+        expect(seen).toEqual(['#fafafa']);
         // Candle hues are shared across themes — a theme swap never recolors the series.
         expect(renderer.themes[0]!.upColor).toBe(BULLISH);
         expect(renderer.themes[0]!.downColor).toBe(BEARISH);
