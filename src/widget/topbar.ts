@@ -49,9 +49,9 @@ const CSS = `
     min-width: 128px;
     box-sizing: border-box;
     justify-content: space-between;
-    padding: 0 12px;
+    padding: 0 8px;
     gap: 6px;
-    border-radius: 14px;
+    border-radius: var(--vela-radius-sm);
     background: var(--vela-surface-sunken);
 }
 .vela-widget-topbar .vela-widget-symbol .vela-icon { color: var(--vela-fg-muted); font-size: 18px; width: 18px; height: 18px; }
