@@ -8,7 +8,7 @@ import { rovingToolbar } from '../../../ui/roving';
 import { SECTION_LABEL_CSS } from '../../../ui/styles';
 
 /** Expanded bar width in px — a docked host's left-gutter reservation must match it. */
-export const TOOLBAR_WIDTH = 52;
+export const TOOLBAR_WIDTH = 40;
 /** Collapsed-strip width in px — just the expand chevron. */
 export const TOOLBAR_COLLAPSED_WIDTH = 16;
 
@@ -17,7 +17,7 @@ export interface DrawingToolbarOptions {
     /** Border/divider color. Default: the theme's border color (follows theme swaps). */
     borderColor?: string;
     /** Bar width in px. In docked (`'absolute'`) use it MUST match the host renderer's
-     *  left-gutter reservation ({@link TOOLBAR_WIDTH}, 52). Default 52. */
+     *  left-gutter reservation ({@link TOOLBAR_WIDTH}, 40). Default 40. */
     width?: number;
     /** `'absolute'` (default): pinned over the renderer's left gutter. `'static'`: a
      *  normal column child — a workspace docks ONE shared bar in its own layout. */
@@ -218,7 +218,7 @@ export class DrawingToolbar {
             this.paintGroupIcon(g);
         }
         // Measure ruler + eraser + magnet — renderer-local modes, not persistent-drawing tools.
-        this.root.appendChild(this.divider());
+        this.root.appendChild(this.divider(6));
         this.measureBtn = this.makeButton(RULER_ICON, 'Measure', () => this.onMeasure());
         this.root.appendChild(this.measureBtn);
         this.eraserBtn = this.makeButton(ERASER_ICON, 'Eraser (click/drag to delete)', () => this.onEraser());
@@ -683,9 +683,10 @@ export class DrawingToolbar {
         return btn;
     }
 
-    private divider(): HTMLElement {
+    /** A short hairline between tool groups, 4px of air on each side (plus `gapBefore`). */
+    private divider(gapBefore = 0): HTMLElement {
         const d = document.createElement('div');
-        d.style.cssText = `height:6px;flex:none;`; // group gap, no separator line
+        d.style.cssText = `width:22px;height:1px;flex:none;margin:${4 + gapBefore}px auto 4px;background:var(--vela-border);`;
         return d;
     }
 }
@@ -707,15 +708,15 @@ function ensureStyles(): void {
         document.head.appendChild(s);
     }
     s.textContent = `
-.vela-dtb-hit{position:absolute;inset:2px 9px;display:flex;align-items:center;justify-content:center;border-radius:var(--vela-radius-md);transition:background var(--vela-dur-fast) ease,color var(--vela-dur-fast) ease;}
-.vela-dtb-hit--arrow{position:static;width:11px;height:34px;border-radius:4px 0 0 4px;}
-.vela-dtb-btn{position:relative;width:100%;height:38px;flex:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:inherit;background:transparent;border:none;padding:0;transition:color var(--vela-dur-fast) ease;}
+.vela-dtb-hit{position:absolute;inset:4px 6px;display:flex;align-items:center;justify-content:center;border-radius:var(--vela-radius-md);transition:background var(--vela-dur-fast) ease,color var(--vela-dur-fast) ease;}
+.vela-dtb-hit--arrow{position:static;width:10px;height:28px;border-radius:4px 0 0 4px;}
+.vela-dtb-btn{position:relative;width:100%;height:36px;flex:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:inherit;background:transparent;border:none;padding:0;transition:color var(--vela-dur-fast) ease;}
 .vela-dtb-btn:hover{color:var(--vela-fg);}
 .vela-dtb-btn:hover .vela-dtb-hit{background:var(--vela-hover);}
 .vela-dtb-btn[data-active='1']{color:var(--vela-fg);}
 .vela-dtb-btn[data-active='1'] .vela-dtb-hit{background:var(--vela-active);}
-.vela-dtb-cell{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:38px;}
-.vela-dtb-icon{position:relative;flex:none;width:100%;height:38px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:inherit;cursor:pointer;padding:0;transition:color var(--vela-dur-fast) ease;}
+.vela-dtb-cell{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:36px;}
+.vela-dtb-icon{position:relative;flex:none;width:100%;height:36px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:inherit;cursor:pointer;padding:0;transition:color var(--vela-dur-fast) ease;}
 .vela-dtb-icon:hover{color:var(--vela-fg);}
 .vela-dtb-cell[data-active='1'] .vela-dtb-icon{color:var(--vela-fg);}
 .vela-dtb-cell[data-active='1'] .vela-dtb-icon .vela-dtb-hit{background:var(--vela-active);}
