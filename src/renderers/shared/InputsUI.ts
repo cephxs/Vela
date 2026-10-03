@@ -580,7 +580,7 @@ export class InputsUI {
                 if (this.selectedId !== id) this.setRowHighlighted(id, false);
             });
             lg.style.cssText =
-                'position:absolute;left:10px;z-index:5;display:flex;flex-direction:column;align-items:flex-start;gap:0;pointer-events:none;font:12px -apple-system,Segoe UI,sans-serif;';
+                'position:absolute;left:10px;z-index:5;display:flex;flex-direction:column;align-items:flex-start;gap:0;pointer-events:none;font:var(--vela-font-size-md) var(--vela-font);';
             // Chart-theme tokens so action-button hovers wash against the plot surface the
             // rows sit on (the wrapper beneath may carry the host's stable chrome surface).
             applyChromeTokens(lg, this.theme);
@@ -792,7 +792,7 @@ export class InputsUI {
         if (opts.beta) {
             const beta = document.createElement('sup');
             beta.textContent = 'beta';
-            beta.style.cssText = 'font-size:8px;font-weight:700;opacity:0.7;margin-left:1px;letter-spacing:0.2px;';
+            beta.style.cssText = 'font-size:8px;opacity:0.7;margin-left:1px;';
             titleWrap.appendChild(beta);
         }
         el.appendChild(titleWrap);

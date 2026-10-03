@@ -1361,6 +1361,7 @@ export class VelaWorkspace {
         this.flushPendingState(); // the user's last edit, before anything is torn down
         this.destroyed = true;
         this.replay.destroy();
+        this.slTfMenu?.destroy();
         if (this.persistKey !== null && typeof window !== 'undefined') window.removeEventListener('beforeunload', this.onUnload);
         this.resizeObserver?.disconnect();
         this.splitters.destroy();
@@ -1705,6 +1706,8 @@ export class VelaWorkspace {
                 onStateDirty: () => this.markStateDirty(),
                 manifestSettled: () => this.manifestSettled,
                 toast: (message, kind, durationMs) => this.toastHost.show(message, kind, durationMs),
+                openSymbolPicker: () => this.symbolPicker.open(),
+                openTimeframe: (anchor) => this.openTimeframeMenu(anchor),
             });
             cell.host.style.gridArea = perCell[slot.id]?.gridArea ?? '';
             this.cellsById.set(id, cell);
@@ -2203,6 +2206,35 @@ export class VelaWorkspace {
     }
 
     // ── mobile drawers (built on first open; every read is live and hits the ACTIVE cell) ──
+
+    /** The status line's timeframe button: the topbar's own list, dropped under the
+     *  button (the drawer on a phone). The list is one shared menu — the cell that was
+     *  clicked is already the active one, so the pick lands on it. Closing hands focus
+     *  back to the button, as the dialogs do. */
+    private slTfMenu: Menu | null = null;
+    private slTfAnchor: HTMLElement | null = null;
+    private openTimeframeMenu(anchor: HTMLElement): void {
+        if (this.layoutCtl.current === 'mobile') {
+            this.openTimeframeDrawer();
+            return;
+        }
+        this.slTfMenu ??= new Menu({
+            host: this.root,
+            items: [],
+            placement: 'bottom-start',
+            minWidth: '84px',
+            onSelect: (tf) => this.setActiveTimeframe(tf),
+            onFavorite: (tf, on) => this.setTimeframeFavorite(tf, on),
+            onOpenChange: (open) => {
+                this.trackDialog(open);
+                if (!open) this.slTfAnchor?.focus({ preventScroll: true });
+            },
+        });
+        this.slTfAnchor = anchor;
+        this.slTfMenu.setItems(this.topbar.timeframeItems());
+        const r = anchor.getBoundingClientRect();
+        this.slTfMenu.openAt(r.left, r.bottom);
+    }
 
     private openTimeframeDrawer(): void {
         this.tfDrawer ??= new TimeframeDrawer({

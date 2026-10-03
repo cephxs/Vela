@@ -18,7 +18,7 @@ export const SELECT_CSS = `
     border: 1px solid var(--vela-border-strong);
     border-radius: 6px;
     color: var(--vela-fg);
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
     font-family: inherit;
     cursor: pointer;
     text-align: left;
@@ -32,14 +32,14 @@ export const SELECT_CSS = `
     background: var(--vela-surface-elev);
     border-radius: var(--vela-radius-sm);
     color: var(--vela-fg);
-    font-size: 13px;
+    font-size: var(--vela-font-size-md);
     box-shadow: none;
 }
 .vela-select[data-size='sm'] .vela-select-trigger:focus { box-shadow: none; border-color: var(--vela-fg-muted); }
 .vela-select-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 /* Compact toolbar selects still hug the widest option (no 100px kit column). */
 .vela-select[data-size='sm']:not([data-fill]) { width: auto; max-width: 200px; }
-.vela-select-sizer { visibility: hidden; height: 0; overflow: hidden; font-size: 13px; }
+.vela-select-sizer { visibility: hidden; height: 0; overflow: hidden; font-size: var(--vela-font-size-md); }
 .vela-select-sizer span { display: block; height: 0; white-space: nowrap; padding: 0 26px 0 8px; border-inline: 1px solid transparent; }
 .vela-select-chevron {
     position: absolute;
@@ -60,11 +60,11 @@ export const SELECT_CSS = `
     border: none;
     border-radius: 6px;
     box-shadow: var(--vela-shadow);
-    font: 14px var(--vela-font);
+    font: var(--vela-font-size-lg) var(--vela-font);
     padding: 4px;
     overflow: hidden;
 }
-.vela-select-list[data-size='sm'] { font-size: 13px; background: var(--vela-surface-elev); }
+.vela-select-list[data-size='sm'] { font-size: var(--vela-font-size-md); background: var(--vela-surface-elev); }
 .vela-select-items { width: max-content; min-width: 100%; max-height: none; overflow: hidden; }
 .vela-select-list.is-scroll { display: flex; align-items: stretch; gap: 2px; }
 .vela-select-list.is-scroll .vela-select-items {

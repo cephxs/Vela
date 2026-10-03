@@ -14,7 +14,7 @@ export const GLYPH_SELECT_CSS = `
     flex: none;
     justify-self: start;
     color: var(--vela-fg);
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
     font-family: inherit;
     outline: none;
     position: relative;
@@ -43,7 +43,7 @@ export const GLYPH_SELECT_CSS = `
     flex-direction: column;
     gap: 1px;
     color: var(--vela-fg);
-    font: 14px var(--vela-font);
+    font: var(--vela-font-size-lg) var(--vela-font);
 }
 .vela-glyph-select-item {
     display: flex;

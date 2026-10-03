@@ -5,6 +5,7 @@ import { icon } from '../../../core/icons';
 import { applyChromeTokens } from '../../shared/theme-tokens';
 import { attachChromeTooltip } from '../../shared/chrome-tooltip';
 import { rovingToolbar } from '../../../ui/roving';
+import { SECTION_LABEL_CSS } from '../../../ui/styles';
 
 /** Expanded bar width in px — a docked host's left-gutter reservation must match it. */
 export const TOOLBAR_WIDTH = 52;
@@ -546,8 +547,7 @@ export class DrawingToolbar {
         const header = document.createElement('div');
         header.textContent = text.toUpperCase();
         header.style.cssText =
-            `padding:6px 12px 2px 8px;font:var(--vela-font-size-sm) ${t.fontFamily};font-weight:600;letter-spacing:0.04em;` +
-            `color:var(--vela-fg-muted);user-select:none;`;
+            `padding:6px 12px 2px 8px;${SECTION_LABEL_CSS}font-family:${t.fontFamily};user-select:none;`;
         return header;
     }
 

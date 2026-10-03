@@ -14,7 +14,8 @@ export const MENU_CSS = `
     min-width: 180px;
     max-height: 60vh;
     overflow-y: auto;
-    font-size: 13px;
+    font-size: var(--vela-font-size-lg);
+    line-height: var(--vela-line-height-lg);
     z-index: var(--vela-z-menu);
     outline: none;
 }
@@ -58,7 +59,7 @@ export const MENU_CSS = `
 .vela-menu-item .vela-menu-mark .vela-icon {
     width: 14px;
     height: 14px;
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
     color: var(--vela-fg);
 }
 .vela-menu-item[data-checkmark] { color: var(--vela-fg); }
@@ -113,7 +114,7 @@ export const MENU_CSS = `
     margin-left: auto;
     width: 12px;
     flex: none;
-    font-size: 11px;
+    font-size: var(--vela-font-size-sm);
     color: var(--vela-fg-faint);
 }
 .vela-menu-item[data-state='open'] { background: var(--vela-hover); }

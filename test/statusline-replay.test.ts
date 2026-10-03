@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 // The status line's badge: the market session state normally, the replay mode while the
-// chart replays past bars — and the ticker's dot spacing.
-import { describe, it, expect } from 'vitest';
+// chart replays past bars — and the identity row's order and buttons.
+import { describe, it, expect, vi } from 'vitest';
 import { Statusline } from '../src/widget/statusline';
 
 // jsdom ships no CSS.escape; the kit's style injection needs it for its id lookup.
@@ -40,9 +40,32 @@ describe('Statusline badge', () => {
         line.destroy();
     });
 
-    it('sits the meta dot one space after the ticker, not a full row gap away', () => {
-        make().line.destroy();
-        const css = [...document.querySelectorAll('style')].map((s) => s.textContent ?? '').join('\n');
-        expect(css).toContain('.vela-statusline .vela-sl-symbol + .vela-sl-meta { margin-left: calc(var(--vela-space-1) - var(--vela-space-2)); }');
+});
+
+describe('Statusline identity', () => {
+    it('reads symbol, timeframe, venue in that order, with the pickers behind the first two', () => {
+        const { line } = make();
+        const row = line.el.querySelector<HTMLElement>('.vela-sl-identity')!;
+        const classes = [...row.children].map((c) => `${c.tagName.toLowerCase()}.${c.className.split(' ')[0]}`);
+        expect(classes).toEqual(['span.vela-sl-avatar', 'button.vela-sl-symbol', 'button.vela-sl-tf', 'span.vela-sl-venue', 'span.vela-sl-market']);
+        const symbol = row.querySelector<HTMLButtonElement>('.vela-sl-symbol')!;
+        const tf = row.querySelector<HTMLButtonElement>('.vela-sl-tf')!;
+        const venue = row.querySelector<HTMLElement>('.vela-sl-venue')!;
+        expect(symbol.getAttribute('aria-label')).toBe('Change symbol');
+        expect(tf.getAttribute('aria-label')).toBe('Change interval');
+
+        line.setMeta('60', 'binance');
+        expect([symbol.textContent, tf.textContent, venue.textContent, venue.title]).toEqual(['BTCUSDT', '1h', 'BINANCE', 'BINANCE']);
+        line.setMeta('60', '');
+        expect(venue.style.display).toBe('none');
+
+        const openSymbol = vi.fn();
+        const openTimeframe = vi.fn();
+        line.attachMenu({ setPart: () => {}, chartVisible: () => true, setChartVisible: () => {}, openSymbol, openTimeframe });
+        symbol.click();
+        tf.click();
+        expect(openSymbol).toHaveBeenCalledTimes(1);
+        expect(openTimeframe).toHaveBeenCalledWith(tf);
+        line.destroy();
     });
 });

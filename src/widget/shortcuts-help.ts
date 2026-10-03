@@ -3,15 +3,12 @@
 // (plugin-registered bindings appear automatically).
 import type { KeymapManager } from '../ui/keymap';
 import { Dialog } from '../ui/components/dialog';
-import { injectStyles } from '../ui/styles';
+import { injectStyles, SECTION_LABEL_CSS } from '../ui/styles';
 
 const STYLE_ID = 'vela-widget-shortcuts';
 const CSS = `
 .vela-sh-cat {
-    color: var(--vela-fg-muted);
-    font-size: var(--vela-font-size-sm);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    ${SECTION_LABEL_CSS}
     padding: var(--vela-space-2) 0 var(--vela-space-1);
 }
 .vela-sh-row { display: flex; align-items: center; gap: var(--vela-space-3); padding: 3px 0; }

@@ -12,7 +12,7 @@
 import type { Vela } from '../Vela';
 import type { IndicatorHandle } from '../core/IndicatorHandle';
 import type { SerializedDrawing } from '../core/drawings/Drawing';
-import { injectStyles } from '../ui/styles';
+import { injectStyles, SECTION_LABEL_CSS } from '../ui/styles';
 import { iconEl } from '../ui/icons';
 import { Menu, type MenuItemDescriptor } from '../ui/components/menu';
 import { tickerIconEl } from './symbol-icon';
@@ -63,11 +63,7 @@ const CSS = `
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: var(--vela-fg-muted);
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    ${SECTION_LABEL_CSS}
 }
 .vela-ot-panesep { height: 1px; background: var(--vela-border); margin: 6px 8px; }
 
@@ -100,16 +96,14 @@ const CSS = `
     align-items: center;
     justify-content: center;
     color: var(--vela-fg-on-fill);
-    font-size: 10px;
-    font-weight: 700;
+    font-size: var(--vela-font-size-sm);
+    font-weight: 600;
 }
 /* "scale": this indicator draws against its own price scale, not the pane's. */
 .vela-ot-tag {
     flex: none;
-    font-size: 9px;
-    font-weight: 600;
+    font-size: var(--vela-font-size-sm);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
     color: var(--vela-fg-muted);
     background: var(--vela-hover);
     border-radius: 3px;
@@ -129,7 +123,7 @@ const CSS = `
     justify-content: center;
     border-radius: 3px;
     color: var(--vela-fg-muted);
-    font-size: 12px;
+    font-size: var(--vela-font-size-md);
     visibility: hidden;
 }
 .vela-ot-row:hover .vela-ot-btn,
@@ -139,7 +133,7 @@ const CSS = `
 .vela-ot-row .vela-ot-btn[data-engaged] { visibility: visible; color: var(--vela-fg); }
 .vela-ot-btn:hover:not(:disabled) { background: var(--vela-active); color: var(--vela-fg); }
 .vela-ot-btn:disabled { opacity: 0.35; cursor: default; }
-.vela-ot-empty { padding: 20px 10px; text-align: center; color: var(--vela-fg-muted); font-size: 12px; }
+.vela-ot-empty { padding: 20px 10px; text-align: center; color: var(--vela-fg-muted); font-size: var(--vela-font-size-md); }
 
 /* ── drawing groups ── */
 /* One top-level entry in a pane's drawing list: a lone drawing, or a whole group block. No
@@ -177,7 +171,7 @@ const CSS = `
     border-bottom: 1px solid var(--vela-border);
     background: var(--vela-bg);
 }
-.vela-ot-selcount { flex: 1; min-width: 0; color: var(--vela-fg-muted); font-size: 11px; }
+.vela-ot-selcount { flex: 1; min-width: 0; color: var(--vela-fg-muted); font-size: var(--vela-font-size-sm); }
 .vela-ot-selbar .vela-ot-btn { visibility: visible; width: 24px; height: 22px; }
 .vela-ot-selbar .vela-ot-btn[data-icon='group'] .vela-icon { width: 16px; height: 16px; font-size: 16px; }
 
@@ -224,7 +218,7 @@ const CSS = `
     background: var(--vela-surface-elev);
     color: var(--vela-fg);
     box-shadow: var(--vela-shadow);
-    font-size: 12px;
+    font-size: var(--vela-font-size-md);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

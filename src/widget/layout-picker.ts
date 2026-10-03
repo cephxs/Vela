@@ -8,7 +8,7 @@
 // rather than a kit Menu: it mixes a canvas and switch rows, which is beyond the menu
 // machine's item model. The host element provides the theme tokens (the panel portals
 // inside it, same as the menu positioner).
-import { injectStyles } from '../ui/styles';
+import { injectStyles, SECTION_LABEL_CSS } from '../ui/styles';
 import { Tooltip } from '../ui/components/tooltip';
 
 const STYLE_ID = 'vela-widget-layout-picker-v14';
@@ -23,7 +23,7 @@ const CSS = `
     border-radius: 8px;
     box-shadow: var(--vela-shadow);
     padding: 10px 12px 10px;
-    font-size: 13px;
+    font-size: var(--vela-font-size-lg);
     user-select: none;
     transform-origin: top;
     animation: vela-lp-in var(--vela-dur-fast) var(--vela-ease);
@@ -37,11 +37,7 @@ const CSS = `
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--vela-fg-faint);
+    ${SECTION_LABEL_CSS}
     margin-bottom: 10px;
 }
 /* "?" help badge: hover it for the canvas explainer. */
@@ -54,9 +50,8 @@ const CSS = `
     border-radius: 50%;
     border: 1px solid var(--vela-border-strong);
     color: var(--vela-fg-muted);
-    font-size: 9px;
+    font-size: var(--vela-font-size-sm);
     font-weight: 600;
-    letter-spacing: 0;
     cursor: default;
     transition: color var(--vela-dur-fast) var(--vela-ease), border-color var(--vela-dur-fast) var(--vela-ease);
 }
@@ -83,7 +78,7 @@ const CSS = `
     border-color: var(--vela-selected-bg);
 }
 .vela-lp-presets { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
-.vela-lp-preset { all: unset; padding: 5px 8px; border-radius: 4px; cursor: pointer; color: var(--vela-fg-muted); font-size: 12px; white-space: nowrap; transition: transform 120ms var(--vela-ease); }
+.vela-lp-preset { all: unset; padding: 5px 8px; border-radius: 4px; cursor: pointer; color: var(--vela-fg-muted); font-size: var(--vela-font-size-md); white-space: nowrap; transition: transform 120ms var(--vela-ease); }
 .vela-lp-preset:hover { background: var(--vela-hover); }
 .vela-lp-preset:active { transform: scale(0.98); }
 .vela-lp-preset[data-checked='1'] { background: var(--vela-hover-strong); color: var(--vela-fg); }

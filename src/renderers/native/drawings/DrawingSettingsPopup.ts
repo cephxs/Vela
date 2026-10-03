@@ -977,7 +977,7 @@ export class DrawingSettingsPopup {
                     row.style.cssText = 'display:flex;align-items:center;gap:6px;padding-bottom:9px;border-bottom:1px solid var(--vela-border);';
                     const lbl = document.createElement('span');
                     lbl.textContent = 'In use';
-                    lbl.style.cssText = 'font:var(--vela-font-size-sm) inherit;opacity:0.7;margin-right:2px;';
+                    lbl.style.cssText = 'font-size:var(--vela-font-size-sm);opacity:0.7;margin-right:2px;';
                     row.appendChild(lbl);
                     for (const c of used) {
                         const sw = document.createElement('button');

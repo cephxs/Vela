@@ -18,7 +18,7 @@ const STATIC_DECLS = Object.entries(STATIC_TOKENS)
 const STATIC_CSS = `
 .vela-ui, .vela-ui-layer {
 ${STATIC_DECLS}
-    font-family: var(--vela-font, -apple-system, system-ui, sans-serif);
+    font-family: var(--vela-font, -apple-system, system-ui, "Trebuchet MS", Roboto, Ubuntu, sans-serif);
     box-sizing: border-box;
     /* Chrome text (titles, buttons, menus, readouts) is UI, not copy — never selectable. */
     user-select: none;
@@ -35,7 +35,7 @@ ${STATIC_DECLS}
    mobile size class is the honest gate — not a media query — so an embedded
    chart on a wide desktop still gets the rule when it is in the phone layout.
    Scoped to the kit root so a host page's own [data-layout] is never touched. */
-.vela-ui[data-layout='mobile'] :is(input, textarea, select) { font-size: 16px; }
+.vela-ui[data-layout='mobile'] :is(input, textarea, select) { font-size: 16px; } /* type-exempt: the iOS zoom threshold */
 .vela-icon { display: inline-flex; align-items: center; flex: none; }
 .vela-icon svg { display: block; }
 `;

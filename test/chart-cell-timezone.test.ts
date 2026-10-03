@@ -170,6 +170,8 @@ function makeDeps(feed: MultiProviderFeed, timezone: () => string, over: Partial
         onStatusPrefsChanged: () => {},
         onStateDirty: () => {},
         toast: () => {},
+        openSymbolPicker: () => {},
+        openTimeframe: () => {},
         ...over,
     };
 }
