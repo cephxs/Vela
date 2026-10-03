@@ -165,15 +165,15 @@ const CSS = `
 .vela-ws-toolbar { position: relative; flex: none; }
 .vela-ws-strips { position: relative; flex: none; display: flex; flex-direction: column; min-width: 0; }
 .vela-ws-strips:empty { display: none; }
-.vela-ws-well { position: relative; flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; border-radius: var(--vela-radius-sm); overflow: hidden; background: var(--vela-bg); }
-.vela-ws-grid { position: relative; flex: 1 1 auto; min-height: 0; display: grid; gap: ${GAP_PX}px; background: var(--vela-border); }
+.vela-ws-well { position: relative; flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.vela-ws-grid { position: relative; flex: 1 1 auto; min-height: 0; display: grid; gap: ${GAP_PX}px; border-radius: var(--vela-radius-sm); overflow: hidden; background: var(--vela-border); }
 .vela-cell { background: var(--vela-bg); position: relative; }
 /* Active-cell highlight: an overlay ring ABOVE the chart's own canvas stack (a plain
    outline on the cell is painted under them) — inert to the pointer. Scoped to
    multi-cell grids ([data-multi]): a single-cell layout always has an active cell,
    and ringing the only chart would just be noise. The same overlay, in the accent, is
    the chart's keyboard focus ring: it covers the whole cell, scales included, and sits
-   inside the well's rounded corner. */
+   inside the grid's rounded corner. */
 .vela-ws-grid[data-multi='1'] .vela-cell[data-active='1']::after,
 .vela-cell:has(canvas:focus-visible)::after {
     content: '';
@@ -645,7 +645,8 @@ export class VelaWorkspace {
             toolbarHost.className = 'vela-ws-toolbar';
             main.appendChild(toolbarHost);
         }
-        // The well: the grid plus the bottom bar, one rounded surface the rails sit beside.
+        // The well: the grid, the docked strips and the bottom bar, stacked on the same seam
+        // that sets the rails apart.
         this.wellEl = doc.createElement('div');
         this.wellEl.className = 'vela-ws-well';
         main.appendChild(this.wellEl);
