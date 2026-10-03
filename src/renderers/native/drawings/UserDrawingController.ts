@@ -107,7 +107,7 @@ export class UserDrawingController implements IDrawingsRendererPort {
     private lastBounds = new Map<string, readonly number[]>();
     private selectedIds = new Set<string>(); // selected drawings (handles shown); [first] drives the popup
     private hoveredId: string | null = null; // the drawing under the cursor (its handles show)
-    private hoveredHandle: { id: string; index: number } | null = null; // the showing handle under the cursor
+    private hoveredHandleOf: string | null = null; // the drawing one of whose showing handles is under the cursor
     private activeTool: DrawingTypeKey | null = null;
     private activeToolStyle: SerializedDrawing['style'] | undefined; // last-used style for the armed tool (seeds the placement ghost)
     private intentCb: ((i: DrawingIntent) => void) | null = null;
@@ -501,14 +501,14 @@ export class UserDrawingController implements IDrawingsRendererPort {
      *  selected, so a hovered candidate doesn't already read as selected. */
     private updateHover(x: number, y: number, mod = false): void {
         let id: string | null = null;
-        let handle: { id: string; index: number } | null = null;
+        let handleOf: string | null = null;
         if (!mod && this.activeTool == null && !this.interaction.isPlacing() && !this.interaction.isDragging()) {
             id = topDrawingAt(this.drawings, x, y, this.deps.projector(), HIT_TOLERANCE)?.id ?? null;
-            handle = this.interaction.handleAt(x, y);
+            handleOf = this.interaction.handleAt(x, y)?.id ?? null;
         }
-        if (id !== this.hoveredId || handle?.id !== this.hoveredHandle?.id || handle?.index !== this.hoveredHandle?.index) {
+        if (id !== this.hoveredId || handleOf !== this.hoveredHandleOf) {
             this.hoveredId = id;
-            this.hoveredHandle = handle;
+            this.hoveredHandleOf = handleOf;
             this.render();
         }
     }
@@ -986,7 +986,7 @@ export class UserDrawingController implements IDrawingsRendererPort {
             hovered: this.hoveredId,
             dragged: this.interaction.activeDragId(),
             mutedLabel: edited instanceof TextLabel ? edited.id : null,
-            handle: pressedHandle ? { ...pressedHandle, state: 'clicked' } : this.hoveredHandle ? { ...this.hoveredHandle, state: 'hovered' } : null,
+            handle: pressedHandle ? { id: pressedHandle.id, state: 'clicked' } : this.hoveredHandleOf ? { id: this.hoveredHandleOf, state: 'hovered' } : null,
         };
         // Front (non-interleaved) drawings paint fully here; the ones interleaved into the series
         // stack painted their bodies on the backend layers, so only their handles come back on top

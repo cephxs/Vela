@@ -12,11 +12,13 @@ const HANDLE_RADIUS = 4; // px radius of a drag handle's white disc
 /** Handle chrome is fixed (not the drawing's line color) so tools with atypical accents —
  *  e.g. regression gray / FRVP green — still match every other drawing's anchors. The disc is
  *  the chart background, so a handle reads as a hole in the line. A 1px ring hugs it: bright at
- *  rest, deep blue under the cursor or while held, and the hovered one wears a faint halo. */
+ *  rest, deep blue once the cursor is on any handle of the drawing or holds one, and every
+ *  handle of a hovered drawing wears a 2px halo. */
 const HANDLE_BORDER = DEFAULT_DRAWING_COLOR;
 const HANDLE_BORDER_ACTIVE = ACCENT;
 const HANDLE_FILL = '#ffffff'; // until the first paint hands over the chart background
-const HANDLE_HALO = withAlpha(ACCENT, 0.2);
+const HANDLE_HALO = withAlpha(ACCENT, 0.4);
+const HANDLE_HALO_WIDTH = 2;
 const GHOST_ALPHA = 0.7;
 /** Info badges (regression R², measure deltas) float over CHART CONTENT of any color, so
  *  they keep a fixed dark plate instead of a themed surface. */
@@ -41,13 +43,13 @@ export interface PaintTargets {
     hovered?: string | null;
     dragged?: string | null;
     mutedLabel?: string | null;
-    /** The one handle the cursor is on (`hovered`) or holding (`clicked`): it wears the active ring. */
+    /** The drawing whose handle the cursor is on (`hovered`) or holding (`clicked`): all of its
+     *  handles wear the active ring. */
     handle?: ActiveHandle | null;
 }
 
 export interface ActiveHandle {
     id: string;
-    index: number;
     state: 'hovered' | 'clicked';
 }
 
@@ -107,7 +109,7 @@ export class DrawingPainter {
         if (highlightIds.size === 0) return;
         for (const d of drawings) {
             if (d.visible && highlightIds.has(d.id)) {
-                this.paintClipped(ctx, d, proj, () => this.paintHandles(ctx, d.handlePoints(proj), active?.id === d.id ? active : null));
+                this.paintClipped(ctx, d, proj, () => this.paintHandles(ctx, d.handlePoints(proj), active?.id === d.id ? active.state : 'rest'));
             }
         }
     }
@@ -1685,16 +1687,16 @@ export class DrawingPainter {
         ctx.setLineDash(dashPattern(style.lineStyle, style.lineWidth));
     }
 
-    /** Round selection/placement handles: a white disc in a 1px ring (shared chrome, not the
-     *  drawing's line color). `active` picks the one handle under the cursor / being held. */
-    paintHandles(ctx: CanvasRenderingContext2D, points: ReadonlyArray<readonly [number, number]>, active?: Pick<ActiveHandle, 'index' | 'state'> | null): void {
+    /** Round selection/placement handles: a disc in a 1px ring (shared chrome, not the drawing's
+     *  line color). `state` is the drawing's: every handle shows it, so the cursor on one anchor
+     *  lights the whole set. */
+    paintHandles(ctx: CanvasRenderingContext2D, points: ReadonlyArray<readonly [number, number]>, state: ActiveHandle['state'] | 'rest' = 'rest'): void {
         ctx.setLineDash([]);
-        ctx.lineWidth = 1;
-        points.forEach(([x, y], i) => {
-            const state = active?.index === i ? active.state : 'rest';
+        for (const [x, y] of points) {
             if (state === 'hovered') {
                 ctx.beginPath();
-                ctx.arc(x, y, HANDLE_RADIUS + 1.5, 0, Math.PI * 2);
+                ctx.arc(x, y, HANDLE_RADIUS + 1 + HANDLE_HALO_WIDTH / 2, 0, Math.PI * 2);
+                ctx.lineWidth = HANDLE_HALO_WIDTH;
                 ctx.strokeStyle = HANDLE_HALO;
                 ctx.stroke();
             }
@@ -1702,9 +1704,10 @@ export class DrawingPainter {
             ctx.arc(x, y, HANDLE_RADIUS + 0.5, 0, Math.PI * 2);
             ctx.fillStyle = this.handleFill;
             ctx.fill();
+            ctx.lineWidth = 1;
             ctx.strokeStyle = state === 'rest' ? HANDLE_BORDER : HANDLE_BORDER_ACTIVE;
             ctx.stroke();
-        });
+        }
     }
 }
 
