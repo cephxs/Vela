@@ -11,11 +11,12 @@ import { valueDecimals } from '../chrome/ticks';
 const HANDLE_RADIUS = 4; // px radius of a drag handle's white disc
 /** Handle chrome is fixed (not the drawing's line color) so tools with atypical accents —
  *  e.g. regression gray / FRVP green — still match every other drawing's anchors. The disc is
- *  the chart background, so a handle reads as a hole in the line. A 1px ring hugs it: bright at
- *  rest, deep blue once the cursor is on any handle of the drawing or holds one, and every
- *  handle of a hovered drawing wears a 2px halo. */
-const HANDLE_BORDER = DEFAULT_DRAWING_COLOR;
-const HANDLE_BORDER_ACTIVE = ACCENT;
+ *  the chart background, so a handle reads as a hole in the line. A 1px deep-blue ring hugs it
+ *  in every state; once the cursor is on any handle of the drawing, every handle wears a 2px
+ *  halo, which drops while one is held. */
+const HANDLE_RING = ACCENT;
+/** The marquee keeps the drawings' default blue, as the line it sweeps for. */
+const MARQUEE_COLOR = DEFAULT_DRAWING_COLOR;
 const HANDLE_FILL = '#ffffff'; // until the first paint hands over the chart background
 const HANDLE_HALO = withAlpha(ACCENT, 0.4);
 const HANDLE_HALO_WIDTH = 2;
@@ -189,9 +190,9 @@ export class DrawingPainter {
      *  accent under a thin dashed outline. */
     paintMarquee(ctx: CanvasRenderingContext2D, rect: { x: number; y: number; w: number; h: number }): void {
         ctx.save();
-        ctx.fillStyle = withAlpha(HANDLE_BORDER, 0.08);
+        ctx.fillStyle = withAlpha(MARQUEE_COLOR, 0.08);
         ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
-        ctx.strokeStyle = HANDLE_BORDER;
+        ctx.strokeStyle = MARQUEE_COLOR;
         ctx.lineWidth = 1;
         ctx.setLineDash([4, 3]);
         ctx.strokeRect(rect.x + 0.5, rect.y + 0.5, rect.w, rect.h);
@@ -1705,7 +1706,7 @@ export class DrawingPainter {
             ctx.fillStyle = this.handleFill;
             ctx.fill();
             ctx.lineWidth = 1;
-            ctx.strokeStyle = state === 'rest' ? HANDLE_BORDER : HANDLE_BORDER_ACTIVE;
+            ctx.strokeStyle = HANDLE_RING;
             ctx.stroke();
         }
     }
