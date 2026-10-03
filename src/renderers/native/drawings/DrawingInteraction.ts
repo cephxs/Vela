@@ -197,6 +197,13 @@ export class DrawingInteraction {
         return this.state.kind === 'pressed' && this.state.moved ? this.state.id : null;
     }
 
+    /** The store drawings a live drag is moving — the pressed one and its riders — or none
+     *  before the drag passes the slop. A Ctrl-drag moves copies, so its sources stay put. */
+    movingIds(): ReadonlySet<string> {
+        if (this.state.kind !== 'pressed' || !this.state.moved || this.state.clones) return new Set();
+        return new Set([this.state.id, ...this.state.riders.map((r) => r.id)]);
+    }
+
     /** The handle under an unreleased press (held, whether or not it has moved yet), or null. */
     pressedHandle(): { id: string; index: number } | null {
         return this.state.kind === 'pressed' && this.state.handle >= 0 ? { id: this.state.id, index: this.state.handle } : null;

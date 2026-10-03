@@ -18,6 +18,11 @@ All notable changes to Vela, newest first.
 
 ### Fixed
 
+- **Dragging a drawing that sits under the candles keeps up with the mouse.** While you
+  drag such a drawing (or a selection that includes one) it rides the top drawing layer,
+  so each pointer move repaints one small layer instead of re-rasterizing and re-uploading
+  a plot-sized texture through the data frame. It settles back under the candles on
+  release. Placing a new drawing no longer triggers that data repaint on every move either.
 - **Dragging the chart keeps up with the mouse on high-resolution displays.** On a 4K or
   Retina-class screen a drag could repaint only every second or third frame, so the chart
   trailed the pointer and looked jittery. The native renderer no longer multisamples its
