@@ -178,6 +178,8 @@ function makeDeps(over: Partial<CellDeps> = {}): CellDeps {
         onStatusPrefsChanged: () => {},
         onStateDirty: () => {},
         toast: () => {},
+        openSymbolPicker: () => {},
+        openTimeframe: () => {},
         ...over,
     };
 }
