@@ -6,6 +6,10 @@ All notable changes to Vela, newest first.
 
 ### Changed
 
+- **One type scale for the chrome.** Every bar, panel, menu and picker uses three text sizes
+  (11, 12 and 14px) with matching line heights and two weights, with bold kept for the active
+  symbol, prices and panel titles. The small uppercase section labels share one style, and the
+  letter-spacing that some of them carried is gone.
 - **The charts sit in a rounded well.** The chart grid is one rounded surface, and the top
   bar, the drawing toolbar, the side panel and the bottom bar stand 4px apart from it on the
   field surface instead of touching it along hairlines. The bars share one rhythm: tools,
