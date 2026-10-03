@@ -51,7 +51,7 @@ const CSS = `
     gap: 0;
     height: 38px;
     padding: 0 8px;
-    border-top: 1px solid var(--vela-border);
+    border-radius: var(--vela-radius-sm);
     background: var(--vela-bg);
     color: var(--vela-fg-muted);
     font-size: 12px;
