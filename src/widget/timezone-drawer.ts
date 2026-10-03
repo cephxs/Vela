@@ -20,7 +20,7 @@ const CSS = `
     -webkit-tap-highlight-color: transparent;
 }
 .vela-tzd-row:active { background: var(--vela-hover); }
-.vela-tzd-row-label { flex: 1 1 auto; min-width: 0; font-size: 14px; color: var(--vela-fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vela-tzd-row-label { flex: 1 1 auto; min-width: 0; font-size: var(--vela-font-size-lg); color: var(--vela-fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .vela-tzd-row .vela-icon { flex: none; color: var(--vela-fg); }
 `;
 

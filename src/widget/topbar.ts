@@ -38,15 +38,13 @@ const CSS = `
     border-radius: 4px;
     cursor: pointer;
     color: var(--vela-fg-muted);
-    font-size: 13px;
-    font-weight: 550;
+    font-size: var(--vela-font-size-lg);
     white-space: nowrap;
 }
 .vela-widget-symbol {
     color: var(--vela-fg);
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
     font-weight: 600;
-    letter-spacing: 0.3px;
     height: 28px;
     min-width: 128px;
     box-sizing: border-box;
@@ -70,7 +68,7 @@ const CSS = `
 .vela-widget-tf-chips { display: inline-flex; align-items: center; gap: 0; }
 .vela-widget-tf-chips:empty { display: none; }
 /* Chips and tools paint their highlight on a ::before inset 2px, behind the label. */
-.vela-widget-tf { position: relative; isolation: isolate; height: 38px; border-radius: 0; background: transparent; padding: 0 6px; color: var(--vela-fg); font-size: 14px; font-weight: 400; }
+.vela-widget-tf { position: relative; isolation: isolate; height: 38px; border-radius: 0; background: transparent; padding: 0 6px; color: var(--vela-fg); font-size: var(--vela-font-size-lg); font-weight: 400; }
 .vela-widget-tf::before, .vela-widget-tool::before {
     content: '';
     position: absolute;
@@ -101,8 +99,7 @@ const CSS = `
     padding: 0 6px 0 9px;
     gap: 4px;
     color: var(--vela-fg);
-    font-size: 13px;
-    font-weight: 550;
+    font-size: var(--vela-font-size-lg);
     white-space: nowrap;
 }
 .vela-widget-topbar .vela-widget-tf-caret .vela-icon { font-size: 14px; width: 14px; height: 14px; }
@@ -121,8 +118,8 @@ const CSS = `
     border-radius: 7px;
     background: var(--vela-accent);
     color: var(--vela-fg-on-fill);
-    font-size: 9px;
-    font-weight: 700;
+    font-size: var(--vela-font-size-sm);
+    font-weight: 600;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -149,7 +146,7 @@ const CSS = `
     height: 38px;
     cursor: pointer;
     color: var(--vela-fg-muted);
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
 }
 .vela-widget-topbar .vela-widget-tool .vela-icon { font-size: 18px; width: 18px; height: 18px; }
 .vela-widget-tool:hover:not(:disabled) { color: var(--vela-fg); }

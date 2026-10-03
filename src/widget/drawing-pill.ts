@@ -61,8 +61,8 @@ const CSS = `
     position: absolute;
     top: 2px;
     right: 2px;
-    font-size: 8px;
-    font-weight: 700;
+    font-size: var(--vela-font-size-sm);
+    font-weight: 600;
     color: var(--vela-accent);
 }
 `;

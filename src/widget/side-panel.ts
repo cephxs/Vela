@@ -33,7 +33,8 @@ const CSS = `
     display: flex;
     flex-direction: column;
     color: var(--vela-fg);
-    font-size: 13px;
+    font-size: var(--vela-font-size-lg);
+    line-height: var(--vela-line-height-lg);
     box-sizing: border-box;
     background: var(--vela-bg);
 }
@@ -43,7 +44,7 @@ const CSS = `
     gap: 8px;
     padding: 10px 8px 10px 14px;
     border-bottom: 1px solid var(--vela-border);
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
     font-weight: 600;
     color: var(--vela-fg);
 }
@@ -62,7 +63,7 @@ const CSS = `
     justify-content: center;
     border-radius: 4px;
     color: var(--vela-fg-muted);
-    font-size: 16px;
+    font-size: 16px; /* type-exempt: sizes the close glyph */
 }
 .vela-panel-close .vela-icon { width: 16px; height: 16px; }
 .vela-panel-close:hover { background: var(--vela-hover); color: var(--vela-fg); }

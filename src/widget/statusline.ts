@@ -91,8 +91,8 @@ const CSS = `
     align-items: center;
     justify-content: center;
     color: var(--vela-fg-on-fill);
-    font-size: 10px;
-    font-weight: 700;
+    font-size: var(--vela-font-size-sm);
+    font-weight: 600;
 }
 .vela-statusline .vela-sl-symbol { font-weight: 600; font-size: var(--vela-font-size-lg); }
 .vela-statusline .vela-sl-meta { color: var(--vela-fg-muted); font-size: var(--vela-font-size-md); font-weight: 600; }
@@ -106,7 +106,7 @@ const CSS = `
 .vela-statusline .vela-sl-market > [hidden] { display: none !important; }
 .vela-statusline .vela-sl-replay-badge, .vela-statusline .vela-sl-replay-badge svg { display: block; width: 16px; height: 16px; }
 .vela-statusline .vela-sl-ohlc { display: flex; gap: var(--vela-space-1); color: var(--vela-fg-muted); }
-.vela-statusline .vela-sl-ohlc b { color: var(--vela-fg); font-weight: 500; }
+.vela-statusline .vela-sl-ohlc b { color: var(--vela-fg); font-weight: 400; }
 /* The change value wears the SAME ink as the OHLC values (set inline per render) —
  * these are the pre-ink fallbacks only. */
 .vela-statusline .vela-sl-change[data-dir='up'] { color: var(--vela-up); }

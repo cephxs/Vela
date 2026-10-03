@@ -7,7 +7,7 @@
 // `timezone-drawer.ts`), not here.
 import { Drawer } from '../ui/components/drawer';
 import { iconEl } from '../ui/icons';
-import { injectStyles } from '../ui/styles';
+import { injectStyles, SECTION_LABEL_CSS } from '../ui/styles';
 import { layoutGridCanvas, paintLayoutGrid } from './layout-picker';
 
 const STYLE_ID = 'vela-widget-more-drawer';
@@ -28,7 +28,7 @@ const CSS = `
     justify-content: center;
     gap: 4px;
     border-radius: 8px;
-    font-size: 11px;
+    font-size: var(--vela-font-size-sm);
     color: var(--vela-fg);
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
@@ -50,8 +50,8 @@ const CSS = `
 .vela-md-row:active { background: var(--vela-hover); }
 .vela-md-row[data-checked='1'] { background: var(--vela-hover-strong); }
 .vela-md-row .vela-icon { flex: none; font-size: 17px; width: 17px; height: 17px; color: var(--vela-fg-muted); }
-.vela-md-row-label { flex: 1 1 auto; min-width: 0; font-size: 14px; color: var(--vela-fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.vela-md-row-value { flex: none; font-size: 13px; color: var(--vela-fg-muted); }
+.vela-md-row-label { flex: 1 1 auto; min-width: 0; font-size: var(--vela-font-size-lg); color: var(--vela-fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vela-md-row-value { flex: none; font-size: var(--vela-font-size-md); color: var(--vela-fg-muted); }
 .vela-md-back {
     all: unset;
     display: flex;
@@ -59,7 +59,7 @@ const CSS = `
     gap: 8px;
     min-height: 42px;
     padding: 0 2px;
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
     font-weight: 600;
     color: var(--vela-fg);
     cursor: pointer;
@@ -74,13 +74,9 @@ const CSS = `
 .vela-md-gridwrap .vela-lp-grid { grid-template-columns: repeat(4, 44px); grid-auto-rows: 44px; gap: 8px; }
 .vela-md-section {
     padding: 12px 2px 4px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-    color: var(--vela-fg-muted);
+    ${SECTION_LABEL_CSS}
 }
-.vela-md-empty { padding: 18px 2px; color: var(--vela-fg-muted); font-size: 13px; }
+.vela-md-empty { padding: 18px 2px; color: var(--vela-fg-muted); font-size: var(--vela-font-size-md); }
 `;
 
 export interface MoreDrawerAction {

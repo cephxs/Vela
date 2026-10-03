@@ -144,7 +144,7 @@ const CSS = `
     background: transparent;
     color: var(--vela-fg);
     border: none;
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
     outline: none;
     text-transform: uppercase;
 }
@@ -164,8 +164,7 @@ const CSS = `
     border-radius: 5px;
     cursor: pointer;
     color: var(--vela-fg-muted);
-    font-size: 13px;
-    font-weight: 600;
+    font-size: var(--vela-font-size-lg);
 }
 .vela-sp-tab:hover { color: var(--vela-fg); }
 .vela-sp-tab[data-active] { background: var(--vela-selected-bg); color: var(--vela-selected-fg); }
@@ -201,11 +200,11 @@ const CSS = `
     justify-content: center;
     color: var(--vela-fg-on-fill);
     font-size: var(--vela-font-size-md);
-    font-weight: 700;
+    font-weight: 600;
 }
 .vela-sp-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-.vela-sp-ticker { font-weight: 700; color: var(--vela-fg); font-size: 14px; text-transform: uppercase; }
-.vela-sp-desc { color: var(--vela-fg-muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vela-sp-ticker { font-weight: 600; color: var(--vela-fg); font-size: var(--vela-font-size-lg); text-transform: uppercase; }
+.vela-sp-desc { color: var(--vela-fg-muted); font-size: var(--vela-font-size-sm); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .vela-sp-badge {
     flex: none;
     padding: 2px 8px;
@@ -213,9 +212,7 @@ const CSS = `
     background: var(--vela-surface-elev);
     border: 1px solid var(--vela-border);
     color: var(--vela-fg-muted);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    font-size: var(--vela-font-size-sm);
     text-transform: uppercase;
 }
 /* Provider brand marks — fixed by the venue, deliberately outside the theme palette. */

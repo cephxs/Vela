@@ -37,8 +37,7 @@ const CSS = `
     border-radius: 6px;
     cursor: pointer;
     color: var(--vela-fg);
-    font-size: 13px;
-    font-weight: 600;
+    font-size: var(--vela-font-size-lg);
     -webkit-tap-highlight-color: transparent;
 }
 .vela-mb-item[hidden] { display: none !important; }
@@ -52,8 +51,8 @@ const CSS = `
 .vela-mb-actions { display: contents; }
 .vela-mb-symbol {
     flex: 1.6 1 0;
-    font-size: 14px;
-    letter-spacing: 0.3px;
+    font-size: var(--vela-font-size-lg);
+    font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

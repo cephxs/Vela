@@ -18,7 +18,7 @@ const CSS = `
     border: 1px solid var(--vela-border);
     border-radius: 8px;
     padding: 0 12px;
-    font-size: 18px;
+    font-size: 18px; /* type-exempt: a one-field entry, read from across the room */
     text-align: center;
     outline: none;
 }
