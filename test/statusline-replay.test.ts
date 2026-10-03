@@ -47,7 +47,7 @@ describe('Statusline identity', () => {
         const { line } = make();
         const row = line.el.querySelector<HTMLElement>('.vela-sl-identity')!;
         const classes = [...row.children].map((c) => `${c.tagName.toLowerCase()}.${c.className.split(' ')[0]}`);
-        expect(classes).toEqual(['span.vela-sl-avatar', 'button.vela-sl-symbol', 'button.vela-sl-tf', 'span.vela-sl-venue', 'span.vela-sl-market']);
+        expect(classes).toEqual(['span.vela-sl-avatar', 'button.vela-sl-symbol', 'span.vela-sl-dot', 'button.vela-sl-tf', 'span.vela-sl-venue', 'span.vela-sl-market']);
         const symbol = row.querySelector<HTMLButtonElement>('.vela-sl-symbol')!;
         const tf = row.querySelector<HTMLButtonElement>('.vela-sl-tf')!;
         const venue = row.querySelector<HTMLElement>('.vela-sl-venue')!;

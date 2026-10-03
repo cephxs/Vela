@@ -112,11 +112,13 @@ const CSS = `
 }
 .vela-statusline .vela-sl-symbol { font-weight: 600; }
 .vela-statusline .vela-sl-symbol:hover, .vela-statusline .vela-sl-tf:hover { background: var(--vela-hover); }
-.vela-statusline .vela-sl-tf::before, .vela-statusline .vela-sl-venue::before {
-    content: '·';
-    margin-right: var(--vela-space-1);
-    color: var(--vela-fg-muted);
-}
+/* The dot before the timeframe is its own span, outside the button, so the hover box
+ * and the hit area stop at the glyphs; the venue is text, so its dot can ride along
+ * as ::before. The negative margin pulls each dot's text to one space-1 after it,
+ * as close as the row gap lets the dot sit after the item before. */
+.vela-statusline .vela-sl-venue::before { content: '·'; margin-right: var(--vela-space-1); }
+.vela-statusline .vela-sl-dot, .vela-statusline .vela-sl-venue::before { color: var(--vela-fg-muted); }
+.vela-statusline .vela-sl-dot { margin-right: calc(var(--vela-space-1) - var(--vela-space-2)); }
 /* Market status badge — a kit callout bubble (icon-only 16px circle, label on hover
  * via the kit tooltip); the session tint is applied per status in setMarketStatus. While
  * the chart replays past bars it wears the replay badge instead (the inverse chip). */
@@ -294,6 +296,8 @@ export class Statusline {
     private readonly ohlcEl: HTMLElement;
     private readonly changeEl: HTMLElement;
     private readonly symbolEl: HTMLButtonElement;
+    /** The "·" between the symbol and the timeframe — outside the timeframe button. */
+    private readonly tfDotEl: HTMLElement;
     private readonly tfEl: HTMLButtonElement;
     private readonly venueEl: HTMLElement;
     /** The badge slot — the market bubble, or the replay badge while replaying. */
@@ -364,6 +368,9 @@ export class Statusline {
         this.symbolEl.setAttribute('aria-label', 'Change symbol');
         this.symbolEl.textContent = ticker;
         this.symbolEl.addEventListener('click', () => this.menuHooks?.openSymbol?.());
+        this.tfDotEl = doc.createElement('span');
+        this.tfDotEl.className = 'vela-sl-dot';
+        this.tfDotEl.textContent = '·';
         this.tfEl = doc.createElement('button');
         this.tfEl.type = 'button';
         this.tfEl.className = 'vela-sl-tf';
@@ -408,7 +415,7 @@ export class Statusline {
         });
         this.identityRow = doc.createElement('span');
         this.identityRow.className = 'vela-sl-row vela-sl-identity';
-        this.identityRow.append(this.avatarEl, this.symbolEl, this.tfEl, this.venueEl, this.marketEl);
+        this.identityRow.append(this.avatarEl, this.symbolEl, this.tfDotEl, this.tfEl, this.venueEl, this.marketEl);
         this.valuesRow = doc.createElement('span');
         this.valuesRow.className = 'vela-sl-row vela-sl-values';
         this.valuesRow.append(this.ohlcEl, this.changeEl, this.eyeEl);
@@ -454,7 +461,7 @@ export class Statusline {
         const seg = segmentVisibility(this.parts, this.chartHidden);
         this.avatarEl.style.display = seg.avatar ? '' : 'none';
         this.symbolEl.style.display = seg.symbol ? '' : 'none';
-        this.tfEl.style.display = seg.meta ? '' : 'none';
+        this.tfDotEl.style.display = this.tfEl.style.display = seg.meta ? '' : 'none';
         this.venueEl.style.display = seg.meta && this.venueEl.textContent ? '' : 'none';
         this.marketEl.style.display = seg.market ? '' : 'none';
         this.ohlcEl.style.display = seg.ohlc ? '' : 'none';
