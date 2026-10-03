@@ -68,6 +68,14 @@ describe('DrawingPainter.paintAll handle highlighting', () => {
         expect(arcs()).toBe(2);
     });
 
+    it('the hovered handle wears a halo: one extra arc, for that handle only', () => {
+        const drawings = [hline('a', 30), hline('b', 50)];
+        const { ctx, arcs } = recordingCtx();
+        const handle = { id: 'a', index: 0, state: 'hovered' as const };
+        new DrawingPainter().paintAll(ctx, drawings, fakeProjector(), theme, { selected: new Set(['a', 'b']), handle });
+        expect(arcs()).toBe(3); // two discs + a's halo
+    });
+
     it('paints no handles when nothing is targeted', () => {
         const drawings = [hline('a', 30), hline('b', 50)];
         const { ctx, arcs } = recordingCtx();
