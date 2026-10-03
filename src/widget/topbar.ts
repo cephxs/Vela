@@ -11,6 +11,7 @@ import { resolveTopbarComposition, topbarHas, TOPBAR_BUILTIN_IDS, type ResolvedT
 import { BUILTIN_PRICE_STYLES, priceStyleIds } from '../renderers/native/core/chartConfig';
 import { favoriteTimeframeChips, timeframeLabel } from './timeframe';
 import { parseSymbol } from '../data/ProviderRegistry';
+import { rovingToolbar } from '../ui/roving';
 
 // The component owns its stylesheet (id-guarded, injected at construction) so EVERY
 // host that mounts a Topbar — the widget, a multi-chart workspace — gets the same look.
@@ -238,6 +239,7 @@ export interface TopbarOptions {
 
 export class Topbar {
     readonly el: HTMLElement;
+    private readonly disposeRoving: () => void;
     private readonly symbolEl: HTMLElement;
     /** Duration-sorted favorite chips (plus an unstarred current, when needed). */
     private readonly tfChipsHost: HTMLElement;
@@ -303,6 +305,7 @@ export class Topbar {
 
         this.el = doc.createElement('div');
         this.el.className = 'vela-widget-topbar';
+        this.disposeRoving = rovingToolbar(this.el);
         this.symbolEl = doc.createElement('button');
         this.symbolEl.className = 'vela-widget-symbol';
         // The button DISPLAYS the bare ticker; the venue-prefixed identity stays in the
@@ -677,6 +680,7 @@ export class Topbar {
     }
 
     destroy(): void {
+        this.disposeRoving();
         this.hairlineRo?.disconnect();
         const win = this.el.ownerDocument.defaultView;
         win?.removeEventListener('resize', this.onHairlineSync);
