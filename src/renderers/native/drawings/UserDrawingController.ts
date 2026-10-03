@@ -97,6 +97,8 @@ export class UserDrawingController implements IDrawingsRendererPort {
     private drawings: Drawing[] = [];
     /** Ids painted on an interleave layer this frame — the top canvas paints only their handles. */
     private sliced = new Set<string>();
+    /** Interleaved drawings mid-drag: painted on the top canvas, left out of their slice. */
+    private lifted = new Set<string>();
     /** Cached slice canvases, keyed `paneId|beforeZ`, reused across frames to avoid churn. */
     private readonly sliceCache = new Map<string, HTMLCanvasElement>();
     /** Series boundaries per pane as of the last `prepareSlices` — lets a repaint between data
@@ -105,6 +107,7 @@ export class UserDrawingController implements IDrawingsRendererPort {
     private lastBounds = new Map<string, readonly number[]>();
     private selectedIds = new Set<string>(); // selected drawings (handles shown); [first] drives the popup
     private hoveredId: string | null = null; // the drawing under the cursor (its handles show)
+    private hoveredHandleOf: string | null = null; // the drawing one of whose showing handles is under the cursor
     private activeTool: DrawingTypeKey | null = null;
     private activeToolStyle: SerializedDrawing['style'] | undefined; // last-used style for the armed tool (seeds the placement ghost)
     private intentCb: ((i: DrawingIntent) => void) | null = null;
@@ -176,7 +179,7 @@ export class UserDrawingController implements IDrawingsRendererPort {
             selectedIds: () => this.selectedIds,
             emit: (i) => this.emit(i),
             changed: () => {
-                this.invalidateSlices(); // a live drag can be moving a drawing that paints inside the stack
+                this.syncLift(); // a live drag paints its drawing on top, out of the series stack
                 this.render();
             },
             openSettings: (id, x, y) => this.openSettingsById(id, x, y),
@@ -475,6 +478,7 @@ export class UserDrawingController implements IDrawingsRendererPort {
             }
         }
         this.interaction.down(x, y, snap, shift, mod); // the popup self-dismisses on any outside press
+        if (this.interaction.pressedHandle()) this.render(); // the held handle changes its ring at once
     }
 
     pointerMove(x: number, y: number, snap: SnapMode = 'off', shift = false, mod = false): void {
@@ -497,11 +501,14 @@ export class UserDrawingController implements IDrawingsRendererPort {
      *  selected, so a hovered candidate doesn't already read as selected. */
     private updateHover(x: number, y: number, mod = false): void {
         let id: string | null = null;
+        let handleOf: string | null = null;
         if (!mod && this.activeTool == null && !this.interaction.isPlacing() && !this.interaction.isDragging()) {
             id = topDrawingAt(this.drawings, x, y, this.deps.projector(), HIT_TOLERANCE)?.id ?? null;
+            handleOf = this.interaction.handleAt(x, y)?.id ?? null;
         }
-        if (id !== this.hoveredId) {
+        if (id !== this.hoveredId || handleOf !== this.hoveredHandleOf) {
             this.hoveredId = id;
+            this.hoveredHandleOf = handleOf;
             this.render();
         }
     }
@@ -893,6 +900,19 @@ export class UserDrawingController implements IDrawingsRendererPort {
     /** A drawing that paints inside the series stack changed (content, not hover): its pixels
      *  live in the backend composite, so this layer alone can't show the change — ask for a
      *  data frame, which re-runs `prepareSlices` before the backend composites. */
+    /** A drawing being dragged leaves its interleave slice for the top canvas, so each pointer
+     *  move repaints one 2D layer instead of re-rasterizing and re-uploading a plot-sized slice
+     *  texture through the data frame. The slices rebuild once as the drag starts and once as it
+     *  ends (release, cancel), when the lifted set changes. */
+    private syncLift(): void {
+        const moving = this.interaction.movingIds();
+        let same = moving.size === this.lifted.size;
+        if (same) for (const id of moving) if (!this.lifted.has(id)) same = false;
+        if (same) return;
+        this.lifted = new Set(moving);
+        this.invalidateSlices();
+    }
+
     private invalidateSlices(): void {
         if (this.sliced.size > 0 || this.drawings.some((d) => this.isInterleaved(d))) this.deps.requestDataPaint();
     }
@@ -912,7 +932,7 @@ export class UserDrawingController implements IDrawingsRendererPort {
         const theme = this.deps.theme();
         const buckets = new Map<string, { paneId: string; beforeZ: number; drawings: Drawing[] }>(); // keyed `paneId|beforeZ`
         for (const d of this.drawings) {
-            if (!d.visible) continue;
+            if (!d.visible || this.lifted.has(d.id)) continue; // a dragged drawing rides the top canvas
             const beforeZ = sliceKeyFor(d.zIndex, this.lastBounds.get(d.paneId) ?? []);
             if (beforeZ === null) continue; // over the stack → top canvas
             const key = `${d.paneId}|${beforeZ}`;
@@ -960,18 +980,21 @@ export class UserDrawingController implements IDrawingsRendererPort {
         // A transparent inline editor overlays the label it edits — mute the canvas copy so the
         // typed text isn't drawn twice (the callout editor is opaque, so its label stays).
         const edited = this.textEditor ? this.editedDrawing(this.textEditor.id) : null;
+        const pressedHandle = this.interaction.pressedHandle();
         const targets: PaintTargets = {
             selected: this.selectedIds,
             hovered: this.hoveredId,
             dragged: this.interaction.activeDragId(),
             mutedLabel: edited instanceof TextLabel ? edited.id : null,
+            handle: pressedHandle ? { id: pressedHandle.id, state: 'clicked' } : this.hoveredHandleOf ? { id: this.hoveredHandleOf, state: 'hovered' } : null,
         };
         // Front (non-interleaved) drawings paint fully here; the ones interleaved into the series
         // stack painted their bodies on the backend layers, so only their handles come back on top
         // — buried under the candles they'd be unusable.
         this.painter.seriesLook = this.deps.seriesLook();
-        this.painter.paintAll(ctx, this.drawings.filter((d) => !this.isInterleaved(d)), proj, this.deps.theme(), targets);
-        this.painter.paintHighlights(ctx, this.drawings.filter((d) => this.isInterleaved(d)), proj, handleIdsFor(targets));
+        const onTop = (d: Drawing) => !this.isInterleaved(d) || this.lifted.has(d.id);
+        this.painter.paintAll(ctx, this.drawings.filter(onTop), proj, this.deps.theme(), targets);
+        this.painter.paintHighlights(ctx, this.drawings.filter((d) => !onTop(d)), proj, handleIdsFor(targets), targets.handle);
         // A Ctrl-drag moves COPIES that are not in the store yet: paint them here, in full and with
         // handles, so they read as the real drawings they are about to become.
         const clones = this.interaction.dragClones();
