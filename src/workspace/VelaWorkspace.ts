@@ -159,7 +159,7 @@ const CSS = `
 .vela-ws-toolbar { position: relative; flex: none; }
 .vela-ws-strips { position: relative; flex: none; display: flex; flex-direction: column; min-width: 0; }
 .vela-ws-strips:empty { display: none; }
-.vela-ws-grid { position: relative; flex: 1 1 auto; min-width: 0; display: grid; gap: ${GAP_PX}px; background: var(--vela-border-soft); }
+.vela-ws-grid { position: relative; flex: 1 1 auto; min-width: 0; display: grid; gap: ${GAP_PX}px; background: var(--vela-border); }
 .vela-cell { background: var(--vela-bg); position: relative; }
 /* Active-cell highlight: an overlay ring ABOVE the chart's own canvas stack (a plain
    outline on the cell is painted under them) — inert to the pointer. Scoped to
@@ -169,7 +169,7 @@ const CSS = `
     content: '';
     position: absolute;
     inset: 0;
-    border: 2px solid var(--vela-fg-bright);
+    border: 2px solid var(--vela-fg);
     pointer-events: none;
     z-index: 10;
 }
@@ -192,7 +192,7 @@ const CSS = `
     content: '';
     position: absolute;
     inset: 0;
-    border: 2px dashed var(--vela-fg-bright);
+    border: 2px dashed var(--vela-fg);
     background: var(--vela-separator-hover-band);
     pointer-events: none;
     z-index: 11;

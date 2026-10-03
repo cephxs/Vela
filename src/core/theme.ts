@@ -1,7 +1,7 @@
 import type { VelaTheme, ThemeName } from './options';
 import { BEARISH, BULLISH } from './palette';
 
-// The reference dark palette: the fstarlabs neutrals — base surface, muted ink for axis
+// The built-in dark palette: one near-black surface, a muted ink for axis
 // text, and the 6% / 10% ink rings as grid and frame, flattened to hex so canvas, settings
 // color inputs and WebGL all take them as-is.
 export const DARK_THEME: VelaTheme = {

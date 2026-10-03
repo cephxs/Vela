@@ -2,6 +2,17 @@
 
 All notable changes to Vela, newest first.
 
+## [Unreleased]
+
+### Changed
+
+- **One neutral palette for both themes.** Every border, hover, selection and secondary-text
+  color of the chrome is now a step of one ink over three fixed surfaces (the chart, a floating
+  surface for menus and dialogs, a sunken surface for fields), and the light theme is the exact
+  mirror of the dark one. Dark is a touch deeper and light a touch warmer than before.
+  _(Breaking: the `--vela-fg-bright`, `--vela-border-soft` and `--vela-surface-overlay`
+  CSS custom properties are gone; use `--vela-fg`, `--vela-border` and `--vela-surface-elev`.)_
+
 ## [0.8.1]
 
 ### Changed

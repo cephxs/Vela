@@ -21,7 +21,7 @@ const CSS = `
     align-items: center;
     gap: var(--vela-space-1);
     padding: var(--vela-space-1) var(--vela-space-2);
-    border-bottom: 1px solid var(--vela-border-soft);
+    border-bottom: 1px solid var(--vela-border);
     color: var(--vela-fg);
     font-size: var(--vela-font-size-md);
     flex: none;
@@ -41,7 +41,7 @@ const CSS = `
     white-space: nowrap;
 }
 .vela-widget-symbol {
-    color: var(--vela-fg-bright);
+    color: var(--vela-fg);
     font-size: 15px;
     font-weight: 600;
     letter-spacing: 0.3px;
@@ -51,14 +51,14 @@ const CSS = `
 .vela-widget-tf, .vela-widget-style, .vela-widget-indicators, .vela-widget-action-left {
     color: var(--vela-fg);
 }
-.vela-widget-symbol:hover, .vela-widget-tf:hover, .vela-widget-style:hover, .vela-widget-indicators:hover, .vela-widget-action-left:hover { background: var(--vela-hover); color: var(--vela-fg-bright); }
+.vela-widget-symbol:hover, .vela-widget-tf:hover, .vela-widget-style:hover, .vela-widget-indicators:hover, .vela-widget-action-left:hover { background: var(--vela-hover); color: var(--vela-fg); }
 /* Timeframe cluster: duration-sorted favorite chips, highlight in place, caret
    opening the full dropdown. With no favorites the caret is the merged trigger
    (label + chevron). An unstarred current value sits as an extra chip by the caret. */
 .vela-widget-tf-group { display: inline-flex; align-items: center; gap: 2px; }
 .vela-widget-tf-chips { display: inline-flex; align-items: center; gap: 2px; }
 .vela-widget-tf-chips:empty { display: none; }
-.vela-widget-tf[data-current='1'] { background: var(--vela-hover-strong); color: var(--vela-fg-bright); }
+.vela-widget-tf[data-current='1'] { background: var(--vela-hover-strong); color: var(--vela-fg); }
 .vela-widget-tf-caret {
     all: unset;
     display: inline-flex;
@@ -128,9 +128,9 @@ const CSS = `
     color: var(--vela-fg-muted);
     font-size: 14px;
 }
-.vela-widget-tool:hover:not(:disabled) { background: var(--vela-hover); color: var(--vela-fg-bright); }
+.vela-widget-tool:hover:not(:disabled) { background: var(--vela-hover); color: var(--vela-fg); }
 .vela-widget-tool:disabled { opacity: 0.35; cursor: default; }
-.vela-widget-tool[data-active='1'] { background: var(--vela-hover); color: var(--vela-fg-bright); }
+.vela-widget-tool[data-active='1'] { background: var(--vela-hover); color: var(--vela-fg); }
 .vela-widget-action {
     all: unset;
     display: inline-flex;

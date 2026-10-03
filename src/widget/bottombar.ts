@@ -66,8 +66,8 @@ const CSS = `
     font-weight: 600;
     cursor: pointer;
 }
-.vela-bb-range:hover { background: var(--vela-hover); color: var(--vela-fg-bright); }
-.vela-bb-range[data-active='1'] { color: var(--vela-fg-bright); background: var(--vela-hover); }
+.vela-bb-range:hover { background: var(--vela-hover); color: var(--vela-fg); }
+.vela-bb-range[data-active='1'] { color: var(--vela-fg); background: var(--vela-hover); }
 .vela-bb-spacer { flex: 1 1 auto; }
 .vela-bb-clock { font-variant-numeric: tabular-nums; color: var(--vela-fg); font-weight: 600; }
 .vela-bb-tz {
