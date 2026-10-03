@@ -8,10 +8,10 @@ All notable changes to Vela, newest first.
 
 - **The charts sit in a rounded well.** The chart grid is one rounded surface, and the top
   bar, the drawing toolbar, the side panel and the bottom bar stand 4px apart from it on the
-  field surface instead of touching it along hairlines. The bars share one 38px rhythm:
-  tools, timeframe chips and range presets light up on a rounded box behind the label, the
-  drawing toolbar separates its groups with space rather than lines, and the symbol button
-  is a rounded pill with a search glyph.
+  field surface instead of touching it along hairlines. The bars share one rhythm: tools,
+  timeframe chips and range presets light up on a rounded box behind the label, the 40px
+  drawing toolbar separates its groups with short hairlines, and the symbol button is a
+  rounded box with a search glyph.
 - **One neutral palette for both themes.** Every border, hover, selection and secondary-text
   color of the chrome is now a step of one ink over three fixed surfaces (the chart, a floating
   surface for menus and dialogs, a sunken surface for fields), and the light theme is the exact

@@ -21,7 +21,7 @@ const CSS = `
     align-items: center;
     gap: var(--vela-space-1);
     height: 38px;
-    padding: 0 4px;
+    padding: 0 4px 0 6px;
     background: var(--vela-bg);
     color: var(--vela-fg);
     font-size: var(--vela-font-size-md);
@@ -50,9 +50,9 @@ const CSS = `
     min-width: 128px;
     box-sizing: border-box;
     justify-content: space-between;
-    padding: 0 12px;
+    padding: 0 8px;
     gap: 6px;
-    border-radius: 14px;
+    border-radius: var(--vela-radius-md);
     background: var(--vela-surface-sunken);
 }
 .vela-widget-topbar .vela-widget-symbol .vela-icon { color: var(--vela-fg-muted); font-size: 18px; width: 18px; height: 18px; }
