@@ -12,7 +12,7 @@ export const TEXTAREA_CSS = `
     border-radius: 6px;
     color: var(--vela-fg);
     padding: 8px;
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
     font-family: inherit;
     line-height: 1.4;
     resize: vertical;
@@ -27,9 +27,9 @@ export const TEXTAREA_CSS = `
 .vela-textarea-field::placeholder { color: currentColor; opacity: 0.4; }
 .vela-textarea[data-autogrow] .vela-textarea-field { resize: none; overflow-y: hidden; min-height: 46px; }
 .vela-textarea[data-size='sm'] .vela-textarea-field {
-    font-size: 13px;
+    font-size: var(--vela-font-size-md);
     min-height: 46px;
     padding: 6px 9px;
-    line-height: 18px;
+    line-height: var(--vela-line-height-lg);
 }
 `;

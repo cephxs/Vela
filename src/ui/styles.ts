@@ -19,6 +19,11 @@ export const FIELD_FOCUS_CSS =
 export const FIELD_FOCUS_RING =
     'border-color:var(--vela-focus);box-shadow:0 0 0 3px var(--vela-border);';
 
+/** The one uppercase section-heading spec in the chrome (group heads in pickers, panels
+ *  and drawers): small, regular weight, muted — hierarchy by case and ink, not by bold. */
+export const SECTION_LABEL_CSS =
+    'font-size:var(--vela-font-size-sm);line-height:var(--vela-line-height-sm);font-weight:400;text-transform:uppercase;letter-spacing:0.04em;color:var(--vela-fg-muted);';
+
 /** Inject a stylesheet once per root (document or shadow root). Idempotent by id. */
 export function injectStyles(id: string, css: string, root: Document | ShadowRoot = document): void {
     if (typeof document === 'undefined') return;

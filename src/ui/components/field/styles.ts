@@ -1,4 +1,5 @@
 import { FIELD_GAP_PX } from './controller';
+import { SECTION_LABEL_CSS } from '../../styles';
 
 export const FIELD_STYLE_ID = 'vela-ui-field';
 
@@ -24,7 +25,7 @@ export const FIELD_CSS = `
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
 }
 .vela-field-label[data-size='sm'] { font-size: inherit; opacity: 0.85; }
 /* Titles are fully inert: spans, not label[for] — native labels propagate :hover and
@@ -40,17 +41,11 @@ export const FIELD_CSS = `
     grid-column: 1 / -1;
     margin: 24px 0 0;
     padding-bottom: 8px;
-    font-size: var(--vela-font-size-sm);
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--vela-fg-muted);
+    ${SECTION_LABEL_CSS}
 }
 .vela-field-section[data-variant='inputs'] {
     margin: 0;
     padding: 20px 0 8px;
-    font-size: 11px;
-    font-weight: 600;
 }
 .vela-field-section[data-variant='inputs'][data-first] { padding-top: 4px; }
 .vela-field-sep { grid-column: 1 / -1; height: 14px; }

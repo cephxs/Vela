@@ -3,7 +3,7 @@
 // toggles, plus a hop into the full Scales settings tab.
 import { Drawer } from '../ui/components/drawer';
 import { iconEl } from '../ui/icons';
-import { injectStyles } from '../ui/styles';
+import { injectStyles, SECTION_LABEL_CSS } from '../ui/styles';
 import {
     invertWrite,
     paneScaleAt,
@@ -31,15 +31,11 @@ const CSS = `
 }
 .vela-psd-row:active { background: var(--vela-hover); }
 .vela-psd-row[data-sep='1'] { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--vela-border); border-radius: 0 0 8px 8px; }
-.vela-psd-row-label { flex: 1 1 auto; min-width: 0; font-size: 14px; color: var(--vela-fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vela-psd-row-label { flex: 1 1 auto; min-width: 0; font-size: var(--vela-font-size-lg); color: var(--vela-fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .vela-psd-row .vela-icon { flex: none; color: var(--vela-fg); }
 .vela-psd-section {
     padding: 12px 2px 4px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-    color: var(--vela-fg-muted);
+    ${SECTION_LABEL_CSS}
 }
 `;
 

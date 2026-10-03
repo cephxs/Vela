@@ -54,7 +54,8 @@ const CSS = `
     border-radius: var(--vela-radius-sm);
     background: var(--vela-bg);
     color: var(--vela-fg-muted);
-    font-size: 12px;
+    font-size: var(--vela-font-size-lg);
+    line-height: var(--vela-line-height-lg);
     flex: none;
 }
 .vela-bb-range {
@@ -65,7 +66,7 @@ const CSS = `
     display: inline-flex;
     align-items: center;
     padding: 0 6px;
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
     font-weight: 400;
     color: var(--vela-fg);
     cursor: pointer;
@@ -77,7 +78,7 @@ const CSS = `
 .vela-bb-range[data-active='1'] { color: var(--vela-fg); }
 .vela-bb-range[data-active='1']::before { background: var(--vela-active); }
 .vela-bb-spacer { flex: 1 1 auto; }
-.vela-bb-clock { font-variant-numeric: tabular-nums; color: var(--vela-fg); font-weight: 600; }
+.vela-bb-clock { font-variant-numeric: tabular-nums; color: var(--vela-fg); font-size: var(--vela-font-size-lg); }
 .vela-bb-tz {
     all: unset;
     height: 26px;
@@ -86,7 +87,7 @@ const CSS = `
     gap: 8px;
     padding: 0 8px;
     border-radius: 4px;
-    font-weight: 600;
+    font-size: var(--vela-font-size-lg);
     color: var(--vela-fg);
     cursor: pointer;
 }
@@ -99,8 +100,7 @@ const CSS = `
     align-items: center;
     padding: 0 8px;
     color: var(--vela-fg-muted);
-    font-size: 11px;
-    font-weight: 600;
+    font-size: var(--vela-font-size-sm);
     cursor: pointer;
 }
 .vela-bb-session-btn:disabled { cursor: not-allowed; opacity: 0.55; }
@@ -118,7 +118,7 @@ const CSS = `
     border-radius: 4px;
     cursor: pointer;
     color: var(--vela-fg-muted);
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
 }
 .vela-bb-settings:hover { background: var(--vela-hover); color: var(--vela-fg); }
 `;

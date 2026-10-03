@@ -32,7 +32,8 @@ export const DIALOG_CSS = `
     border: 1px solid var(--vela-border-strong);
     border-radius: 10px;
     box-shadow: var(--vela-shadow-dialog);
-    font-size: 13px;
+    font-size: var(--vela-font-size-md);
+    line-height: var(--vela-line-height-md);
     min-width: 300px;
     max-width: min(92vw, 560px);
     max-height: 70vh;
@@ -53,7 +54,7 @@ export const DIALOG_CSS = `
     border-bottom: 1px solid var(--vela-border);
     user-select: none;
 }
-.vela-dialog-title { flex: 1; font-size: 17px; font-weight: 600; letter-spacing: 0.2px; color: var(--vela-fg); }
+.vela-dialog-title { flex: 1; font-size: 17px; /* type-exempt: dialog title, above the chrome scale */ font-weight: 600; color: var(--vela-fg); }
 .vela-dialog-close {
     all: unset;
     cursor: pointer;
@@ -65,7 +66,7 @@ export const DIALOG_CSS = `
     border-radius: 4px;
     color: var(--vela-fg-muted);
     line-height: 1;
-    font-size: 15px;
+    font-size: 15px; /* type-exempt: sizes the close glyph */
 }
 .vela-dialog-close:hover { background: var(--vela-hover); color: var(--vela-fg); }
 .vela-dialog-body { padding: var(--vela-space-4); overflow: auto; min-height: 0; flex: 1 1 auto; }
@@ -76,7 +77,7 @@ export const DIALOG_CSS = `
     min-width: min(560px, 94vw);
     max-width: min(720px, 94vw);
     max-height: 70vh;
-    font-size: 13px;
+    font-size: var(--vela-font-size-md);
     cursor: default;
 }
 .vela-dialog--form {
@@ -84,12 +85,13 @@ export const DIALOG_CSS = `
     min-width: min(380px, 90%);
     max-width: min(640px, 94%);
     max-height: 82%;
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
+    line-height: var(--vela-line-height-lg);
 }
 /* Form dialogs (indicator inputs, drawing settings): the tab strip / body owns the
    line under the header, and the footer carries its own top delimiter. */
 .vela-dialog--form .vela-dialog-header { align-items: flex-start; padding: 16px 20px 20px; border-bottom: none; }
-.vela-dialog--form .vela-dialog-title { font-size: 20px; line-height: 28px; }
+.vela-dialog--form .vela-dialog-title { font-size: 20px; line-height: 28px; } /* type-exempt: form title, above the chrome scale */
 .vela-dialog--form .vela-dialog-footer {
     padding: 16px 20px;
     display: flex;
@@ -106,7 +108,7 @@ export const DIALOG_CSS = `
     background: transparent;
     color: var(--vela-fg);
     font-weight: 400;
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
     font-family: inherit;
     transition: background var(--vela-dur-fast) ease, color var(--vela-dur-fast) ease, opacity var(--vela-dur-fast) ease, border-color var(--vela-dur-fast) ease;
 }

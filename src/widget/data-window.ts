@@ -6,7 +6,7 @@
 // Rebound to each new chart instance after a widget rebuild.
 import type { Vela } from '../Vela';
 import type { DataWindowReadout } from '../core/ports/IChartRenderer';
-import { injectStyles } from '../ui/styles';
+import { injectStyles, SECTION_LABEL_CSS } from '../ui/styles';
 import { SidePanel } from './side-panel';
 
 const STYLE_ID = 'vela-widget-datawindow';
@@ -15,11 +15,7 @@ const CSS = `
     padding: 10px 8px 4px;
     margin-top: 4px;
     border-top: 1px solid var(--vela-border);
-    color: var(--vela-fg-muted);
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    ${SECTION_LABEL_CSS}
 }
 .vela-dw-group:first-child { border-top: none; margin-top: 0; padding-top: 8px; }
 /* The readout is DATA, not chrome: selectable (an exception to the UI-wide
@@ -35,7 +31,7 @@ const CSS = `
 .vela-dw-row:hover { background: var(--vela-hover); }
 .vela-dw-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--vela-fg); }
 .vela-dw-value { margin-left: auto; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.vela-dw-empty { padding: 20px 10px; text-align: center; color: var(--vela-fg-muted); font-size: 12px; }
+.vela-dw-empty { padding: 20px 10px; text-align: center; color: var(--vela-fg-muted); font-size: var(--vela-font-size-md); }
 `;
 
 /** Events that change what the readout holds — indicator values, plots, or the live bar. */

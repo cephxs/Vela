@@ -33,7 +33,7 @@ const CSS = `
     color: var(--vela-fg);
     opacity: 0.05;
     font-size: ${MAX_FONT_PX}px;
-    font-weight: 700;
+    font-weight: 700; /* type-exempt: the watermark is plot content, not chrome */
     letter-spacing: 0.04em;
     user-select: none;
     white-space: nowrap;

@@ -3,7 +3,7 @@
 // then the timeframe presets. Selection state is re-read on every open, so it always
 // mirrors whatever path last changed the timeframe (quick entry, API, a range chip).
 import { Drawer } from '../ui/components/drawer';
-import { injectStyles } from '../ui/styles';
+import { injectStyles, SECTION_LABEL_CSS } from '../ui/styles';
 import type { RangePreset } from './bottombar';
 import { timeframeLabel } from './timeframe';
 
@@ -11,11 +11,7 @@ const STYLE_ID = 'vela-widget-tf-drawer';
 const CSS = `
 .vela-tfd-heading {
     padding: 4px 2px 8px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-    color: var(--vela-fg);
+    ${SECTION_LABEL_CSS}
 }
 .vela-tfd-heading + .vela-tfd-ranges,
 .vela-tfd-heading + .vela-tfd-grid { padding-top: 0; }
@@ -45,8 +41,7 @@ const CSS = `
     flex: none;
     border: 1px solid var(--vela-border);
     border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: var(--vela-font-size-lg);
     color: var(--vela-fg);
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;

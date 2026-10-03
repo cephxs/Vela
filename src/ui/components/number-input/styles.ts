@@ -14,7 +14,7 @@ export const NUMBER_CSS = `
     border-radius: 6px;
     color: var(--vela-fg);
     padding: 0 8px;
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
     font-family: inherit;
     outline: none;
     transition: border-color 0.12s ease, box-shadow 0.12s ease;
@@ -37,7 +37,7 @@ export const NUMBER_CSS = `
     background: var(--vela-surface-elev);
     border-radius: var(--vela-radius-sm);
     color: var(--vela-fg);
-    font-size: 13px;
+    font-size: var(--vela-font-size-md);
     box-shadow: none;
 }
 .vela-num[data-size='sm'] input:focus { box-shadow: none; }

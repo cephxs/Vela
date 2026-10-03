@@ -31,6 +31,9 @@ export const STATIC_TOKENS: Record<string, string> = {
     '--vela-font-size-sm': '11px',
     '--vela-font-size-md': '12px',
     '--vela-font-size-lg': '14px',
+    '--vela-line-height-sm': '16px',
+    '--vela-line-height-md': '16px',
+    '--vela-line-height-lg': '18px',
 };
 
 // The two neutral schemes. Each is one ink stepped by alpha (6 / 10 / 15 / 20 / 30 / 40 / 50)

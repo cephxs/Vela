@@ -1,7 +1,7 @@
 // Indicator picker — a dialog over the widget's indicator manifest: toggle entries on/off
 // (live add/remove on the current chart; state survives rebuilds via the widget).
 import { Dialog } from '../ui/components/dialog';
-import { injectStyles } from '../ui/styles';
+import { injectStyles, SECTION_LABEL_CSS } from '../ui/styles';
 import { iconEl } from '../ui/icons';
 
 export interface IndicatorRow {
@@ -31,7 +31,7 @@ const CSS = `
 }
 .vela-ip-searchrow:focus-within { border-color: var(--vela-border-strong); }
 .vela-ip-searchrow .vela-icon { color: var(--vela-fg-muted); }
-.vela-ip-search { flex: 1; background: transparent; color: var(--vela-fg); border: none; font-size: 14px; outline: none; }
+.vela-ip-search { flex: 1; background: transparent; color: var(--vela-fg); border: none; font-size: var(--vela-font-size-lg); outline: none; }
 .vela-ip-list { max-height: 50vh; overflow: auto; min-width: 380px; }
 /* Mobile (fullscreen dialog): no width floor — 380px would overflow a phone —
    and no height cap; the fullscreen body owns the scrolling. */
@@ -39,11 +39,7 @@ const CSS = `
 .vela-ip-list::-webkit-scrollbar { width: 8px; }
 .vela-ip-list::-webkit-scrollbar-thumb { background: var(--vela-scroll); border-radius: 4px; border: 2px solid transparent; background-clip: padding-box; }
 .vela-ip-group {
-    color: var(--vela-fg-muted);
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    ${SECTION_LABEL_CSS}
     padding: 10px 4px 4px;
     border-bottom: 1px solid var(--vela-border);
     margin-bottom: 2px;
@@ -65,7 +61,7 @@ const CSS = `
     cursor: pointer;
 }
 .vela-ip-row:hover { background: var(--vela-hover); }
-.vela-ip-name { flex: 1; font-weight: 600; color: var(--vela-fg); font-size: 13px; }
+.vela-ip-name { flex: 1; font-weight: 600; color: var(--vela-fg); font-size: var(--vela-font-size-lg); }
 .vela-ip-badge {
     flex: none;
     padding: 1px 7px;
@@ -73,9 +69,7 @@ const CSS = `
     background: var(--vela-surface-elev);
     border: 1px solid var(--vela-border);
     color: var(--vela-accent);
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    font-size: var(--vela-font-size-sm);
     text-transform: uppercase;
 }
 .vela-ip-trash {

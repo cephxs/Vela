@@ -6,7 +6,7 @@
 // plugin-registered types appear here automatically.
 import { Drawer } from '../ui/components/drawer';
 import { iconEl } from '../ui/icons';
-import { injectStyles } from '../ui/styles';
+import { injectStyles, SECTION_LABEL_CSS } from '../ui/styles';
 import type { ToolbarDefinition, ToolDefinition } from '../core/drawings/toolbar';
 import type { DrawingTypeKey } from '../core/drawings/Drawing';
 
@@ -35,7 +35,7 @@ const CSS = `
     all: unset;
     flex: 1 1 auto;
     min-width: 0;
-    font-size: 14px;
+    font-size: var(--vela-font-size-lg);
     color: var(--vela-fg);
 }
 .vela-dd-tabs {
@@ -59,8 +59,7 @@ const CSS = `
     display: inline-flex;
     align-items: center;
     border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: var(--vela-font-size-lg);
     color: var(--vela-fg-muted);
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
@@ -69,11 +68,7 @@ const CSS = `
 .vela-dd-list { padding: 6px 0 4px; }
 .vela-dd-section {
     padding: 10px 2px 6px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-    color: var(--vela-fg-muted);
+    ${SECTION_LABEL_CSS}
 }
 .vela-dd-row {
     display: flex;
@@ -90,7 +85,7 @@ const CSS = `
 .vela-dd-row[data-active='1'] .vela-dd-label { color: var(--vela-accent); }
 .vela-dd-glyph { flex: none; width: 24px; height: 24px; color: var(--vela-fg); }
 .vela-dd-glyph svg { width: 24px; height: 24px; }
-.vela-dd-label { flex: 1 1 auto; min-width: 0; font-size: 14px; color: var(--vela-fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vela-dd-label { flex: 1 1 auto; min-width: 0; font-size: var(--vela-font-size-lg); color: var(--vela-fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .vela-dd-star {
     all: unset;
     flex: none;
@@ -105,7 +100,7 @@ const CSS = `
     -webkit-tap-highlight-color: transparent;
 }
 .vela-dd-star[data-on='1'] { color: var(--vela-highlight); }
-.vela-dd-empty { padding: 18px 2px; color: var(--vela-fg-muted); font-size: 13px; }
+.vela-dd-empty { padding: 18px 2px; color: var(--vela-fg-muted); font-size: var(--vela-font-size-md); }
 `;
 
 export interface DrawingsDrawerOptions {

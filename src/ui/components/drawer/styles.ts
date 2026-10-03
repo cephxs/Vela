@@ -26,7 +26,8 @@ export const DRAWER_CSS = `
     border-bottom: none;
     border-radius: 14px 14px 0 0;
     box-shadow: var(--vela-shadow-dialog);
-    font-size: 13px;
+    font-size: var(--vela-font-size-md);
+    line-height: var(--vela-line-height-md);
     width: 100%;
     max-height: 85%;
     display: flex;
@@ -60,9 +61,8 @@ export const DRAWER_CSS = `
 .vela-drawer-title {
     flex: none;
     padding: 0 16px 10px;
-    font-size: 15px;
+    font-size: 15px; /* type-exempt: drawer title, above the chrome scale */
     font-weight: 600;
-    letter-spacing: 0.2px;
     color: var(--vela-fg);
     user-select: none;
 }

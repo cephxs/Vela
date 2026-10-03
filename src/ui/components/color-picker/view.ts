@@ -87,7 +87,7 @@ export function buildColorPicker(color: string, theme: VelaTheme, onChange: (v: 
     const recentSwatches = document.createElement('div');
     recentSwatches.style.cssText = 'display:contents;';
     const add = document.createElement('label');
-    add.style.cssText = `width:17px;height:17px;border-radius:var(--vela-radius-sm);border:1px dashed var(--vela-border-strong);cursor:pointer;display:flex;align-items:center;justify-content:center;color:${theme.textColor};font:14px ${theme.fontFamily};position:relative;`;
+    add.style.cssText = `width:17px;height:17px;border-radius:var(--vela-radius-sm);border:1px dashed var(--vela-border-strong);cursor:pointer;display:flex;align-items:center;justify-content:center;color:${theme.textColor};font:var(--vela-font-size-lg) ${theme.fontFamily};position:relative;`;
     add.textContent = '+';
     const customInput = document.createElement('input');
     customInput.type = 'color';
@@ -114,7 +114,7 @@ export function buildColorPicker(color: string, theme: VelaTheme, onChange: (v: 
 
     const opLabel = document.createElement('div');
     opLabel.textContent = 'Opacity';
-    opLabel.style.cssText = `font:11px ${theme.fontFamily};color:var(--vela-fg-muted);`;
+    opLabel.style.cssText = `font:var(--vela-font-size-sm) ${theme.fontFamily};color:var(--vela-fg-muted);`;
     const opRow = document.createElement('div');
     opRow.style.cssText = 'display:flex;align-items:center;gap:10px;';
     const track = document.createElement('div');
