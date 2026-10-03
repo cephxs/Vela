@@ -6,6 +6,12 @@ All notable changes to Vela, newest first.
 
 ### Added
 
+- **The status line's symbol and timeframe are buttons.** In the in-chart status line, the
+  symbol opens the symbol search and the timeframe drops the timeframe list under it (the
+  drawer on a phone); the pick lands on the chart that was clicked. Both are keyboard stops
+  with the shared focus ring. The line now reads symbol, timeframe, venue, and in a tight
+  multi-chart cell the venue is the first to give way. _(The `.vela-sl-meta` class is replaced
+  by `.vela-sl-tf` and `.vela-sl-venue` for hosts that style the status line.)_
 - **Keyboard navigation across the workspace.** Tab cycles the charts of a multi-chart
   grid, and each bar is one Tab stop whose controls the arrow keys walk. Alt+Tab (or
   Alt+` where the system keeps Alt+Tab) steps through the regions: chart, its legend rows,
