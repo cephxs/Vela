@@ -10,12 +10,12 @@ import { valueDecimals } from '../chrome/ticks';
 
 const HANDLE_RADIUS = 4; // px radius of a drag handle's white disc
 /** Handle chrome is fixed (not the drawing's line color) so tools with atypical accents —
- *  e.g. regression gray / FRVP green — still match every other drawing's anchors. A 1px ring
- *  hugs the disc: bright at rest, deep blue under the cursor or while held, and the hovered
- *  one wears a faint 1px halo outside the ring. */
+ *  e.g. regression gray / FRVP green — still match every other drawing's anchors. The disc is
+ *  the chart background, so a handle reads as a hole in the line. A 1px ring hugs it: bright at
+ *  rest, deep blue under the cursor or while held, and the hovered one wears a faint halo. */
 const HANDLE_BORDER = DEFAULT_DRAWING_COLOR;
 const HANDLE_BORDER_ACTIVE = ACCENT;
-const HANDLE_FILL = '#ffffff';
+const HANDLE_FILL = '#ffffff'; // until the first paint hands over the chart background
 const HANDLE_HALO = withAlpha(ACCENT, 0.2);
 const GHOST_ALPHA = 0.7;
 /** Info badges (regression R², measure deltas) float over CHART CONTENT of any color, so
@@ -65,6 +65,8 @@ export function handleIdsFor(targets: PaintTargets): ReadonlySet<string> {
 export class DrawingPainter {
     /** The current `paintAll` call's interaction state, visible to the per-type painters. */
     private targets: PaintTargets = {};
+    /** The chart background at the last `paintAll` — the handle discs are cut from it. */
+    private handleFill = HANDLE_FILL;
 
     /** The chart's active series LOOK — style + resolved series colors — pushed by the
      *  controller before each paint. The magnifier's inset mirrors both: candles/bars/line/
@@ -89,6 +91,7 @@ export class DrawingPainter {
         targets: PaintTargets = {},
     ): void {
         this.targets = targets;
+        this.handleFill = theme.background;
         for (const d of drawings) {
             if (!d.visible) continue;
             this.paintClipped(ctx, d, proj, () => this.paintOne(ctx, d, proj, theme));
@@ -1697,7 +1700,7 @@ export class DrawingPainter {
             }
             ctx.beginPath();
             ctx.arc(x, y, HANDLE_RADIUS + 0.5, 0, Math.PI * 2);
-            ctx.fillStyle = HANDLE_FILL;
+            ctx.fillStyle = this.handleFill;
             ctx.fill();
             ctx.strokeStyle = state === 'rest' ? HANDLE_BORDER : HANDLE_BORDER_ACTIVE;
             ctx.stroke();

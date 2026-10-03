@@ -6,8 +6,9 @@ All notable changes to Vela, newest first.
 
 ### Changed
 
-- **Drawing handles are a white dot in a thin blue ring.** The grab points on a selected
-  or hovered drawing are now a small white disc with a 1px bright-blue ring. The ring
+- **Drawing handles are a hollow dot in a thin blue ring.** The grab points on a selected
+  or hovered drawing are now a small disc in the chart's background color with a 1px
+  bright-blue ring. The ring
   turns deep blue under the cursor, with a faint halo, and stays deep blue while you
   hold or drag that handle.
 - **A mouse drag stops where you release it.** Letting go of the chart after a drag no
