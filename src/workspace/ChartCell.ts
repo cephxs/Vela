@@ -310,7 +310,7 @@ export class ChartCell {
         this.host = doc.createElement('div');
         this.host.className = 'vela-cell';
         this.host.dataset.cellId = id;
-        this.host.style.cssText = 'position:relative;overflow:hidden;';
+        this.host.style.cssText = 'position:relative;overflow:hidden;border-radius:var(--vela-radius-sm);';
         // Capture-phase: a press anywhere in the cell (canvas, legend, dialogs) activates it
         // before any inner handler consumes the event.
         this.host.addEventListener('pointerdown', () => this.deps.activate(id), true);

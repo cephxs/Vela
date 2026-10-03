@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-// `ctx.dockStrip(el)`: a contributed element joins the shell's layout as a full-width strip
+// `ctx.dockStrip(el)`: a contributed element joins the shell's layout as a strip in the chart well
 // between the charts and the bottom bar, stacks in docking order, and leaves on undock.
 import { describe, it, expect, beforeAll } from 'vitest';
 
@@ -25,9 +25,10 @@ function mountWorkspace(opts: Record<string, unknown> = {}): { ws: VelaWorkspace
     return { ws, root: host.querySelector<HTMLElement>('.vela-workspace')! };
 }
 
-/** The root's direct children, named by their first class. */
+/** The chart well's direct children, named by their first class. */
 function layout(root: HTMLElement): string[] {
-    return [...root.children].map((c) => c.classList[0] ?? c.tagName);
+    const well = root.querySelector('.vela-ws-well')!;
+    return [...well.children].map((c) => c.classList[0] ?? c.tagName);
 }
 
 describe('docking a strip under the charts', () => {
@@ -39,7 +40,7 @@ describe('docking a strip under the charts', () => {
         ws.context().dockStrip(b);
 
         const order = layout(root);
-        expect(order.indexOf('vela-ws-main')).toBeLessThan(order.indexOf('vela-ws-strips'));
+        expect(order.indexOf('vela-ws-grid')).toBeLessThan(order.indexOf('vela-ws-strips'));
         expect(order.indexOf('vela-ws-strips')).toBeLessThan(order.indexOf('vela-widget-bottombar'));
         expect([...root.querySelector('.vela-ws-strips')!.children]).toEqual([a, b]);
         ws.destroy();
@@ -69,7 +70,7 @@ describe('docking a strip under the charts', () => {
         const a = document.createElement('div');
         ws.context().dockStrip(a);
         const order = layout(root);
-        expect(order.indexOf('vela-ws-main')).toBeLessThan(order.indexOf('vela-ws-strips'));
+        expect(order.indexOf('vela-ws-grid')).toBeLessThan(order.indexOf('vela-ws-strips'));
         expect(a.parentElement?.className).toBe('vela-ws-strips');
         ws.destroy();
     });
