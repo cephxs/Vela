@@ -181,6 +181,10 @@ export interface CellDeps {
     onStateDirty(): void;
     /** The shell's toast surface (unresolved-symbol notices land there). */
     toast(message: string, kind: 'info' | 'success' | 'error', durationMs?: number): void;
+    /** The status line's symbol button — the shell's symbol picker. */
+    openSymbolPicker(): void;
+    /** The status line's timeframe button — the shell's timeframe list, under `anchor`. */
+    openTimeframe(anchor: HTMLElement): void;
 }
 
 /** One live manifest/external instance and, when it deviates from declaration
@@ -461,6 +465,8 @@ export class ChartCell {
             setPart: (part, visible) => this.setStatuslinePart(part, visible),
             chartVisible: () => this.inner?.renderer.get('candleVisible') !== false,
             setChartVisible: (visible) => this.inner?.renderer.set('candleVisible', visible),
+            openSymbol: () => deps.openSymbolPicker(),
+            openTimeframe: (anchor) => deps.openTimeframe(anchor),
         });
         this.marketStatus = this.statusline ? new MarketStatusTracker((s) => this.statusline?.setMarketStatus(s)) : null;
         // The venue chip above is provisional (persisted/typed prefix): once the shared

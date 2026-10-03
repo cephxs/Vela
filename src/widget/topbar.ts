@@ -483,7 +483,7 @@ export class Topbar {
             trigger: this.tfCaret,
             triggerId: 'vela-topbar-tf',
             host,
-            items: this.tfItems(),
+            items: this.timeframeItems(),
             onSelect: (id) => opts.onTimeframe(id),
             onFavorite: (id, on) => opts.onTimeframeFavorite?.(id, on),
             // Timeframe labels are two-or-three characters ("1m", "4h", "1D") — the
@@ -505,7 +505,7 @@ export class Topbar {
 
     setTimeframe(tf: string): void {
         this.timeframe = tf;
-        this.tfMenu.setItems(this.tfItems());
+        this.tfMenu.setItems(this.timeframeItems());
         this.renderTfChips();
     }
 
@@ -513,7 +513,7 @@ export class Topbar {
     setTimeframeFavorites(favs: readonly string[]): void {
         this.tfFavs = [...favs];
         this.renderTfChips();
-        this.tfMenu.setItems(this.tfItems());
+        this.tfMenu.setItems(this.timeframeItems());
     }
 
     /** Rebuild the quick-switch chips (current value changed, or the favorite set did). */
@@ -721,7 +721,8 @@ export class Topbar {
         }
     }
 
-    private tfItems(): MenuItemDescriptor[] {
+    /** The timeframe list as menu rows — the topbar dropdown and the status line share it. */
+    timeframeItems(): MenuItemDescriptor[] {
         // Stars only when the host handles the toggle — a starless dropdown otherwise.
         const stars = this.opts.onTimeframeFavorite !== undefined;
         return this.opts.timeframes.map((tf) => ({

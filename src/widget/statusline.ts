@@ -49,10 +49,6 @@ const CSS = `
     padding: 2px 7px;
     margin-left: -7px;
 }
-/* Hovering opens the chip the same way a legend row opens: solid chart background
- * plus the same inset neutral outline the indicator rows wear (InputsUI's
- * setRowHighlighted) — the two columns read as one family. */
-.vela-statusline:hover { background: var(--vela-bg); box-shadow: inset 0 0 0 1px var(--vela-border); }
 /* Chart hidden (the price series' eye — renderer 'candleVisible'): the line dims to
  * the same 0.5 wash a hidden indicator's legend row wears. */
 .vela-statusline.vela-sl-chart-hidden { opacity: 0.5; }
@@ -73,10 +69,10 @@ const CSS = `
      * that follows the chip (see the stacked legend shift below). */
     row-gap: var(--vela-space-1);
 }
-/* Stacked, the identity row may shrink (the meta carries the ellipsis) — the values row
+/* Stacked, the identity row may shrink (the venue carries the ellipsis) — the values row
  * never does, so its overflow is what fit() measures to keep descending the ladder. */
 .vela-statusline.vela-sl-stacked .vela-sl-identity { max-width: 100%; }
-.vela-statusline.vela-sl-stacked .vela-sl-meta {
+.vela-statusline.vela-sl-stacked .vela-sl-venue {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -94,11 +90,33 @@ const CSS = `
     font-size: var(--vela-font-size-sm);
     font-weight: 600;
 }
-.vela-statusline .vela-sl-symbol { font-weight: 600; font-size: var(--vela-font-size-lg); }
-.vela-statusline .vela-sl-meta { color: var(--vela-fg-muted); font-size: var(--vela-font-size-md); font-weight: 600; }
-/* The meta opens with "· " — sit its dot one space-width after the ticker, as far as the
- * venue sits after it, not a full row gap away. */
-.vela-statusline .vela-sl-symbol + .vela-sl-meta { margin-left: calc(var(--vela-space-1) - var(--vela-space-2)); }
+/* The identity: symbol and timeframe are buttons (they open the pickers), the venue is
+ * text. One size and one ink for all three; the symbol's weight alone carries the
+ * hierarchy. Each button paints its own hover box; the symmetric padding/negative
+ * margin pair keeps the glyphs where plain text would sit, so the legend column
+ * alignment and the legend shift below do not move. */
+.vela-statusline .vela-sl-symbol, .vela-statusline .vela-sl-tf, .vela-statusline .vela-sl-venue {
+    font-size: var(--vela-font-size-lg);
+    line-height: var(--vela-line-height-lg);
+    color: var(--vela-fg);
+}
+.vela-statusline .vela-sl-symbol, .vela-statusline .vela-sl-tf {
+    all: unset;
+    font-size: var(--vela-font-size-lg);
+    line-height: var(--vela-line-height-lg);
+    color: var(--vela-fg);
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 0 4px;
+    margin: 0 -4px;
+}
+.vela-statusline .vela-sl-symbol { font-weight: 600; }
+.vela-statusline .vela-sl-symbol:hover, .vela-statusline .vela-sl-tf:hover { background: var(--vela-hover); }
+.vela-statusline .vela-sl-tf::before, .vela-statusline .vela-sl-venue::before {
+    content: '·';
+    margin-right: var(--vela-space-1);
+    color: var(--vela-fg-muted);
+}
 /* Market status badge — a kit callout bubble (icon-only 16px circle, label on hover
  * via the kit tooltip); the session tint is applied per status in setMarketStatus. While
  * the chart replays past bars it wears the replay badge instead (the inverse chip). */
@@ -144,7 +162,7 @@ const CSS = `
 /* Mobile: the same ladder at the phone's type scale — the width alone decides how much
  * of the readout fits, exactly as on a narrow desktop chart. */
 [data-layout='mobile'] .vela-statusline { font-size: var(--vela-font-size-sm); }
-[data-layout='mobile'] .vela-statusline .vela-sl-symbol { font-size: var(--vela-font-size-md); }
+[data-layout='mobile'] .vela-statusline :is(.vela-sl-symbol, .vela-sl-tf, .vela-sl-venue) { font-size: var(--vela-font-size-md); line-height: var(--vela-line-height-md); }
 `;
 
 interface BarLike {
@@ -256,21 +274,28 @@ export function statuslineInkOf(renderer: RendererReads, priceStyle: string): [s
 
 export { segmentVisibility, statuslineMenuItems, type StatuslinePart } from './statusline-model';
 
-/** Host hooks behind the right-click action menu. Part toggles route through the host
- *  (never straight into {@link Statusline.setPartVisible}) so its persistence and
- *  style-link mirroring follow; the chart toggle reaches the renderer the host owns. */
+/** Host hooks behind the right-click action menu and the identity buttons. Part toggles
+ *  route through the host (never straight into {@link Statusline.setPartVisible}) so its
+ *  persistence and style-link mirroring follow; the chart toggle reaches the renderer
+ *  the host owns; the pickers are the shell's. */
 export interface StatuslineMenuHooks {
     setPart: (part: StatuslinePart, visible: boolean) => void;
     /** Whether the main price series is currently painted (the renderer's `candleVisible`). */
     chartVisible: () => boolean;
     setChartVisible: (visible: boolean) => void;
+    /** The symbol button — open the shell's symbol picker. */
+    openSymbol?: () => void;
+    /** The timeframe button — open the shell's timeframe list under `anchor`. */
+    openTimeframe?: (anchor: HTMLElement) => void;
 }
 
 export class Statusline {
     readonly el: HTMLElement;
     private readonly ohlcEl: HTMLElement;
     private readonly changeEl: HTMLElement;
-    private readonly symbolEl: HTMLElement;
+    private readonly symbolEl: HTMLButtonElement;
+    private readonly tfEl: HTMLButtonElement;
+    private readonly venueEl: HTMLElement;
     /** The badge slot — the market bubble, or the replay badge while replaying. */
     private readonly marketEl: HTMLElement;
     /** The market status face — a kit callout bubble. */
@@ -282,7 +307,6 @@ export class Statusline {
     private readonly eyeEl: HTMLButtonElement;
     private eyeTip!: Tooltip;
     private avatarEl: HTMLElement;
-    private metaEl!: HTMLElement;
     private readonly parts: Record<StatuslinePart, boolean> = { logo: true, name: true, market: true, ohlc: true, change: true };
     private marketStatus: MarketStatus = 'open';
     /** The chart replays past bars — the badge shows the replay mode (see {@link setReplaying}). */
@@ -329,14 +353,25 @@ export class Statusline {
         // Opt into the renderer's PNG export — the status line is part of what's on screen.
         this.el.dataset.velaScreenshot = '1';
         // Display the bare ticker — the venue prefix is identity, not label; the venue
-        // itself shows in the meta segment ("· BINANCE · 1h") beside it.
+        // itself shows as its own segment ("· 1h · BINANCE") after the timeframe.
         const ticker = parseSymbol(symbol).ticker;
         this.avatarEl = tickerIconEl(doc, baseOfTicker(ticker), ticker, 'vela-sl-avatar', this.iconFor?.(symbol));
-        this.symbolEl = doc.createElement('span');
+        // Symbol and timeframe are plain buttons: each is its own Tab stop, and the
+        // click bubbles so the cell's capture-phase activation runs first.
+        this.symbolEl = doc.createElement('button');
+        this.symbolEl.type = 'button';
         this.symbolEl.className = 'vela-sl-symbol';
+        this.symbolEl.setAttribute('aria-label', 'Change symbol');
         this.symbolEl.textContent = ticker;
-        this.metaEl = doc.createElement('span');
-        this.metaEl.className = 'vela-sl-meta';
+        this.symbolEl.addEventListener('click', () => this.menuHooks?.openSymbol?.());
+        this.tfEl = doc.createElement('button');
+        this.tfEl.type = 'button';
+        this.tfEl.className = 'vela-sl-tf';
+        this.tfEl.setAttribute('aria-label', 'Change interval');
+        this.tfEl.setAttribute('aria-haspopup', 'menu');
+        this.tfEl.addEventListener('click', () => this.menuHooks?.openTimeframe?.(this.tfEl));
+        this.venueEl = doc.createElement('span');
+        this.venueEl.className = 'vela-sl-venue';
         // The badge is the shared kit callout bubble — no panel, so it stays a plain
         // (non-clickable) tinted circle; setMarketStatus re-dresses it per session.
         this.marketBubble = new CalloutBubble({
@@ -373,7 +408,7 @@ export class Statusline {
         });
         this.identityRow = doc.createElement('span');
         this.identityRow.className = 'vela-sl-row vela-sl-identity';
-        this.identityRow.append(this.avatarEl, this.symbolEl, this.metaEl, this.marketEl);
+        this.identityRow.append(this.avatarEl, this.symbolEl, this.tfEl, this.venueEl, this.marketEl);
         this.valuesRow = doc.createElement('span');
         this.valuesRow.className = 'vela-sl-row vela-sl-values';
         this.valuesRow.append(this.ohlcEl, this.changeEl, this.eyeEl);
@@ -406,7 +441,7 @@ export class Statusline {
      * Multi-chart cells: the same width ladder as a single chart, plus a last resort for
      * cells too narrow for even its bottom rung — whatever still overflows is hidden
      * outright rather than clipped mid-glyph, least important first: the values, the
-     * venue/timeframe meta, then the market badge; the logo + ticker always stay.
+     * venue, then the market badge; the logo, ticker and timeframe always stay.
      */
     setFitMode(on: boolean): void {
         if (on === this.fitMode) return;
@@ -419,7 +454,8 @@ export class Statusline {
         const seg = segmentVisibility(this.parts, this.chartHidden);
         this.avatarEl.style.display = seg.avatar ? '' : 'none';
         this.symbolEl.style.display = seg.symbol ? '' : 'none';
-        this.metaEl.style.display = seg.meta ? '' : 'none';
+        this.tfEl.style.display = seg.meta ? '' : 'none';
+        this.venueEl.style.display = seg.meta && this.venueEl.textContent ? '' : 'none';
         this.marketEl.style.display = seg.market ? '' : 'none';
         this.ohlcEl.style.display = seg.ohlc ? '' : 'none';
         this.changeEl.style.display = seg.change ? '' : 'none';
@@ -456,7 +492,7 @@ export class Statusline {
         if (!this.fitMode) return;
         const order: Array<[HTMLElement, boolean]> = [
             [this.valuesRow, hasValues],
-            [this.metaEl, seg.meta],
+            [this.venueEl, seg.meta && !!this.venueEl.textContent],
             [this.marketEl, seg.market],
         ];
         for (const [el, shown] of order) {
@@ -483,9 +519,12 @@ export class Statusline {
         this.render();
     }
 
-    /** The "· BINANCE · 1h" segment after the symbol — venue first, then resolution. */
+    /** The "· 1h · BINANCE" segments after the symbol — resolution first, then venue. */
     setMeta(timeframe: string, provider: string): void {
-        this.metaEl.textContent = `${provider ? `· ${provider.toUpperCase()} ` : ''}· ${timeframeLabel(timeframe)}`;
+        this.tfEl.textContent = timeframeLabel(timeframe);
+        const venue = provider.toUpperCase();
+        this.venueEl.textContent = venue;
+        this.venueEl.title = venue;
         this.fit();
     }
 
