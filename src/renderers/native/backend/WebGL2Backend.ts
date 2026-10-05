@@ -6,7 +6,7 @@ import type { SeriesSpec, LineLikeSeries, CandleSeries, LineStyle, CandleBarColo
 import { isLineLikeSeries, seriesShownOn } from '../../../core/model/series';
 import type { CoordinateSystem } from '../core/CoordinateSystem';
 import type { SceneGraph, PaneNode } from '../core/SceneGraph';
-import { candleTier, CANDLE_WICK_W, candleGeometry, snapY, aggregateCandleColumns } from './candle-lod';
+import { candleTier, wickWidth, candleGeometry, snapY, aggregateCandleColumns } from './candle-lod';
 import { BASELINE_TOP_LINE, BASELINE_BOTTOM_LINE, BASELINE_FILL_ALPHA, BASELINE_FILL_ALPHA_FAR, withAlpha as cssWithAlpha, effectiveCandlePaint } from '../core/chartConfig';
 import type { IRenderBackend } from './IRenderBackend';
 import { Batch, type RGBA } from './gl/Batch';
@@ -159,9 +159,10 @@ export class WebGL2Backend implements IRenderBackend {
         // alpha:true keeps the canvas transparent where nothing is drawn, so a layer behind it (the
         // reveal-layer background) shows through; the chart background is painted by the wrapper element.
         // antialias:FALSE — MSAA on a full-screen hi-DPI canvas (~7 MP at 2x) costs ~10 ms per
-        // frame on the GPU, which pins a drag pan at ~70 fps on a 240 Hz display. Lines are
-        // feathered analytically in the fragment shader (see FRAG_SRC), and the remaining solid
-        // geometry is axis-aligned or sits under its own line, so nothing visible is lost.
+        // frame on the GPU, which pins a drag pan at ~70 fps on a 240 Hz display. Lines and
+        // circles (dot markers, round joins/caps) are feathered analytically in the fragment
+        // shader (see FRAG_SRC, Batch.circle), and the remaining solid geometry is axis-aligned
+        // or sits under its own line, so nothing visible is lost.
         // premultipliedAlpha:TRUE is REQUIRED: the SRC_ALPHA over-blend writes PREMULTIPLIED
         // pixels (rgb·a) to the framebuffer, so the compositor must be told so — otherwise it
         // re-applies alpha and double-darkens every semi-transparent pixel (faint fills, and a
@@ -1108,7 +1109,7 @@ export class WebGL2Backend implements IRenderBackend {
                 b.rect(x, cY - 0.5, tickW, 1, body);
                 continue;
             }
-            const wDev = Math.max(1, Math.round(CANDLE_WICK_W * coords.dpr));
+            const wDev = Math.max(1, Math.round(wickWidth(spacing) * coords.dpr));
             const wx = (Math.round(x * coords.dpr) - (wDev >> 1)) / coords.dpr;
             b.rect(wx, hY, wDev / coords.dpr, lY - hY, parseColor(bc?.wickColor ?? bc?.color ?? (bar.close >= bar.open ? up : down)));
             const top = Math.min(oY, cY);
